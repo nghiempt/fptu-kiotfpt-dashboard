@@ -1,10 +1,23 @@
 import {
-  Table, TableBody, TableCell, TableContainer,
-  TableHead, TableRow, Paper, Pagination, Box, Grid,
-  Typography, TextField, Divider, IconButton, Autocomplete
-} from '@mui/material';
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Pagination,
+  Box,
+  Grid,
+  Typography,
+  TextField,
+  Divider,
+  IconButton,
+  Autocomplete,
+} from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
+import { currentUsers } from "../../../../utils/fake";
 
 interface SellerTableProps {
   data: any[];
@@ -19,18 +32,15 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
   const usersPerPage = 10;
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
+  // const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(data.length / usersPerPage);
 
-  const StatusList = [
-    { label: "Sign in" },
-    { label: "Sign out" }
-  ];
+  const StatusList = [{ label: "Sign in" }, { label: "Sign out" }];
 
   const TypeList = [
     { label: "Admin" },
     { label: "Seller" },
-    { label: "Customer" }
+    { label: "Customer" },
   ];
 
   const handlePageChange = (
@@ -40,8 +50,7 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
     setCurrentPage(value);
   };
 
-  useEffect(() => {
-  }, [searchValue]);
+  useEffect(() => {}, [searchValue]);
 
   const handleInputChange = async (event: any) => {
     setSearchValue(event.target.value);
@@ -96,8 +105,7 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
   }, [statusValue, typeValue]);
 
   return (
-    <Box
-    >
+    <Box>
       {/* Table title */}
       <Box sx={{ marginBottom: "20px", marginTop: "20px", marginLeft: "20px" }}>
         <Typography variant="h3" noWrap component="div" sx={{ flexGrow: 1 }}>
@@ -105,14 +113,23 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
         </Typography>
       </Box>
       <Divider />
-      <Box sx={{ width: "100%", overflowX: "auto", marginBottom: "30px", marginTop: "20px", display: "flex", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          width: "100%",
+          overflowX: "auto",
+          marginBottom: "30px",
+          marginTop: "20px",
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
         {/* Search box */}
         <Box sx={{ display: "flex", marginLeft: "20px" }}>
           {/* Textbox */}
           <Box>
             <TextField
               id="outlined-size-small"
-              placeholder='Search here'
+              placeholder="Search here"
               size="small"
               sx={{ width: "250px" }}
               value={searchValue}
@@ -121,9 +138,17 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
           </Box>
           {/* Search button */}
           <Box>
-            <IconButton type="button" aria-label="search"
-              style={{ transform: "translateX(-35px)", fontSize: "10px", backgroundColor: "#0B2447", borderRadius: "0 8px 8px 0" }}
-              onClick={handleSearch}>
+            <IconButton
+              type="button"
+              aria-label="search"
+              style={{
+                transform: "translateX(-35px)",
+                fontSize: "10px",
+                backgroundColor: "#0B2447",
+                borderRadius: "0 8px 8px 0",
+              }}
+              onClick={handleSearch}
+            >
               <Box>
                 <Search style={{ fontSize: "21px", color: "white" }} />
               </Box>
@@ -145,7 +170,7 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
               renderInput={(params) => (
                 <TextField
                   {...params}
-                  placeholder='Status'
+                  placeholder="Status"
                   style={{ caretColor: "transparent", cursor: "pointer" }}
                   disabled
                 />
@@ -162,7 +187,12 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
               onChange={handleTypeChange}
               sx={{ width: "170px" }}
               renderInput={(params) => (
-                <TextField {...params} placeholder='Type' style={{ caretColor: "transparent", cursor: "pointer" }} disabled />
+                <TextField
+                  {...params}
+                  placeholder="Type"
+                  style={{ caretColor: "transparent", cursor: "pointer" }}
+                  disabled
+                />
               )}
             />
           </Box>
@@ -170,33 +200,67 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
       </Box>
 
       {/* Show data */}
-      <Box sx={{ marginLeft: "20px", marginRight: "20px", marginBottom: "20px" }}>
+      <Box
+        sx={{ marginLeft: "20px", marginRight: "20px", marginBottom: "20px" }}
+      >
         <TableContainer component={Paper} className="admin-table-container">
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell sx={{ color: 'black' }}>
+                <TableCell sx={{ color: "black" }}>
                   <b>ID</b>
                 </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <b>USER</b>
+                <TableCell sx={{ color: "black" }}>
+                  <b>NAME</b>
                 </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <b>EMAIL</b>
+                <TableCell sx={{ color: "black" }}>
+                  <b>DISCRIPTION</b>
                 </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <b>PHONE</b>
-                </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <b>BIRTH</b>
-                </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <b>STATUS</b>
+                <TableCell sx={{ color: "black" }}>
+                  <div className="flex justify-center">
+                    <b>SOLD</b>
                   </div>
                 </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <b>TYPE</b>
+                <TableCell sx={{ color: "black" }}>
+                  <div className="flex justify-center">
+                    <b>MIN-PRICE</b>
+                  </div>
+                </TableCell>
+                <TableCell sx={{ color: "black" }}>
+                  <div className="flex justify-center">
+                    <b>MAX-PRICE</b>
+                  </div>
+                </TableCell>
+                <TableCell sx={{ color: "black" }}>
+                  <div className="flex justify-center">
+                    <b>RATE</b>
+                  </div>
+                </TableCell>
+                <TableCell sx={{ color: "black" }}>
+                  <div className="flex justify-center">
+                    <b>DISCOUNT</b>
+                  </div>
+                </TableCell>
+                <TableCell sx={{ color: "black" }}>
+                  <div className="flex justify-center">
+                    <b>BEST-SELLER</b>
+                  </div>
+                </TableCell>
+                <TableCell sx={{ color: "black" }}>
+                  <div className="flex justify-center">
+                    <b>PORPULAR</b>
+                  </div>
+                </TableCell>
+
+                <TableCell sx={{ color: "black" }}>
+                  <div className="flex justify-center">
+                    <b>TOP-DEAL</b>
+                  </div>
+                </TableCell>
+                <TableCell sx={{ color: "black" }}>
+                  <div className="flex justify-center">
+                    <b>OFFICIAL</b>
+                  </div>
                 </TableCell>
               </TableRow>
             </TableHead>
@@ -204,18 +268,107 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
               {/* Have data */}
               {currentUsers && currentUsers.length > 0 ? (
                 currentUsers.map((data) => (
-                  <TableRow key={data.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                  <TableRow
+                    key={data.id}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
                     <TableCell>{data.id}</TableCell>
-                    <TableCell component="th" scope="row">
+                    {/* <TableCell component="th" scope="row">
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', marginRight: '30px' }}>
                         <img src={data.accountProfile.avatar} alt="Avatar" style={{ width: '40px', height: '40px' }} />
                         <span style={{ marginLeft: '10px', fontWeight: 'bold' }}>{data.username}</span>
                       </div>
-                    </TableCell>
-                    <TableCell>{data.accountProfile.email}</TableCell>
-                    <TableCell>{data.accountProfile.phone}</TableCell>
-                    <TableCell>{data.accountProfile.birthDay}</TableCell>
+                    </TableCell> */}
+                    {/* <TableCell>{data.id}</TableCell> */}
+                    <TableCell>{data.name}</TableCell>
+                    <TableCell>{data.discription}</TableCell>
                     <TableCell>
+                      <div className="flex justify-center">{data.sold}</div>
+                    </TableCell>
+
+                    <TableCell>
+                      <div className="flex justify-center">
+                        {data.min_price}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex justify-center">
+                        {data.max_price}
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex justify-center">{data.rate}</div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex justify-center">{data.discount}</div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex justify-center">
+                        <span
+                          style={{
+                            backgroundColor: data.best_seller ? "green" : "red",
+                            color: "white",
+                            padding: "4px 10px",
+                            borderRadius: "8px",
+                            width: "80px",
+                            textAlign: "center",
+                          }}
+                        >
+                          {data.best_seller ? "true" : "false"}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex justify-center">
+                        <span
+                          style={{
+                            backgroundColor: data.porpular ? "green" : "red",
+                            color: "white",
+                            padding: "4px 10px",
+                            borderRadius: "8px",
+                            width: "80px",
+                            textAlign: "center",
+                          }}
+                        >
+                          {data.porpular ? "true" : "false"}
+                        </span>
+                      </div>
+                    </TableCell>
+
+                    <TableCell>
+                      <div className="flex justify-center">
+                        <span
+                          style={{
+                            backgroundColor: data.top_deal ? "green" : "red",
+                            color: "white",
+                            padding: "4px 10px",
+                            borderRadius: "8px",
+                            width: "80px",
+                            textAlign: "center",
+                          }}
+                        >
+                          {data.top_deal ? "true" : "false"}
+                        </span>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex justify-center">
+                        <span
+                          style={{
+                            backgroundColor: data.official ? "green" : "red",
+                            color: "white",
+                            padding: "4px 10px",
+                            borderRadius: "8px",
+                            width: "80px",
+                            textAlign: "center",
+                          }}
+                        >
+                          {data.official ? "true" : "false"}
+                        </span>
+                      </div>
+                    </TableCell>
+
+                    {/* <TableCell>
                       <div style={{ display: 'flex', justifyContent: 'center' }}>
                         <span
                           style={{
@@ -230,20 +383,22 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                           {data.status ? 'Sign in' : 'Sign out'}
                         </span>
                       </div>
-                    </TableCell>
-                    <TableCell>
+                    </TableCell> */}
+                    {/* <TableCell>
                       <span style={{ color: data.role.id === 3 ? '#DB4444' : data.role.id === 2 ? '#5A6CB6' : '#0B2447' }}>
                         <b>{data.role.id === 3 ? 'Admin' : data.role.id === 2 ? 'Seller' : 'Customer'}</b>
                       </span>
-                    </TableCell>
+                    </TableCell> */}
                   </TableRow>
                 ))
               ) : (
                 // No data
                 <TableRow>
-                  <TableCell colSpan={8} sx={{ textAlign: 'center' }}>
+                  <TableCell colSpan={8} sx={{ textAlign: "center" }}>
                     <div style={{ marginTop: "10px", marginBottom: "10px" }}>
-                      <label style={{ fontSize: "16px" }} htmlFor="">Data not found</label>
+                      <label style={{ fontSize: "16px" }} htmlFor="">
+                        Data not found
+                      </label>
                     </div>
                   </TableCell>
                 </TableRow>
@@ -251,7 +406,15 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Grid spacing={2} sx={{ width: '100%', marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+        <Grid
+          spacing={2}
+          sx={{
+            width: "100%",
+            marginTop: "20px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <Grid item xs={6}>
             <Pagination
               count={totalPages}
@@ -260,12 +423,17 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
             />
           </Grid>
           <Grid item xs={6} sx={{ marginTop: "10px" }}>
-            <label><b>Showing {currentPage} of {totalPages} {totalPages > 1 ? "pages" : "page"}</b></label>
+            <label>
+              <b>
+                Showing {currentPage} of {totalPages}{" "}
+                {totalPages > 1 ? "pages" : "page"}
+              </b>
+            </label>
           </Grid>
         </Grid>
       </Box>
     </Box>
   );
-}
+};
 
 export default TableProduct;
