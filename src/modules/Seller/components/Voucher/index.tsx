@@ -20,6 +20,7 @@ import Search from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 import { currentVouchers } from "../../../../utils/fake";
 import CreateVoucherPopupModal from "../../Modal/Modal.CreateVoucherPopup/Modal.CreateVoucherPopup";
+import EditVoucherPopupModal from "../../Modal/Modal.EditVoucherPopup/Modal.EditVoucherPopup";
 // import { getAllUser, searchAccountByName, filterAccount } from "../Admin.Api";
 
 interface SellerTableProps {
@@ -286,12 +287,14 @@ const TableVoucher: React.FC<SellerTableProps> = ({ data: initialData }) => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-x-2 overflow-hidden">
+                        <EditVoucherPopupModal>
                         <button
                           className="px-3 py-1 rounded-md text-white"
                           style={{ backgroundColor: "green" }}
                         >
                           Edit
                         </button>
+                        </EditVoucherPopupModal>
                         <button
                           className="px-3 py-1 rounded-md text-white"
                           style={{ backgroundColor: "red" }}
