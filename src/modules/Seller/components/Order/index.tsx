@@ -5,6 +5,7 @@ import {
 } from '@mui/material';
 import Search from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
+import { currentOrders, currentVouchers } from '../../../../utils/fake';
 
 interface SellerTableProps {
   data: any[];
@@ -19,7 +20,7 @@ const TableOrder: React.FC<SellerTableProps> = ({ data: initialData }) => {
   const usersPerPage = 10;
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
+  // const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(data.length / usersPerPage);
 
   const StatusList = [
@@ -179,63 +180,29 @@ const TableOrder: React.FC<SellerTableProps> = ({ data: initialData }) => {
                   <b>ID</b>
                 </TableCell>
                 <TableCell sx={{ color: 'black' }}>
-                  <b>USER</b>
+                  <b>TIME_INIT</b>
                 </TableCell>
                 <TableCell sx={{ color: 'black' }}>
-                  <b>EMAIL</b>
+                  <b>TIME_COMPLETE</b>
                 </TableCell>
                 <TableCell sx={{ color: 'black' }}>
-                  <b>PHONE</b>
+                  <b>DESC</b>
                 </TableCell>
                 <TableCell sx={{ color: 'black' }}>
-                  <b>BIRTH</b>
-                </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <b>STATUS</b>
-                  </div>
-                </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <b>TYPE</b>
+                  <b>TOTAL</b>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {/* Have data */}
-              {currentUsers && currentUsers.length > 0 ? (
-                currentUsers.map((data) => (
+              {currentOrders && currentOrders.length > 0 ? (
+                currentOrders.map((data) => (
                   <TableRow key={data.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                    <TableCell>{data.id}</TableCell>
-                    <TableCell component="th" scope="row">
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', marginRight: '30px' }}>
-                        <img src={data.accountProfile.avatar} alt="Avatar" style={{ width: '40px', height: '40px' }} />
-                        <span style={{ marginLeft: '10px', fontWeight: 'bold' }}>{data.username}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell>{data.accountProfile.email}</TableCell>
-                    <TableCell>{data.accountProfile.phone}</TableCell>
-                    <TableCell>{data.accountProfile.birthDay}</TableCell>
-                    <TableCell>
-                      <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <span
-                          style={{
-                            backgroundColor: data.status ? '#0B2447' : '#DB4444',
-                            color: 'white',
-                            padding: '4px 10px',
-                            borderRadius: '8px',
-                            width: "80px",
-                            textAlign: "center"
-                          }}
-                        >
-                          {data.status ? 'Sign in' : 'Sign out'}
-                        </span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <span style={{ color: data.role.id === 3 ? '#DB4444' : data.role.id === 2 ? '#5A6CB6' : '#0B2447' }}>
-                        <b>{data.role.id === 3 ? 'Admin' : data.role.id === 2 ? 'Seller' : 'Customer'}</b>
-                      </span>
-                    </TableCell>
+                    <TableCell>{data.id}</TableCell>                   
+                    <TableCell>{data.time_init}</TableCell>
+                    <TableCell>{data.time_complete}</TableCell>
+                    <TableCell>{data.desc}</TableCell>
+                    <TableCell>{data.total}</TableCell>                  
                   </TableRow>
                 ))
               ) : (

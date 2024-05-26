@@ -262,6 +262,9 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                     <b>OFFICIAL</b>
                   </div>
                 </TableCell>
+                <TableCell>
+                  <b>ACTION</b>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -365,6 +368,16 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                         >
                           {data.official ? "true" : "false"}
                         </span>
+                      </div>
+                    </TableCell>
+                    <TableCell>
+                      <div className="flex gap-x-2 overflow-hidden">
+                        <button className="px-3 py-1 rounded-md text-white" style={{backgroundColor: 'green'}}>
+                          Edit
+                        </button>
+                        <button className="px-3 py-1 rounded-md text-white" style={{backgroundColor: 'red'}}>
+                          Delete
+                        </button>
                       </div>
                     </TableCell>
 

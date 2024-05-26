@@ -154,3 +154,170 @@ export const currentUsers = [
     discount: 7,
   },
 ];
+export const currentVouchers = [
+  {
+    id: 1,
+    discount: 10,
+  },
+  {
+    id: 2,
+    discount: 15,
+  },
+  {
+    id: 3,
+    discount: 5,
+  },
+  {
+    id: 4,
+    discount: 20,
+  },
+  {
+    id: 5,
+    discount: 0,
+  },
+  {
+    id: 6,
+    discount: 10,
+  },
+  {
+    id: 7,
+    discount: 5,
+  },
+  {
+    id: 8,
+    discount: 12,
+  },
+  {
+    id: 9,
+    discount: 8,
+  },
+  {
+    id: 10,
+    discount: 10,
+  },
+  {
+    id: 11,
+    discount: 7,
+  },
+]
+export const currentOrders = [
+  {
+    id: 1,
+    time_init: '12/4/2024',
+    time_complete: '13/4/2024',
+    desc: 'Done',
+    total: 10000.0
+  },
+  {
+    id: 2,
+    time_init: '15/5/2024',
+    time_complete: '18/5/2024',
+    desc: 'OK',
+    total: 150000.0
+  },
+  {
+    id: 3,
+    time_init: '20/6/2024',
+    time_complete: '21/6/2024',
+    desc: 'Done',
+    total: 200000.0
+  },
+  {
+    id: 4,
+    time_init: '25/7/2024',
+    time_complete: '26/7/2024',
+    desc: 'Done',
+    total: 250000.0
+  },
+  {
+    id: 5,
+    time_init: '30/8/2024',
+    time_complete: '31/8/2024',
+    desc: 'OK',
+    total: 300000.0
+  },
+  {
+    id: 6,
+    time_init: '5/9/2024',
+    time_complete: '6/9/2024',
+    desc: 'Done',
+    total: 350000.0
+  },
+  {
+    id: 7,
+    time_init: '10/10/2024',
+    time_complete: '11/10/2024',
+    desc: 'Done',
+    total: 400000.0
+  },
+  {
+    id: 8,
+    time_init: '15/11/2024',
+    time_complete: '16/11/2024',
+    desc: 'OK',
+    total: 450000.0
+  },
+  {
+    id: 9,
+    time_init: '20/12/2024',
+    time_complete: '21/12/2024',
+    desc: 'Done',
+    total: 500000.0
+  },
+  {
+    id: 10,
+    time_init: '25/1/2025',
+    time_complete: '26/1/2025',
+    desc: 'Done',
+    total: 550000.0
+  },
+  {
+    id: 11,
+    time_init: '30/2/2025',
+    time_complete: '31/2/2025',
+    desc: 'OK',
+    total: 600000.0
+  },
+]
+export const currentCategories = [
+  {
+    id: 1,
+    name: 'Phone',
+    thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+  },
+  {
+    id: 2,
+    name: 'Laptop',
+    thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+  },
+  {
+    id: 3,
+    name: 'Tablet',
+    thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+  },
+  {
+    id: 4,
+    name: 'Smartwatch',
+    thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+  },
+  {
+    id: 5,
+    name: 'Headphone',
+    thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+  },
+  {
+    id: 6,
+    name: 'Speaker',
+    thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+  },
+  {
+    id: 7,
+    name: 'Camera',
+    thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+  },
+  {
+    id: 8,
+    name: 'Accessories',
+    thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+  },
+]
