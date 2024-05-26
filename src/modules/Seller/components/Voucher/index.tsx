@@ -19,6 +19,7 @@ import {
 import Search from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 import { currentVouchers } from "../../../../utils/fake";
+import CreateVoucherPopupModal from "../../Modal/Modal.CreateVoucherPopup/Modal.CreateVoucherPopup";
 // import { getAllUser, searchAccountByName, filterAccount } from "../Admin.Api";
 
 interface SellerTableProps {
@@ -232,6 +233,13 @@ const TableVoucher: React.FC<SellerTableProps> = ({ data: initialData }) => {
           </Box>
         </Box>
       </Box>
+      <div className="px-10 flex justify-end items-center gap-x-2">
+        <CreateVoucherPopupModal>
+          <button className="border rounded-md py-2 px-4 bg-blue-500">
+            <h1>Create voucher</h1>
+          </button>
+        </CreateVoucherPopupModal>
+      </div>
 
       {/* Show data */}
       <Box
@@ -243,17 +251,17 @@ const TableVoucher: React.FC<SellerTableProps> = ({ data: initialData }) => {
               <TableRow>
                 <TableCell sx={{ color: "black" }}>
                   {/* <div className="flex justify-center"> */}
-                    <b>ID</b>
+                  <b>ID</b>
                   {/* </div> */}
                 </TableCell>
                 <TableCell sx={{ color: "black" }}>
                   {/* <div className="flex justify-center"> */}
-                    <b>VALUE</b>
+                  <b>VALUE</b>
                   {/* </div> */}
                 </TableCell>
                 <TableCell sx={{ color: "black" }}>
                   {/* <div className="flex justify-center"> */}
-                    <b>ACTION</b>
+                  <b>ACTION</b>
                   {/* </div> */}
                 </TableCell>
               </TableRow>
@@ -268,20 +276,26 @@ const TableVoucher: React.FC<SellerTableProps> = ({ data: initialData }) => {
                   >
                     <TableCell>
                       {/* <div className="flex justify-center"> */}
-                        {data.id}
-                        {/* </div> */}
+                      {data.id}
+                      {/* </div> */}
                     </TableCell>
                     <TableCell>
                       {/* <div className="flex justify-center"> */}
-                        {data.discount}
-                        {/* </div> */}
+                      {data.discount}
+                      {/* </div> */}
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-x-2 overflow-hidden">
-                        <button className="px-3 py-1 rounded-md text-white" style={{backgroundColor: 'green'}}>
+                        <button
+                          className="px-3 py-1 rounded-md text-white"
+                          style={{ backgroundColor: "green" }}
+                        >
                           Edit
                         </button>
-                        <button className="px-3 py-1 rounded-md text-white" style={{backgroundColor: 'red'}}>
+                        <button
+                          className="px-3 py-1 rounded-md text-white"
+                          style={{ backgroundColor: "red" }}
+                        >
                           Delete
                         </button>
                       </div>
