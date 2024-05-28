@@ -25,7 +25,7 @@ type ModalData = {
     children: ReactNode;
 };
 
-const CreateVoucherPopupModal: React.FC<ModalData> = ({ children }) => {
+const EditVoucherPopupModal: React.FC<ModalData> = ({ children }) => {
     const navigate = useNavigate()
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -74,4 +74,4 @@ const CreateVoucherPopupModal: React.FC<ModalData> = ({ children }) => {
     );
 };
 
-export default CreateVoucherPopupModal;
+export default EditVoucherPopupModal;

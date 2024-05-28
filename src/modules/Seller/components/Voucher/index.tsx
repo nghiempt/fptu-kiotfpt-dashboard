@@ -19,8 +19,8 @@ import {
 import Search from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 import { currentVouchers } from "../../../../utils/fake";
-import CreateVoucherPopupModal from "../../Modal/Modal.CreateVoucherPopup/Modal.CreateVoucherPopup";
-import EditVoucherPopupModal from "../../Modal/Modal.EditVoucherPopup/Modal.EditVoucherPopup";
+import CreateVoucherPopupModal from "../../Modal/CreateVoucherPopup/CreateVoucherPopup";
+import EditVoucherPopupModal from "../../Modal/EditVoucherPopup/EditVoucherPopup";
 // import { getAllUser, searchAccountByName, filterAccount } from "../Admin.Api";
 
 interface SellerTableProps {

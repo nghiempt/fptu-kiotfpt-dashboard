@@ -1,15 +1,41 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import {
-  Table, TableBody, TableCell, TableContainer,
-  TableHead, TableRow, Paper, Pagination, Box, Grid,
-  Typography, TextField, Divider, IconButton, Autocomplete
-} from '@mui/material';
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Pagination,
+  Box,
+  Grid,
+  Typography,
+  TextField,
+  Divider,
+  IconButton,
+  Autocomplete,
+} from "@mui/material";
 import Search from "@mui/icons-material/Search";
+import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import StarIcon from "@mui/icons-material/Star";
+import CheckIcon from "@mui/icons-material/Check";
+import LockIcon from "@mui/icons-material/Lock";
+// import Divider from "@mui/material/Divider";
 import { useState, useEffect } from "react";
+import { AssetImages } from "../../../../utils/images";
+import UpdatePasswordPopupModal from "../../Modal/UpdatePasswordPopup/UpdatePasswordPopup";
 // import { getAllUser, searchAccountByName, filterAccount } from "../Admin.Api";
 
 interface SellerTableProps {
   data: any[];
+}
+interface PopupProps {
+  handleClose: () => void;
 }
 
 const TableProfile: React.FC<SellerTableProps> = ({ data: initialData }) => {
@@ -24,15 +50,12 @@ const TableProfile: React.FC<SellerTableProps> = ({ data: initialData }) => {
   const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(data.length / usersPerPage);
 
-  const StatusList = [
-    { label: "Sign in" },
-    { label: "Sign out" }
-  ];
+  const StatusList = [{ label: "Sign in" }, { label: "Sign out" }];
 
   const TypeList = [
     { label: "Admin" },
     { label: "Seller" },
-    { label: "Customer" }
+    { label: "Customer" },
   ];
 
   const handlePageChange = (
@@ -129,8 +152,7 @@ const TableProfile: React.FC<SellerTableProps> = ({ data: initialData }) => {
   }, [statusValue, typeValue]);
 
   return (
-    <Box
-    >
+    <Box>
       {/* Table title */}
       <Box sx={{ marginBottom: "20px", marginTop: "20px", marginLeft: "20px" }}>
         <Typography variant="h3" noWrap component="div" sx={{ flexGrow: 1 }}>
@@ -138,167 +160,122 @@ const TableProfile: React.FC<SellerTableProps> = ({ data: initialData }) => {
         </Typography>
       </Box>
       <Divider />
-      <Box sx={{ width: "100%", overflowX: "auto", marginBottom: "30px", marginTop: "20px", display: "flex", justifyContent: "space-between" }}>
-        {/* Search box */}
-        <Box sx={{ display: "flex", marginLeft: "20px" }}>
-          {/* Textbox */}
-          <Box>
-            <TextField
-              id="outlined-size-small"
-              placeholder='Search here'
-              size="small"
-              sx={{ width: "250px" }}
-              value={searchValue}
-              onChange={handleInputChange}
+      <div className="w-full flex gap-x-4 bg-gray-100  rounded-sm p-5">
+        <div className="w-2/5 flex flex-col gap-6 items-center justify-center bg-blue-200">
+          <div className="w-full flex flex-col items-center justify-center">
+            <AccountCircleOutlinedIcon
+              style={{ color: "#8B96A5", width: "100px", height: "100px" }}
             />
-          </Box>
-          {/* Search button */}
-          <Box>
-            <IconButton type="button" aria-label="search"
-              style={{ transform: "translateX(-35px)", fontSize: "10px", backgroundColor: "#0B2447", borderRadius: "0 8px 8px 0" }}
-              onClick={handleSearch}>
-              <Box>
-                <Search style={{ fontSize: "21px", color: "white" }} />
-              </Box>
-            </IconButton>
-          </Box>
-        </Box>
+            <div className="flex flex-col gap-2 justify-center items-center">
+              <h1 className="text-[16px] font-semibold">Shop của Trình</h1>
+              <div className="w-1/2 flex justify-center items-center bg-blue-500 rounded-md">
+                <CheckIcon style={{ color: "white" }} />
+                <h1 className="text-white">Official</h1>
+              </div>
+              <div className="flex gap-x-2 text-[12px] items-center">
+                <div className="flex justify-center items-center gap-1">
+                  <StarIcon className="text-[#FF9017] text-[12px]" />
+                  <h1>4.9&nbsp;/&nbsp;5.0</h1>
+                </div>
+                <div className="flex justify-center items-center gap-1">
+                  <FavoriteIcon />
+                  <h1>Followers: 99</h1>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        {/* Select type */}
-        <Box sx={{ display: "flex", marginRight: "20px" }}>
-          <Box>
-            <Autocomplete
-              size="small"
-              disablePortal
-              id="cbo-status"
-              options={StatusList}
-              getOptionLabel={(option) => option.label}
-              onChange={handleStatusChange}
-              sx={{ width: "170px", marginRight: "10px" }}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  placeholder='Status'
-                  style={{ caretColor: "transparent", cursor: "pointer" }}
-                  disabled
-                />
-              )}
-            />
-          </Box>
-          <Box>
-            <Autocomplete
-              size="small"
-              disablePortal
-              id="cbo-type"
-              options={TypeList}
-              getOptionLabel={(option) => option.label}
-              onChange={handleTypeChange}
-              sx={{ width: "170px" }}
-              renderInput={(params) => (
-                <TextField {...params} placeholder='Type' style={{ caretColor: "transparent", cursor: "pointer" }} disabled />
-              )}
-            />
-          </Box>
-        </Box>
-      </Box>
-
-      {/* Show data */}
-      <Box sx={{ marginLeft: "20px", marginRight: "20px", marginBottom: "20px" }}>
-        <TableContainer component={Paper} className="admin-table-container">
-          <Table size="small">
-            <TableHead>
-              <TableRow>
-                <TableCell sx={{ color: 'black' }}>
-                  <b>ID</b>
-                </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <b>USER</b>
-                </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <b>EMAIL</b>
-                </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <b>PHONE</b>
-                </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <b>BIRTH</b>
-                </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <b>STATUS</b>
-                  </div>
-                </TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <b>TYPE</b>
-                </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {/* Have data */}
-              {currentUsers && currentUsers.length > 0 ? (
-                currentUsers.map((data) => (
-                  <TableRow key={data.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                    <TableCell>{data.id}</TableCell>
-                    <TableCell component="th" scope="row">
-                      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start', marginRight: '30px' }}>
-                        <img src={data.accountProfile.avatar} alt="Avatar" style={{ width: '40px', height: '40px' }} />
-                        <span style={{ marginLeft: '10px', fontWeight: 'bold' }}>{data.username}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell>{data.accountProfile.email}</TableCell>
-                    <TableCell>{data.accountProfile.phone}</TableCell>
-                    <TableCell>{data.accountProfile.birthDay}</TableCell>
-                    <TableCell>
-                      <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <span
-                          style={{
-                            backgroundColor: data.status ? '#0B2447' : '#DB4444',
-                            color: 'white',
-                            padding: '4px 10px',
-                            borderRadius: '8px',
-                            width: "80px",
-                            textAlign: "center"
-                          }}
-                        >
-                          {data.status ? 'Sign in' : 'Sign out'}
-                        </span>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <span style={{ color: data.role.id === 3 ? '#DB4444' : data.role.id === 2 ? '#5A6CB6' : '#0B2447' }}>
-                        <b>{data.role.id === 3 ? 'Admin' : data.role.id === 2 ? 'Seller' : 'Customer'}</b>
-                      </span>
-                    </TableCell>
-                  </TableRow>
-                ))
-              ) : (
-                // No data
-                <TableRow>
-                  <TableCell colSpan={8} sx={{ textAlign: 'center' }}>
-                    <div style={{ marginTop: "10px", marginBottom: "10px" }}>
-                      <label style={{ fontSize: "16px" }} htmlFor="">Data not found</label>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <Grid spacing={2} sx={{ width: '100%', marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
-          <Grid item xs={6}>
-            <Pagination
-              count={totalPages}
-              page={currentPage}
-              onChange={handlePageChange}
-            />
-          </Grid>
-          <Grid item xs={6} sx={{ marginTop: "10px" }}>
-            <label><b>Showing {currentPage} of {totalPages} {totalPages > 1 ? "pages" : "page"}</b></label>
-          </Grid>
-        </Grid>
-      </Box>
+         
+        </div>
+        <Divider orientation="vertical" flexItem />
+        <div className="w-3/5 flex flex-col gap-6 px-10">
+          <div>
+            <h1>Phone and email</h1>
+            <div className="flex justify-between pt-5">
+              <div className="flex gap-x-2 items-center">
+                <LocalPhoneOutlinedIcon />
+                <div>
+                  <h1>Phone:</h1>
+                  <h1 className="font-medium text-[16px]">0123456789</h1>
+                </div>
+              </div>
+              <div>
+                <button className="text-blue-500 border border-blue-500 rounded-md py-1 px-2">
+                  Update
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <div className="flex gap-x-2 items-center">
+              <EmailOutlinedIcon />
+              <div>
+                <h1>Email:</h1>
+                <h1 className="font-medium text-[16px]">abc@gmail.com</h1>
+              </div>
+            </div>
+            <div>
+              <button className="text-blue-500 border border-blue-500 rounded-md py-1 px-2">
+                Update
+              </button>
+            </div>
+          </div>
+          <div>
+            <h1>Security</h1>
+            <div className="flex justify-between pt-5">
+              <div className="flex gap-x-2 items-center">
+                <LockIcon />
+                <div>
+                  <h1>Change password</h1>
+                </div>
+              </div>
+              <div>
+                <UpdatePasswordPopupModal>
+                  <button className="text-blue-500 border border-blue-500 rounded-md py-1 px-2">
+                    Update
+                  </button>
+                </UpdatePasswordPopupModal>
+              </div>
+            </div>
+          </div>
+          <div className="flex justify-between">
+            <div className="flex gap-x-2 items-center">
+              <VerifiedUserOutlinedIcon />
+              <div>
+                <h1>Set up pin code</h1>
+              </div>
+            </div>
+            <div>
+              <button className="text-blue-500 border border-blue-500 rounded-md py-1 px-2">
+                Establish
+              </button>
+            </div>
+          </div>
+          <div>
+            <h1>Social network link</h1>
+            <div className="flex justify-between pt-5">
+              <div className="flex gap-x-2 items-center">
+                <img src={AssetImages.GG_ICON} alt="img" width={30} />
+                <div>
+                  <h1>Google</h1>
+                </div>
+              </div>
+              <div>
+                <button className="text-blue-500 border border-blue-500 rounded-md py-1 px-2">
+                  Link
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className="w-full flex font-medium items-center justify-center">
+            <button className="bg-blue-500 py-1 px-5 rounded-md text-white">
+              Save changes
+            </button>
+          </div>
+        </div>
+      </div>
     </Box>
   );
-}
+};
 
 export default TableProfile;
