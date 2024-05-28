@@ -17,7 +17,8 @@ import {
 } from "@mui/material";
 import Search from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
-import { currentUsers } from "../../../../utils/fake";
+import { currentCategories, currentProducts } from "../../../../utils/fake";
+import ProductDetailPopupModal from "../../Modal/ProductDetailPopup/ProductDetailPopup";
 
 interface SellerTableProps {
   data: any[];
@@ -32,7 +33,7 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
   const usersPerPage = 10;
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  // const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
+  // const currentProducts = data.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(data.length / usersPerPage);
 
   const StatusList = [{ label: "Sign in" }, { label: "Sign out" }];
@@ -210,17 +211,20 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                 <TableCell sx={{ color: "black" }}>
                   <b>ID</b>
                 </TableCell>
+                <TableCell>
+                  <b>IMAGE</b>
+                </TableCell>
                 <TableCell sx={{ color: "black" }}>
                   <b>NAME</b>
                 </TableCell>
                 <TableCell sx={{ color: "black" }}>
                   <b>DISCRIPTION</b>
                 </TableCell>
-                <TableCell sx={{ color: "black" }}>
+                {/* <TableCell sx={{ color: "black" }}>
                   <div className="flex justify-center">
                     <b>SOLD</b>
                   </div>
-                </TableCell>
+                </TableCell> */}
                 <TableCell sx={{ color: "black" }}>
                   <div className="flex justify-center">
                     <b>MIN-PRICE</b>
@@ -231,11 +235,11 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                     <b>MAX-PRICE</b>
                   </div>
                 </TableCell>
-                <TableCell sx={{ color: "black" }}>
+                {/* <TableCell sx={{ color: "black" }}>
                   <div className="flex justify-center">
                     <b>RATE</b>
                   </div>
-                </TableCell>
+                </TableCell> */}
                 <TableCell sx={{ color: "black" }}>
                   <div className="flex justify-center">
                     <b>DISCOUNT</b>
@@ -269,8 +273,8 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
             </TableHead>
             <TableBody>
               {/* Have data */}
-              {currentUsers && currentUsers.length > 0 ? (
-                currentUsers.map((data) => (
+              {currentProducts && currentProducts.length > 0 ? (
+                currentProducts.map((data) => (
                   <TableRow
                     key={data.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
@@ -283,11 +287,18 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                       </div>
                     </TableCell> */}
                     {/* <TableCell>{data.id}</TableCell> */}
+                    <TableCell>
+                      <img
+                        src="https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c"
+                        alt="img"
+                        style={{ width: "40px", height: "40px" }}
+                      />
+                    </TableCell>
                     <TableCell>{data.name}</TableCell>
                     <TableCell>{data.discription}</TableCell>
-                    <TableCell>
+                    {/* <TableCell>
                       <div className="flex justify-center">{data.sold}</div>
-                    </TableCell>
+                    </TableCell> */}
 
                     <TableCell>
                       <div className="flex justify-center">
@@ -299,9 +310,9 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                         {data.max_price}
                       </div>
                     </TableCell>
-                    <TableCell>
+                    {/* <TableCell>
                       <div className="flex justify-center">{data.rate}</div>
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell>
                       <div className="flex justify-center">{data.discount}</div>
                     </TableCell>
@@ -372,10 +383,18 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-x-2 overflow-hidden">
-                        <button className="px-3 py-1 rounded-md text-white" style={{backgroundColor: 'green'}}>
-                          Edit
-                        </button>
-                        <button className="px-3 py-1 rounded-md text-white" style={{backgroundColor: 'red'}}>
+                        <ProductDetailPopupModal>
+                          <button
+                            className="px-3 py-1 rounded-md text-white"
+                            style={{ backgroundColor: "green" }}
+                          >
+                            Edit
+                          </button>
+                        </ProductDetailPopupModal>
+                        <button
+                          className="px-3 py-1 rounded-md text-white"
+                          style={{ backgroundColor: "red" }}
+                        >
                           Delete
                         </button>
                       </div>

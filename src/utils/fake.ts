@@ -1,4 +1,4 @@
-export const currentUsers = [
+export const currentProducts = [
   {
     id: 1,
     name: "TV",
