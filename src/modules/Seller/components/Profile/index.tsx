@@ -178,7 +178,7 @@ const TableProfile: React.FC<SellerTableProps> = ({ data: initialData }) => {
                   <h1>4.9&nbsp;/&nbsp;5.0</h1>
                 </div>
                 <div className="flex justify-center items-center gap-1">
-                  <FavoriteIcon />
+                  <FavoriteIcon className="text-red-600"/>
                   <h1>Followers: 99</h1>
                 </div>
               </div>

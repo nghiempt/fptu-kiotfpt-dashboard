@@ -6,6 +6,7 @@ import {
 import Search from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 import { currentOrders, currentVouchers } from '../../../../utils/fake';
+import OrderDetailPopupModal from '../../Modal/OrderDetailPopup/OrderDetailPopup';
 
 interface SellerTableProps {
   data: any[];
@@ -191,6 +192,8 @@ const TableOrder: React.FC<SellerTableProps> = ({ data: initialData }) => {
                 <TableCell sx={{ color: 'black' }}>
                   <b>TOTAL</b>
                 </TableCell>
+                <TableCell sx={{ color: 'black' }}>
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -202,7 +205,20 @@ const TableOrder: React.FC<SellerTableProps> = ({ data: initialData }) => {
                     <TableCell>{data.time_init}</TableCell>
                     <TableCell>{data.time_complete}</TableCell>
                     <TableCell>{data.desc}</TableCell>
-                    <TableCell>{data.total}</TableCell>                  
+                    <TableCell>{data.total}</TableCell> 
+                    <TableCell>
+                    <div className="flex gap-x-2 overflow-hidden">
+                        <OrderDetailPopupModal>
+                        <button
+                          className="px-3 py-1 rounded-md text-white"
+                          style={{ backgroundColor: "green" }}
+                        >
+                          View
+                        </button>
+                        </OrderDetailPopupModal>
+                    
+                      </div>
+                    </TableCell>                 
                   </TableRow>
                 ))
               ) : (
