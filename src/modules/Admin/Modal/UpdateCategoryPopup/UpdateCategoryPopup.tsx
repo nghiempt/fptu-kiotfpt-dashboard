@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 import Divider from "@mui/material/Divider";
 // import { signOut } from '../../../Auth/Auth.Api';
 // import { routes } from '../../../../routes';
+
+import EditIcon from "@mui/icons-material/Edit";
 import { useNavigate } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
@@ -38,7 +40,7 @@ type ModalData = {
   children: ReactNode;
 };
 
-const CreateCategoryPopupModal: React.FC<ModalData> = ({ children }) => {
+const UpdateCategoryPopupModal: React.FC<ModalData> = ({ children }) => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -50,7 +52,7 @@ const CreateCategoryPopupModal: React.FC<ModalData> = ({ children }) => {
     setIsModalOpen(false);
   };
 
-  const createCategory = async () => {
+  const UpdateCategory = async () => {
     // await signOut();
     // navigate(routes.home.SignInPage);
   };
@@ -74,25 +76,38 @@ const CreateCategoryPopupModal: React.FC<ModalData> = ({ children }) => {
             variant="h6"
             sx={{ marginBottom: "10px", fontSize: "18px" }}
           >
-            <b>Create category</b>
+            <b>Update category</b>
           </Typography>
           <Divider sx={{ marginBottom: "20px" }} />
           <div className="flex flex-col gap-4 w-full">
-            <input
-              type="text"
-              placeholder="Enter category name"
-              className="p-2 border rounded-md outline-none"
-            />
-            <Button
-              component="label"
-              role={undefined}
-              variant="contained"
-              tabIndex={-1}
-              startIcon={<CloudUploadIcon />}
-            >
-              Upload file
-              <VisuallyHiddenInput type="file" />
-            </Button>
+            <div className="flex justify-center gap-x-4">
+              <div className="flex gap-x-2 items-center">
+                <h1 className="font-semibold text-[14px]">Name:</h1>
+                <h1 className="text-[16px]">Phone</h1>
+              </div>
+              <EditIcon className="text-gray-400" style={{ width: "20px", cursor:'pointer' }} />
+            </div>
+            <div className="flex flex-col items-center ">
+              <img
+                src="https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c"
+                alt="img"
+                style={{ width: "50%" }}
+                className="border rounded-md bg-blue-200 p-2 mb-4"
+              />
+              <div>
+              <Button
+                component="label"
+                role={undefined}
+                variant="contained"
+                tabIndex={-1}
+                startIcon={<CloudUploadIcon />}
+              >
+                Upload new file
+                <VisuallyHiddenInput type="file" />
+              </Button>
+              </div>
+              
+            </div>
           </div>
           <Box sx={{ display: "flex", marginTop: "30px" }}>
             <Button
@@ -100,9 +115,9 @@ const CreateCategoryPopupModal: React.FC<ModalData> = ({ children }) => {
               sx={{ width: "100%", marginRight: "10px" }}
               color="success"
               size="small"
-              onClick={createCategory}
+              onClick={UpdateCategory}
             >
-              Create
+              Update
             </Button>
             <Button
               variant="contained"
@@ -120,4 +135,4 @@ const CreateCategoryPopupModal: React.FC<ModalData> = ({ children }) => {
   );
 };
 
-export default CreateCategoryPopupModal;
+export default UpdateCategoryPopupModal;

@@ -17,6 +17,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { currentCategories } from "../../../utils/fake";
 import ListCategoryPopupModal from "../../Seller/Modal/ListCategoryPopup/ListCategoryPopup";
 import CreateCategoryPopupModal from "../Modal/CreateCategoryPopup/CreateCategoryPopup";
+import UpdateCategoryPopupModal from "../Modal/UpdateCategoryPopup/UpdateCategoryPopup";
 // import { getAllShopCategory, searchCategoryByName } from "../Admin.Api";
 
 interface AdminTableProps {
@@ -171,12 +172,14 @@ const TableUser: React.FC<AdminTableProps> = ({ data: initialData }) => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-x-2 overflow-hidden">
+                        <UpdateCategoryPopupModal>
                         <button
                           className="px-3 py-1 rounded-md text-white"
                           style={{ backgroundColor: "green" }}
                         >
                           Edit
                         </button>
+                        </UpdateCategoryPopupModal>
                         <button
                           className="px-3 py-1 rounded-md text-white"
                           style={{ backgroundColor: "red" }}
