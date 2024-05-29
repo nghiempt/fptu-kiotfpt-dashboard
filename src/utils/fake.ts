@@ -321,3 +321,56 @@ export const currentCategories = [
     thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
   },
 ]
+
+export const listCategory = [
+{
+  id: 1,
+  name: 'Phone',
+  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+},
+{
+  id: 2,
+  name: 'Laptop',
+  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+},
+{
+  id: 3,
+  name: 'Tablet',
+  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+},
+{
+  id: 4,
+  name: 'Smartwatch',
+  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+},
+{
+  id: 5,
+  name: 'Headphone',
+  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+},
+{
+  id: 6,
+  name: 'Speaker',
+  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+},
+{
+  id: 7,
+  name: 'Camera',
+  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+},
+{
+  id: 8,
+  name: 'Accessories',
+  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+},
+{
+  id: 9,
+  name: 'Phone',
+  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+},
+{
+  id: 10,
+  name: 'Laptop',
+  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+}
+]

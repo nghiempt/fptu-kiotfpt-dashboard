@@ -18,6 +18,7 @@ import {
 import Search from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 import { currentCategories } from "../../../../utils/fake";
+import ListCategoryPopupModal from "../../Modal/ListCategoryPopup/ListCategoryPopup";
 
 interface SellerTableProps {
   data: any[];
@@ -198,7 +199,13 @@ const TableCategory: React.FC<SellerTableProps> = ({ data: initialData }) => {
           </Box>
         </Box>
       </Box>
-
+      <div className="flex p-5">
+        <ListCategoryPopupModal>
+          <button className="border rounded-md py-2 px-4 bg-blue-100 hover:bg-blue-400 cursor-pointer">
+            + Add Category
+          </button>
+        </ListCategoryPopupModal>
+      </div>
       {/* Show data */}
       <Box
         sx={{ marginLeft: "20px", marginRight: "20px", marginBottom: "20px" }}
@@ -240,10 +247,16 @@ const TableCategory: React.FC<SellerTableProps> = ({ data: initialData }) => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-x-2 overflow-hidden">
-                        <button className="px-3 py-1 rounded-md text-white" style={{backgroundColor: 'green'}}>
+                        <button
+                          className="px-3 py-1 rounded-md text-white"
+                          style={{ backgroundColor: "green" }}
+                        >
                           Edit
                         </button>
-                        <button className="px-3 py-1 rounded-md text-white" style={{backgroundColor: 'red'}}>
+                        <button
+                          className="px-3 py-1 rounded-md text-white"
+                          style={{ backgroundColor: "red" }}
+                        >
                           Delete
                         </button>
                       </div>
