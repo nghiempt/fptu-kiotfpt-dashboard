@@ -19,6 +19,7 @@ import Search from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 import { currentCategories, currentProducts } from "../../../../utils/fake";
 import ProductDetailPopupModal from "../../Modal/ProductDetailPopup/ProductDetailPopup";
+import { useNavigate } from "react-router-dom";
 
 interface SellerTableProps {
   data: any[];
@@ -49,6 +50,12 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
     value: number
   ) => {
     setCurrentPage(value);
+  };
+
+  const navigate = useNavigate();
+
+  const handleAddProduct = () => {
+    navigate("/seller/create-product");
   };
 
   useEffect(() => {}, [searchValue]);
@@ -199,7 +206,11 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
           </Box>
         </Box>
       </Box>
-
+      <div className="flex p-5">
+        <button onClick={handleAddProduct} className="border rounded-md py-2 px-4 bg-blue-100 hover:bg-blue-400 cursor-pointer">
+          + Add Product
+        </button>
+      </div>
       {/* Show data */}
       <Box
         sx={{ marginLeft: "20px", marginRight: "20px", marginBottom: "20px" }}

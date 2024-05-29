@@ -6,6 +6,7 @@ export const ROUTE = {
     SELLER_ORDER: '/seller/order',
     SELLER_CATEGORY: '/seller/category',
     SELLER_VOUCHER: '/seller/voucher',
+    SELLER_CREATE_PRODUCT: '/seller/create-product',
     // admin
     ADMIN: '/admin',
     ADMIN_ORGAN: '/admin/organ',

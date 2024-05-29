@@ -14,6 +14,7 @@ const RootRoutes: React.FC = () => {
             <Route path={ROUTE.SELLER_PRODUCT} element={<SellerContainer />} />
             <Route path={ROUTE.SELLER_PROFILE} element={<SellerContainer />} />
             <Route path={ROUTE.SELLER_VOUCHER} element={<SellerContainer />} />
+            <Route path={ROUTE.SELLER_CREATE_PRODUCT} element={<SellerContainer />} />
             {/* admin */}
             <Route path={ROUTE.ADMIN} element={<AdminContainer />} />
             <Route path={ROUTE.ADMIN_ORGAN} element={<AdminContainer />} />
