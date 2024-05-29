@@ -15,7 +15,7 @@ import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
 // import { getAllShopInformation, searchShopByName } from "../Admin.Api";
-import VoucherModal from "../Modal/Modal.Shop/Modal.Voucher.Confirm";
+// import VoucherModal from "../Modal/Modal.Shop/Modal.Voucher.Confirm";
 
 interface AdminTableProps {
   data: any[];
@@ -150,11 +150,11 @@ const TableUser: React.FC<AdminTableProps> = ({ data: initialData }) => {
                     <TableCell>{data.address}</TableCell>
                     <TableCell>
                       <div style={{ display: "flex", justifyContent: "center" }}>
-                        <VoucherModal shopData={{id: data.id, name: data.name}}>
+                        {/* <VoucherModal shopData={{id: data.id, name: data.name}}>
                           <IconButton sx={{ backgroundColor: "#0B2447", color: "white", padding: '4px 10px 4px 10px', width: "80px" }}>
                             <label htmlFor="" style={{ fontSize: "14px" }}>Show</label>
                           </IconButton>
-                        </VoucherModal>
+                        </VoucherModal> */}
                       </div>
                     </TableCell>
                   </TableRow>

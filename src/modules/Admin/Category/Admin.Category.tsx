@@ -14,7 +14,9 @@ import TextField from "@mui/material/TextField";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import SearchIcon from "@mui/icons-material/Search";
-import CategoryApprove from "../Modal/Modal.Category/Modal.Category.Confirm";
+import { currentCategories } from "../../../utils/fake";
+import ListCategoryPopupModal from "../../Seller/Modal/ListCategoryPopup/ListCategoryPopup";
+import CreateCategoryPopupModal from "../Modal/CreateCategoryPopup/CreateCategoryPopup";
 // import { getAllShopCategory, searchCategoryByName } from "../Admin.Api";
 
 interface AdminTableProps {
@@ -122,7 +124,13 @@ const TableUser: React.FC<AdminTableProps> = ({ data: initialData }) => {
           </Box>
         </Box>
       </Box>
-
+      <div className="flex p-5">
+        <CreateCategoryPopupModal>
+          <button className="border rounded-md py-2 px-4 bg-blue-100 hover:bg-blue-400 cursor-pointer">
+            + Add Category
+          </button>
+        </CreateCategoryPopupModal>
+      </div>
       {/* Show data */}
       <Box
         sx={{ marginLeft: "20px", marginRight: "20px", marginBottom: "20px" }}
@@ -138,72 +146,55 @@ const TableUser: React.FC<AdminTableProps> = ({ data: initialData }) => {
                   <b>NAME</b>
                 </TableCell>
                 <TableCell sx={{ color: "black" }}>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <b>TOTAL PRODUCT</b>
-                  </div>
+                    <b>THUMBNAIL</b>
                 </TableCell>
-                <TableCell sx={{ color: "black" }}>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <b>STATUS</b>
-                  </div>
+                <TableCell>
+                  <b>ACTION</b>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentUsers && currentUsers.length > 0 ? (
-                currentUsers?.map((data, index) => (
+            {currentCategories && currentCategories.length > 0 ? (
+                currentCategories.map((data) => (
                   <TableRow
                     key={data.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell>{data.id}</TableCell>
-                    <TableCell component="th" scope="row">
-                      <div style={{ display: "flex", alignItems: "center" }}>
-                        <img
-                          src={data.image}
-                          alt="Avatar"
-                          style={{ width: "40px", height: "40px" }}
-                        />
-                        <span style={{ marginLeft: "10px", fontWeight: "bold" }}>
-                          {data.name}
-                        </span>
-                      </div>
+                    <TableCell>{data.name}</TableCell>
+                    <TableCell>
+                      <img
+                        src={data.thumbnail}
+                        alt=""
+                        style={{ width: "100px", height: "100px" }}
+                      />
                     </TableCell>
                     <TableCell>
-                      <div style={{ display: "flex", justifyContent: "center" }}>
-                        {data.total}
+                      <div className="flex gap-x-2 overflow-hidden">
+                        <button
+                          className="px-3 py-1 rounded-md text-white"
+                          style={{ backgroundColor: "green" }}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="px-3 py-1 rounded-md text-white"
+                          style={{ backgroundColor: "red" }}
+                        >
+                          Delete
+                        </button>
                       </div>
-                    </TableCell>
-                    <TableCell>
-                      <div style={{ display: "flex", justifyContent: "center" }}>
-                        {data.status !== "1" ? (
-                          <CategoryApprove data={{ id: data.id, image: data.image, name: data.name }}>
-                            <IconButton sx={{
-                              backgroundColor: "#DB4444",
-                              color: "white",
-                              padding: '4px 10px 4px 10px',
-                              width: "80px"
-                            }}>
-                              <label htmlFor="" style={{ fontSize: "14px" }}>Approve</label>
-                            </IconButton>
-                          </CategoryApprove>
-                        ) : (
-                          <div style={{
-                            textAlign: "center"
-                          }}>
-                            <label htmlFor="" style={{ fontSize: "14px" }}>Approved</label>
-                          </div>
-                        )}
-                      </div>
-
                     </TableCell>
                   </TableRow>
-                ))) : (
+                ))
+              ) : (
                 // No data
                 <TableRow>
-                  <TableCell colSpan={8} sx={{ textAlign: 'center' }}>
+                  <TableCell colSpan={8} sx={{ textAlign: "center" }}>
                     <div style={{ marginTop: "10px", marginBottom: "10px" }}>
-                      <label style={{ fontSize: "16px" }} htmlFor="">Data not found</label>
+                      <label style={{ fontSize: "16px" }} htmlFor="">
+                        Data not found
+                      </label>
                     </div>
                   </TableCell>
                 </TableRow>
