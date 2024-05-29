@@ -1,19 +1,20 @@
 import SearchIcon from "@mui/icons-material/Search";
-import Box from '@mui/material/Box';
+import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-import Grid from '@mui/material/Grid';
+import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
-import Pagination from '@mui/material/Pagination';
-import Paper from '@mui/material/Paper';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
+import Pagination from "@mui/material/Pagination";
+import Paper from "@mui/material/Paper";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useEffect, useState } from "react";
+import { listShop } from "../../../utils/fake";
 // import { getAllShopInformation, searchShopByName } from "../Admin.Api";
 // import VoucherModal from "../Modal/Modal.Shop/Modal.Voucher.Confirm";
 
@@ -55,7 +56,7 @@ const TableUser: React.FC<AdminTableProps> = ({ data: initialData }) => {
       //   setSearchValue("");
       // }
     } catch (error) {
-      console.error('Error searching account:', error);
+      console.error("Error searching account:", error);
     }
   };
 
@@ -71,8 +72,7 @@ const TableUser: React.FC<AdminTableProps> = ({ data: initialData }) => {
   }, [searchValue]);
 
   return (
-    <Box
-    >
+    <Box>
       {/* Table title */}
       <Box sx={{ marginBottom: "20px", marginTop: "20px", marginLeft: "20px" }}>
         <Typography variant="h3" noWrap component="div" sx={{ flexGrow: 1 }}>
@@ -80,12 +80,21 @@ const TableUser: React.FC<AdminTableProps> = ({ data: initialData }) => {
         </Typography>
       </Box>
       <Divider />
-      <Box sx={{ width: "100%", marginBottom: "30px", marginTop: "20px", display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          width: "100%",
+          marginBottom: "30px",
+          marginTop: "20px",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+        }}
+      >
         {/* Serach box */}
         <Box sx={{ display: "flex", marginLeft: "20px" }}>
           <Box>
             <TextField
-              placeholder='Status'
+              placeholder="Status"
               id="outlined-size-small"
               size="small"
               sx={{ width: "250px" }}
@@ -115,56 +124,63 @@ const TableUser: React.FC<AdminTableProps> = ({ data: initialData }) => {
       </Box>
 
       {/* Show data */}
-      <Box sx={{ marginLeft: "20px", marginRight: "20px", marginBottom: "20px" }}>
+      <Box
+        sx={{ marginLeft: "20px", marginRight: "20px", marginBottom: "20px" }}
+      >
         <TableContainer component={Paper} className="admin-table-container">
           <Table size="small">
             <TableHead>
               <TableRow>
-                <TableCell sx={{ color: 'black' }}><b>ID</b></TableCell>
-                <TableCell sx={{ color: 'black' }}><b>NAME</b></TableCell>
-                <TableCell sx={{ color: 'black' }}><b>ACCOUNT</b></TableCell>
-                <TableCell sx={{ color: 'black' }}><b>PHONE</b></TableCell>
-                <TableCell sx={{ color: 'black' }}><b>ADDRESS</b></TableCell>
-                <TableCell sx={{ color: 'black' }}>
-                  <div style={{ display: "flex", justifyContent: "center" }}>
-                    <b>VOUCHER</b>
-                  </div>
+                <TableCell sx={{ color: "black" }}>
+                  <b>ID</b>
+                </TableCell>
+                <TableCell sx={{ color: "black" }}>
+                  <b>NAME</b>
+                </TableCell>
+                <TableCell sx={{ color: "black" }}>
+                  <b>EMAIL</b>
+                </TableCell>
+                <TableCell sx={{ color: "black" }}>
+                  <b>PHONE</b>
+                </TableCell>
+                <TableCell sx={{ color: "black" }}>
+                  <b>ADDRESS</b>
+                </TableCell>
+                <TableCell sx={{ color: "black" }}>
+                  <b>ACTION</b>
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {currentUsers && currentUsers.length > 0 ? (
-                currentUsers?.map((data, index) => (
+              {listShop && listShop.length > 0 ? (
+                listShop?.map((data, index) => (
                   <TableRow
                     key={data.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
                     <TableCell>{data.id}</TableCell>
-                    <TableCell component="th" scope="row">
-                      <div style={{ display: 'flex', alignItems: 'center' }}>
-                        <img src={data.image} alt="Avatar" style={{ width: '40px', height: '40px' }} />
-                        <span style={{ marginLeft: '10px', fontWeight: 'bold' }}>{data.name}</span>
-                      </div>
-                    </TableCell>
-                    <TableCell>{data.account !== null ? data.account.username : "No data"}</TableCell>
-                    <TableCell>{data.account.accountProfile !== null ? data.account.accountProfile.phone : "No data"}</TableCell>
+                    <TableCell>{data.name}</TableCell>
+                    <TableCell>{data.email}</TableCell>
+                    <TableCell>{data.phone}</TableCell>
                     <TableCell>{data.address}</TableCell>
                     <TableCell>
-                      <div style={{ display: "flex", justifyContent: "center" }}>
-                        {/* <VoucherModal shopData={{id: data.id, name: data.name}}>
-                          <IconButton sx={{ backgroundColor: "#0B2447", color: "white", padding: '4px 10px 4px 10px', width: "80px" }}>
-                            <label htmlFor="" style={{ fontSize: "14px" }}>Show</label>
-                          </IconButton>
-                        </VoucherModal> */}
-                      </div>
+                      
+                        <select className="bg-red-600 rounded-md px-2 py-1 text-white" name="ban/unban" id="1">
+                          <option value="1">Ban</option>
+                          <option value="2">Unban</option>
+                        </select>
+                      
                     </TableCell>
                   </TableRow>
                 ))
               ) : (
                 // No data
                 <TableRow>
-                  <TableCell colSpan={8} sx={{ textAlign: 'center' }}>
+                  <TableCell colSpan={8} sx={{ textAlign: "center" }}>
                     <div style={{ marginTop: "10px", marginBottom: "10px" }}>
-                      <label style={{ fontSize: "16px" }} htmlFor="">Data not found</label>
+                      <label style={{ fontSize: "16px" }} htmlFor="">
+                        Data not found
+                      </label>
                     </div>
                   </TableCell>
                 </TableRow>
@@ -172,7 +188,15 @@ const TableUser: React.FC<AdminTableProps> = ({ data: initialData }) => {
             </TableBody>
           </Table>
         </TableContainer>
-        <Grid spacing={2} sx={{ width: '100%', marginTop: '20px', display: 'flex', justifyContent: 'space-between' }}>
+        <Grid
+          spacing={2}
+          sx={{
+            width: "100%",
+            marginTop: "20px",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <Grid item xs={6}>
             <Pagination
               count={totalPages}
@@ -181,12 +205,17 @@ const TableUser: React.FC<AdminTableProps> = ({ data: initialData }) => {
             />
           </Grid>
           <Grid item xs={6} sx={{ marginTop: "10px" }}>
-            <label><b>Showing {currentPage} of {totalPages} {totalPages > 1 ? "pages" : "page"}</b></label>
+            <label>
+              <b>
+                Showing {currentPage} of {totalPages}{" "}
+                {totalPages > 1 ? "pages" : "page"}
+              </b>
+            </label>
           </Grid>
         </Grid>
       </Box>
     </Box>
   );
-}
+};
 
 export default TableUser;

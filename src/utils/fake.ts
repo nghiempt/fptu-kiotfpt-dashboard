@@ -374,3 +374,69 @@ export const listCategory = [
   thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
 }
 ]
+
+export const listShop = [
+  {
+    id: 1,
+    name: 'Shop 1',
+    address: 'Hanoi',
+    phone: '0123456789',
+    email: 'abc@gmail.com',
+  },
+  {
+    id: 2,
+    name: 'Shop 2',
+    address: 'Can Tho',
+    phone: '0123232323',
+    email: 'asgiud@gmail.com'
+  },
+  {
+    id: 3,
+    name: 'Shop 3',
+    address: 'HCM',
+    phone: '0123456789',
+    email: 'asd@ghmail.com'
+  },
+  {
+    id: 4,
+    name: 'Shop 4',
+    address: 'Hanoi',
+    phone: '0123456789',
+    email: 'abc@gmail.com'
+  },
+  {
+    id: 5,
+    name: 'Shop 5',
+    address: 'Hanoi',
+    phone: '0123456789',
+    email: 'abc@gmail.com'
+  },
+  {
+    id: 6,
+    name: 'Shop 6',
+    address: 'Can Tho',
+    phone: '0123232323',
+    email: 'asgiud@gmail.com'
+  },
+  {
+    id: 7,
+    name: 'Shop 7',
+    address: 'HCM',
+    phone: '0123456789',
+    email: 'ajsdh@gmail.com'
+  },
+  {
+    id: 8,
+    name: 'Shop 8',
+    address: 'Hanoi',
+    phone: '0123456789',
+    email: 'asgiud@gmail.com'
+  },
+  {
+    id: 9,
+    name: 'Shop 9',
+    address: 'HCM',
+    phone: '0123456789',
+    email: 'asgiud@gmail.com'
+  }
+]
