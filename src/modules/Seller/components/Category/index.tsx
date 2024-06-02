@@ -19,6 +19,7 @@ import Search from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 import { currentCategories } from "../../../../utils/fake";
 import ListCategoryPopupModal from "../../Modal/ListCategoryPopup/ListCategoryPopup";
+import EditCategoryPopupModal from "../../Modal/EditCategoryPopup/EditCategoryPopup";
 
 interface SellerTableProps {
   data: any[];
@@ -247,12 +248,14 @@ const TableCategory: React.FC<SellerTableProps> = ({ data: initialData }) => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-x-2 overflow-hidden">
+                        <EditCategoryPopupModal>
                         <button
                           className="px-3 py-1 rounded-md text-white"
                           style={{ backgroundColor: "green" }}
                         >
                           Edit
                         </button>
+                        </EditCategoryPopupModal>
                         <button
                           className="px-3 py-1 rounded-md text-white"
                           style={{ backgroundColor: "red" }}

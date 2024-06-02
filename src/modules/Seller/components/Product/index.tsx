@@ -18,8 +18,8 @@ import {
 import Search from "@mui/icons-material/Search";
 import { useState, useEffect } from "react";
 import { currentCategories, currentProducts } from "../../../../utils/fake";
-import ProductDetailPopupModal from "../../Modal/ProductDetailPopup/ProductDetailPopup";
 import { useNavigate } from "react-router-dom";
+import { ROUTE } from "../../../../routes/constant";
 
 interface SellerTableProps {
   data: any[];
@@ -56,6 +56,9 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
 
   const handleAddProduct = () => {
     navigate("/seller/create-product");
+  };
+  const goToEditProduct = () => {
+    navigate(ROUTE.SELLER_EDIT_PRODUCT);
   };
 
   useEffect(() => {}, [searchValue]);
@@ -394,14 +397,13 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                     </TableCell>
                     <TableCell>
                       <div className="flex gap-x-2 overflow-hidden">
-                        <ProductDetailPopupModal>
                           <button
                             className="px-3 py-1 rounded-md text-white"
                             style={{ backgroundColor: "green" }}
+                            onClick={goToEditProduct}
                           >
                             Edit
                           </button>
-                        </ProductDetailPopupModal>
                         <button
                           className="px-3 py-1 rounded-md text-white"
                           style={{ backgroundColor: "red" }}
