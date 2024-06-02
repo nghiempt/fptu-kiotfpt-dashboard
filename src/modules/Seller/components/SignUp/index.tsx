@@ -26,6 +26,11 @@ const SignUp: React.FC = () => {
         navigate(ROUTE.SELLER_SIGN_IN);
       };
 
+      const goToCreateShopInfo = () => {
+        navigate(ROUTE.SELLER_CREATE_SHOP_INFO);
+      };
+
+
     return (
         <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400">
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-1/4">
@@ -79,7 +84,7 @@ const SignUp: React.FC = () => {
                         By creating an account, you agree to our <a href="/terms" className="text-indigo-600 hover:text-indigo-500">Terms of use</a> and <a href="/privacy" className="text-indigo-600 hover:text-indigo-500">Privacy Policy</a>.
                     </label>
                 </div>
-                <button type="submit" className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button onClick={goToCreateShopInfo} type="submit" className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-700 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     Create an account
                 </button>
                 <p className="mt-4 text-sm text-center text-gray-600">
