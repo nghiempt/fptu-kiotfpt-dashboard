@@ -8,10 +8,13 @@ import SignUp from '../modules/Seller/components/SignUp';
 import CreateShopInfo from '../modules/Seller/components/CreateShopInfo';
 import AddProduct from '../modules/Seller/components/AddProduct';
 import EditProduct from '../modules/Seller/components/EditProduct';
+import BeginShop from '../modules/Seller/components/BeginShop';
 
 const RootRoutes: React.FC = () => {
     return (
         <Routes>
+            {/* begin shop */}
+            <Route path={ROUTE.BEGIN_SHOP} element={<BeginShop/>} />    
             {/* seller */}
             <Route path={ROUTE.SELLER} element={<SellerContainer />} />
             <Route path={ROUTE.SELLER_CATEGORY} element={<SellerContainer />} />

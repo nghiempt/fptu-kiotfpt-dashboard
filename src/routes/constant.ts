@@ -1,4 +1,6 @@
 export const ROUTE = {
+    // begin shop
+    BEGIN_SHOP: '/',
     // seller
     SELLER: '/seller',
     SELLER_PRODUCT: '/seller/product',

@@ -190,8 +190,9 @@ const TableProfile: React.FC<SellerTableProps> = ({ data: initialData }) => {
         <Divider orientation="vertical" flexItem />
         <div className="w-3/5 flex flex-col gap-6 px-10">
           <div>
-            <h1>Phone and email</h1>
-            <div className="flex justify-between pt-5">
+            <h1 className="font-medium text-[18px]">Phone and email</h1>
+            <Divider/>
+            <div className="flex justify-between pt-4">
               <div className="flex gap-x-2 items-center">
                 <LocalPhoneOutlinedIcon />
                 <div>
@@ -220,9 +221,10 @@ const TableProfile: React.FC<SellerTableProps> = ({ data: initialData }) => {
               </button>
             </div>
           </div>
+          <Divider/>
           <div>
-            <h1>Security</h1>
-            <div className="flex justify-between pt-5">
+            <h1 className="font-medium text-[18px]">Security</h1>
+            <div className="flex justify-between pt-4">
               <div className="flex gap-x-2 items-center">
                 <LockIcon />
                 <div>
@@ -251,9 +253,10 @@ const TableProfile: React.FC<SellerTableProps> = ({ data: initialData }) => {
               </button>
             </div>
           </div>
+          <Divider/>
           <div>
-            <h1>Social network link</h1>
-            <div className="flex justify-between pt-5">
+            <h1 className="font-medium text-[18px]">Social network link</h1>
+            <div className="flex justify-between pt-4">
               <div className="flex gap-x-2 items-center">
                 <img src={AssetImages.GG_ICON} alt="img" width={30} />
                 <div>
