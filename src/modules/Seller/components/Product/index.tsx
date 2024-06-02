@@ -263,7 +263,7 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                 </TableCell>
                 <TableCell sx={{ color: "black" }}>
                   <div className="flex justify-center">
-                    <b>PORPULAR</b>
+                    <b>POPULAR</b>
                   </div>
                 </TableCell>
 

@@ -6,6 +6,7 @@ import SellerContainer from '../modules/Seller/Seller.Container';
 import SignIn from '../modules/Seller/components/SignIn';
 import SignUp from '../modules/Seller/components/SignUp';
 import CreateShopInfo from '../modules/Seller/components/CreateShopInfo';
+import AddProduct from '../modules/Seller/components/AddProduct';
 
 const RootRoutes: React.FC = () => {
     return (
@@ -17,7 +18,7 @@ const RootRoutes: React.FC = () => {
             <Route path={ROUTE.SELLER_PRODUCT} element={<SellerContainer />} />
             <Route path={ROUTE.SELLER_PROFILE} element={<SellerContainer />} />
             <Route path={ROUTE.SELLER_VOUCHER} element={<SellerContainer />} />
-            <Route path={ROUTE.SELLER_CREATE_PRODUCT} element={<SellerContainer />} />
+            <Route path={ROUTE.SELLER_CREATE_PRODUCT} element={<AddProduct />} />
             <Route path={ROUTE.SELLER_SIGN_IN} element={<SignIn />} />
             <Route path={ROUTE.SELLER_SIGN_UP} element={<SignUp />} />
             <Route path={ROUTE.SELLER_CREATE_SHOP_INFO} element={<CreateShopInfo />} />
