@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ROUTE } from "../../../../routes/constant";
 
-interface PopupProps {
-  handleClose: () => void;
-}
-
-const AddProduct: React.FC = ({}) => {
+const AddProduct: React.FC = () => {
   const navigate = useNavigate();
   const [productTitle, setProductTitle] = useState("");
   const [productDescription, setProductDescription] = useState("");

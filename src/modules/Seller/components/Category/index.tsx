@@ -25,7 +25,6 @@ const TableCategory: React.FC<SellerTableProps> = ({ data: initialData }) => {
   const [data, setData] = useState(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
-  const indexOfLastUser = currentPage * usersPerPage;
   const totalPages = Math.ceil(data.length / usersPerPage);
 
   const handlePageChange = (

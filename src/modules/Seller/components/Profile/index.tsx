@@ -1,32 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
-  Pagination,
-  Box,
-  Grid,
-  Typography,
-  TextField,
-  Divider,
-  IconButton,
-  Autocomplete,
-} from "@mui/material";
-import Search from "@mui/icons-material/Search";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import StarIcon from "@mui/icons-material/Star";
 import CheckIcon from "@mui/icons-material/Check";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import LocalPhoneOutlinedIcon from "@mui/icons-material/LocalPhoneOutlined";
 import LockIcon from "@mui/icons-material/Lock";
+import StarIcon from "@mui/icons-material/Star";
+import VerifiedUserOutlinedIcon from "@mui/icons-material/VerifiedUserOutlined";
+import { Box, Divider, Typography } from "@mui/material";
 // import Divider from "@mui/material/Divider";
-import { useState, useEffect } from "react";
 import { AssetImages } from "../../../../utils/images";
 import UpdatePasswordPopupModal from "../../Modal/UpdatePasswordPopup/UpdatePasswordPopup";
 // import { getAllUser, searchAccountByName, filterAccount } from "../Admin.Api";
@@ -34,123 +16,8 @@ import UpdatePasswordPopupModal from "../../Modal/UpdatePasswordPopup/UpdatePass
 interface SellerTableProps {
   data: any[];
 }
-interface PopupProps {
-  handleClose: () => void;
-}
 
 const TableProfile: React.FC<SellerTableProps> = ({ data: initialData }) => {
-  const [data, setData] = useState(initialData);
-  const [searchValue, setSearchValue] = useState("");
-  const [statusValue, setStatus] = useState("");
-  const [typeValue, setType] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 10;
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = data.slice(indexOfFirstUser, indexOfLastUser);
-  const totalPages = Math.ceil(data.length / usersPerPage);
-
-  const StatusList = [{ label: "Sign in" }, { label: "Sign out" }];
-
-  const TypeList = [
-    { label: "Admin" },
-    { label: "Seller" },
-    { label: "Customer" },
-  ];
-
-  const handlePageChange = (
-    event: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
-    setCurrentPage(value);
-  };
-
-  useEffect(() => {
-    // const fetchData = async () => {
-    //   if (searchValue.length === 0) {
-    //     const responseData = await getAllUser();
-    //     setData(responseData);
-    //     setSearchValue('');
-    //   }
-    // };
-    // fetchData();
-  }, [searchValue]);
-
-  const handleInputChange = async (event: any) => {
-    setSearchValue(event.target.value);
-  };
-
-  const handleSearch = async () => {
-    try {
-      // if (searchValue.length > 0) {
-      //   setData([]);
-      //   const searchResults = await searchAccountByName(searchValue);
-      //   console.log(searchResults.data);
-      //   setData(searchResults.data);
-      //   setCurrentPage(1);
-      // } else {
-      //   setData([]);
-      //   const responseData = await getAllUser();
-      //   setData(responseData);
-      //   setSearchValue("");
-      // }
-    } catch (error) {
-      setData([]);
-    }
-  };
-
-  const startFilter = async () => {
-    try {
-      // if (statusValue.length === 0 && typeValue.length === 0) {
-      //   setData([]);
-      //   const responseData = await getAllUser();
-      //   setData(responseData);
-      //   setSearchValue("");
-      // } else {
-      //   setData([]);
-      //   const responseData = await filterAccount(statusValue, typeValue);
-      //   setData(responseData.data);
-      //   setCurrentPage(1);
-      // }
-    } catch {
-      setData([]);
-    }
-  };
-
-  const handleStatusChange = async (event: any, value: any) => {
-    if (value != null) {
-      if (value.label === "Sign in") {
-        setStatus("true");
-      } else if (value.label === "Sign out") {
-        setStatus("false");
-      }
-    } else {
-      setStatus("");
-    }
-  };
-
-  const handleTypeChange = async (event: any, value: any) => {
-    if (value != null) {
-      if (value.label === "Admin") {
-        setType("3");
-      } else if (value.label === "Seller") {
-        setType("2");
-      } else if (value.label === "Customer") {
-        setType("1");
-      }
-    } else {
-      setType("");
-    }
-  };
-
-  useEffect(() => {
-    setData(initialData);
-  }, [initialData]);
-
-  useEffect(() => {
-    startFilter();
-  }, [statusValue, typeValue]);
-
   return (
     <Box>
       {/* Table title */}
@@ -178,20 +45,18 @@ const TableProfile: React.FC<SellerTableProps> = ({ data: initialData }) => {
                   <h1>4.9&nbsp;/&nbsp;5.0</h1>
                 </div>
                 <div className="flex justify-center items-center gap-1">
-                  <FavoriteIcon className="text-red-600"/>
+                  <FavoriteIcon className="text-red-600" />
                   <h1>Followers: 99</h1>
                 </div>
               </div>
             </div>
           </div>
-
-         
         </div>
         <Divider orientation="vertical" flexItem />
         <div className="w-3/5 flex flex-col gap-6 px-10">
           <div>
             <h1 className="font-medium text-[18px]">Phone and email</h1>
-            <Divider/>
+            <Divider />
             <div className="flex justify-between pt-4">
               <div className="flex gap-x-2 items-center">
                 <LocalPhoneOutlinedIcon />
@@ -221,7 +86,7 @@ const TableProfile: React.FC<SellerTableProps> = ({ data: initialData }) => {
               </button>
             </div>
           </div>
-          <Divider/>
+          <Divider />
           <div>
             <h1 className="font-medium text-[18px]">Security</h1>
             <div className="flex justify-between pt-4">
@@ -253,7 +118,7 @@ const TableProfile: React.FC<SellerTableProps> = ({ data: initialData }) => {
               </button>
             </div>
           </div>
-          <Divider/>
+          <Divider />
           <div>
             <h1 className="font-medium text-[18px]">Social network link</h1>
             <div className="flex justify-between pt-4">

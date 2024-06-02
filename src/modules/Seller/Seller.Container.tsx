@@ -1,28 +1,31 @@
-import * as React from "react";
-import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import TableProduct from "./components/Product";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { ROUTE } from "../../routes/constant";
+import SellerPage from "./SellerPage";
 import TableCategory from "./components/Category";
 import TableOrder from "./components/Order";
+import TableProduct from "./components/Product";
 import TableProfile from "./components/Profile";
 import TableVoucher from "./components/Voucher";
-import SellerPage from "./SellerPage";
 
 const SellerContainer: React.FC<{}> = () => {
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const [dataUser, setDataUser] = useState<any[]>([]);
-  const [dataSeller, setDataSeller] = useState<any[]>([]);
-  const [dataCategory, setDataCategory] = useState<any[]>([]);
-  const [dataTransaction, setDataTransaction] = useState<any[]>([]);
+  const [dataUser] = useState([]);
+  const [dataSeller] = useState<any[]>([]);
+  const [dataCategory] = useState<any[]>([]);
+  const [dataTransaction] = useState<any[]>([]);
   const [selectedItem, setSelectedItem] = useState<number>(0);
 
   let tableComponent = <TableCategory data={dataUser} />;
 
-  if (selectedItem === 0 || currentPath.toLowerCase() === ROUTE.SELLER_CATEGORY) {
+  if (
+    selectedItem === 0 ||
+    currentPath.toLowerCase() === ROUTE.SELLER_CATEGORY
+  ) {
     tableComponent = <TableCategory data={dataUser} />;
   } else if (
     selectedItem === 1 ||
@@ -38,12 +41,12 @@ const SellerContainer: React.FC<{}> = () => {
     selectedItem === 3 ||
     currentPath.toLowerCase() === ROUTE.SELLER_VOUCHER
   ) {
-    tableComponent = <TableVoucher data={dataTransaction} />
+    tableComponent = <TableVoucher data={dataTransaction} />;
   } else if (
     selectedItem === 4 ||
     currentPath.toLowerCase() === ROUTE.SELLER_PROFILE
   ) {
-    tableComponent = <TableProfile data={dataTransaction} />
+    tableComponent = <TableProfile data={dataTransaction} />;
   }
 
   useEffect(() => {
@@ -65,7 +68,6 @@ const SellerContainer: React.FC<{}> = () => {
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_PROFILE) {
           setSelectedItem(4);
         }
-
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -73,10 +75,16 @@ const SellerContainer: React.FC<{}> = () => {
     fetchData();
   }, [currentPath]);
 
-  useEffect(() => { }, [dataUser, dataSeller, dataCategory, dataTransaction, selectedItem]);
+  useEffect(() => {}, [
+    dataUser,
+    dataSeller,
+    dataCategory,
+    dataTransaction,
+    selectedItem,
+  ]);
 
   return (
-    <Box width={'100%'}>
+    <Box width={"100%"}>
       <SellerPage
         username={"Seller"}
         permission={"Seller"}

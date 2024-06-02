@@ -1,14 +1,12 @@
-import React, { useState, ReactNode, useEffect } from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Modal from "@mui/material/Modal";
-import { IconButtonProps } from "@mui/material/IconButton";
 import EditIcon from "@mui/icons-material/Edit";
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Divider from "@mui/material/Divider";
+import { IconButtonProps } from "@mui/material/IconButton";
+import Modal from "@mui/material/Modal";
+import Typography from "@mui/material/Typography";
+import React, { ReactNode, useEffect, useState } from "react";
 // import { signOut } from '../../../Auth/Auth.Api';
 // import { routes } from '../../../../routes';
-import { useNavigate } from "react-router-dom";
 
 const style = {
   position: "absolute" as "absolute",
@@ -27,7 +25,7 @@ type ModalData = {
 };
 
 const EditCategoryPopupModal: React.FC<ModalData> = ({ children }) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => {
@@ -65,16 +63,18 @@ const EditCategoryPopupModal: React.FC<ModalData> = ({ children }) => {
             <b>Edit category</b>
           </Typography>
           <div className="flex justify-between">
-              <div className="flex gap-x-2 items-center">
-                <h1 className="font-semibold text-[14px]">Name:</h1>
-                <h1 className=" text-[16px]">
-                  <i>Iphone</i>
-                </h1>
-              </div>
-              <EditIcon className="text-gray-400 cursor-pointer" style={{ width: "20px" }} />
+            <div className="flex gap-x-2 items-center">
+              <h1 className="font-semibold text-[14px]">Name:</h1>
+              <h1 className=" text-[16px]">
+                <i>Iphone</i>
+              </h1>
             </div>
+            <EditIcon
+              className="text-gray-400 cursor-pointer"
+              style={{ width: "20px" }}
+            />
+          </div>
           <div className="w-full flex items-center justify-center">
-            
             <div className="w-1/2 flex flex-col justify-center py-6 ">
               <img
                 src="https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c"

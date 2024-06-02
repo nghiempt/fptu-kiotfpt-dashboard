@@ -1,21 +1,18 @@
 import {
+  Box,
+  Divider,
+  Grid,
+  Pagination,
+  Paper,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
-  Pagination,
-  Box,
-  Grid,
   Typography,
-  TextField,
-  Divider,
-  IconButton,
-  Autocomplete,
 } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { currentOrders } from "../../../../utils/fake";
 import OrderDetailPopupModal from "../../Modal/OrderDetailPopup/OrderDetailPopup";
 
@@ -27,8 +24,6 @@ const TableOrder: React.FC<SellerTableProps> = ({ data: initialData }) => {
   const [data, setData] = useState(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const totalPages = Math.ceil(data.length / usersPerPage);
 
   const handlePageChange = (
