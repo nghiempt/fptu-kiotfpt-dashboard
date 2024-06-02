@@ -3,6 +3,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import { useNavigate } from 'react-router-dom';
 import { ROUTE } from '../../../../routes/constant';
+import ForgotPasswordPopupModal from '../../Modal/ForgotPasswordPopup/ForgotPasswordPopup';
 
 const SignUp: React.FC = () => {
     const navigate = useNavigate();
@@ -11,7 +12,6 @@ const SignUp: React.FC = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const handleSubmit = (event: React.FormEvent) => {
-        event.preventDefault();       
     };
 
     const goToSignUp = () => {
@@ -23,7 +23,7 @@ const SignUp: React.FC = () => {
             <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-1/4">
                 <h2 className="text-2xl font-bold mb-6 text-center">Sign In</h2>
                 <div className="mb-4">
-                    <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
+                    <label htmlFor="username" className="block text-sm font-medium text-gray-700">Email</label>
                     <input
                         type="text"
                         id="username"
@@ -49,9 +49,11 @@ const SignUp: React.FC = () => {
                         </button>
                     </div>
                     <div className='flex justify-end'>
+                        <ForgotPasswordPopupModal>
                         <button className='cursor-pointer'>
                             <h1><u>Forgot password</u></h1>
                         </button>
+                        </ForgotPasswordPopupModal>
                 </div>
                 </div>
                 
