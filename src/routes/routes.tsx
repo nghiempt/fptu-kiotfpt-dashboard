@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import AdminContainer from '../modules/Admin/Admin.Container';
 import { ROUTE } from './constant';
 import SellerContainer from '../modules/Seller/Seller.Container';
+import SignIn from '../modules/Seller/components/SignIn';
 
 const RootRoutes: React.FC = () => {
     return (
@@ -15,6 +16,7 @@ const RootRoutes: React.FC = () => {
             <Route path={ROUTE.SELLER_PROFILE} element={<SellerContainer />} />
             <Route path={ROUTE.SELLER_VOUCHER} element={<SellerContainer />} />
             <Route path={ROUTE.SELLER_CREATE_PRODUCT} element={<SellerContainer />} />
+            <Route path={ROUTE.SELLER_SIGN_IN} element={<SignIn />} />
             {/* admin */}
             <Route path={ROUTE.ADMIN} element={<AdminContainer />} />
             <Route path={ROUTE.ADMIN_ORGAN} element={<AdminContainer />} />

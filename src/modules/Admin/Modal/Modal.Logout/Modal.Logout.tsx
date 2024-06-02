@@ -8,6 +8,7 @@ import Divider from '@mui/material/Divider';
 // import { signOut } from '../../../Auth/Auth.Api';
 // import { routes } from '../../../../routes';
 import { useNavigate } from 'react-router-dom';
+import { ROUTE } from '../../../../routes/constant';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -39,7 +40,10 @@ const LogoutModal: React.FC<ModalData> = ({ children }) => {
 
     const submitSignOut = async () => {
         // await signOut();
-        // navigate(routes.home.SignInPage);
+        
+        
+        navigate(ROUTE.SELLER_SIGN_IN);
+        console.log("Sign out");
       };
 
     useEffect(() => {}, [isModalOpen])
