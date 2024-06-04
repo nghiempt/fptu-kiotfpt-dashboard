@@ -22,6 +22,7 @@ interface SellerTableProps {
 }
 
 const TableCategory: React.FC<SellerTableProps> = ({ data: initialData }) => {
+
   const [data, setData] = useState(initialData);
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 10;
@@ -75,10 +76,13 @@ const TableCategory: React.FC<SellerTableProps> = ({ data: initialData }) => {
                   <b>ID</b>
                 </TableCell>
                 <TableCell sx={{ color: "black" }}>
+                  <b>THUMBNAIL</b>
+                </TableCell>
+                <TableCell sx={{ color: "black" }}>
                   <b>NAME</b>
                 </TableCell>
                 <TableCell sx={{ color: "black" }}>
-                  <b>THUMBNAIL</b>
+                  <b>STATUS</b>
                 </TableCell>
                 <TableCell>
                   <b>ACTION</b>
@@ -94,14 +98,15 @@ const TableCategory: React.FC<SellerTableProps> = ({ data: initialData }) => {
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell>{data.id}</TableCell>
-                    <TableCell>{data.name}</TableCell>
-                    <TableCell>
+                    <TableCell className="!py-4 w-40">
                       <img
                         src={data.thumbnail}
                         alt=""
-                        style={{ width: "100px", height: "100px" }}
+                        style={{ width: "80px", height: "80px" }}
                       />
                     </TableCell>
+                    <TableCell>{data.name}</TableCell>
+                    <TableCell className="w-50">{data.active.toString()}</TableCell>
                     <TableCell>
                       <div className="flex gap-x-2 overflow-hidden">
                         <EditCategoryPopupModal>

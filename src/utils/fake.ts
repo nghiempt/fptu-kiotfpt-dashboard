@@ -282,6 +282,69 @@ export const currentOrders = [
 export const currentCategories = [
   {
     id: 1,
+    name: "Clothes",
+    thumbnail: 'https://cdn-icons-png.flaticon.com/128/863/863684.png',
+    active: true
+  },
+  {
+    id: 2,
+    name: "Home",
+    thumbnail: 'https://cdn-icons-png.flaticon.com/128/4635/4635381.png',
+    active: true
+  },
+  {
+    id: 3,
+    name: "Technology",
+    thumbnail: 'https://cdn-icons-png.flaticon.com/128/4257/4257483.png',
+    active: true
+  },
+  {
+    id: 4,
+    name: "Tools",
+    thumbnail: 'https://cdn-icons-png.flaticon.com/128/1086/1086581.png',
+    active: true
+  },
+  {
+    id: 5,
+    name: "Sports",
+    thumbnail: 'https://cdn-icons-png.flaticon.com/128/4163/4163679.png',
+    active: true
+  },
+  {
+    id: 6,
+    name: "Anima",
+    thumbnail: 'https://cdn-icons-png.flaticon.com/128/1076/1076877.png',
+    active: true
+  },
+  {
+    id: 7,
+    name: "Machinery",
+    thumbnail: 'https://cdn-icons-png.flaticon.com/128/4257/4257448.png',
+    active: true
+  },
+  {
+    id: 8,
+    name: "Travel",
+    thumbnail: 'https://cdn-icons-png.flaticon.com/128/761/761488.png',
+    active: true
+  },
+  {
+    id: 9,
+    name: "Decoration",
+    thumbnail: 'https://cdn-icons-png.flaticon.com/128/942/942165.png',
+    active: true
+  },
+  {
+    id: 10,
+    name: "Health and Beauty",
+    thumbnail: 'https://cdn-icons-png.flaticon.com/128/2382/2382443.png',
+    active: true
+  }
+]
+
+export const listCategory = [
+  {
+    id: 1,
     name: 'Phone',
     thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
   },
@@ -320,59 +383,16 @@ export const currentCategories = [
     name: 'Accessories',
     thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
   },
-]
-
-export const listCategory = [
-{
-  id: 1,
-  name: 'Phone',
-  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
-},
-{
-  id: 2,
-  name: 'Laptop',
-  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
-},
-{
-  id: 3,
-  name: 'Tablet',
-  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
-},
-{
-  id: 4,
-  name: 'Smartwatch',
-  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
-},
-{
-  id: 5,
-  name: 'Headphone',
-  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
-},
-{
-  id: 6,
-  name: 'Speaker',
-  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
-},
-{
-  id: 7,
-  name: 'Camera',
-  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
-},
-{
-  id: 8,
-  name: 'Accessories',
-  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
-},
-{
-  id: 9,
-  name: 'Phone',
-  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
-},
-{
-  id: 10,
-  name: 'Laptop',
-  thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
-}
+  {
+    id: 9,
+    name: 'Phone',
+    thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+  },
+  {
+    id: 10,
+    name: 'Laptop',
+    thumbnail: 'https://down-vn.img.susercontent.com/file/vn-11134207-7r98o-llm05p5nkerg1c'
+  }
 ]
 
 export const listShop = [

@@ -20,6 +20,7 @@ import { ROUTE } from "../../routes/constant";
 import LogoutModal from "../Admin/Modal/Modal.Logout/Modal.Logout";
 import CategoryIcon from '@mui/icons-material/Category';
 import ReceiptIcon from '@mui/icons-material/Receipt';
+import { Avatar } from "@mui/material";
 
 interface data {
   username: any;
@@ -319,7 +320,7 @@ export default function SellerPage(data: data) {
                 onClick={handleProfileMenuOpen}
                 color="inherit"
               >
-                <AccountCircle sx={{ fontSize: "30px" }} />
+                <Avatar src="https://cdn-icons-png.flaticon.com/128/4140/4140048.png" sx={{ fontSize: "30px" }} />
               </IconButton>
             </div>
           </div>
