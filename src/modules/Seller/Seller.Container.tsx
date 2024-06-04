@@ -4,49 +4,51 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { ROUTE } from "../../routes/constant";
 import SellerPage from "./SellerPage";
-import TableCategory from "./components/Category";
-import TableOrder from "./components/Order";
-import TableProduct from "./components/Product";
-import TableProfile from "./components/Profile";
-import TableVoucher from "./components/Voucher";
+import TableExample from "./components/Example";
 
 const SellerContainer: React.FC<{}> = () => {
+
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const [dataUser] = useState([]);
-  const [dataSeller] = useState<any[]>([]);
-  const [dataCategory] = useState<any[]>([]);
-  const [dataTransaction] = useState<any[]>([]);
+  const [dataExample] = useState<any[]>([]);
+
   const [selectedItem, setSelectedItem] = useState<number>(0);
 
-  let tableComponent = <TableCategory data={dataUser} />;
+  let tableComponent = <TableExample data={dataExample} />;
 
   if (
     selectedItem === 0 ||
-    currentPath.toLowerCase() === ROUTE.SELLER_CATEGORY
+    currentPath.toLowerCase() === ROUTE.SELLER_STATISTICAL
   ) {
-    tableComponent = <TableCategory data={dataUser} />;
+    tableComponent = <TableExample data={dataExample} />;
   } else if (
     selectedItem === 1 ||
-    currentPath.toLowerCase() === ROUTE.SELLER_ORDER
+    currentPath.toLowerCase() === ROUTE.SELLER_CATEGORY
   ) {
-    tableComponent = <TableOrder data={dataCategory} />;
+    tableComponent = <TableExample data={dataExample} />;
   } else if (
     selectedItem === 2 ||
-    currentPath.toLowerCase() === ROUTE.SELLER_PRODUCT
+    currentPath.toLowerCase() === ROUTE.SELLER_ORDER
   ) {
-    tableComponent = <TableProduct data={dataSeller} />;
+    tableComponent = <TableExample data={dataExample} />;
   } else if (
     selectedItem === 3 ||
-    currentPath.toLowerCase() === ROUTE.SELLER_VOUCHER
+    currentPath.toLowerCase() === ROUTE.SELLER_PRODUCT
   ) {
-    tableComponent = <TableVoucher data={dataTransaction} />;
+    tableComponent = <TableExample data={dataExample} />;
   } else if (
     selectedItem === 4 ||
+    currentPath.toLowerCase() === ROUTE.SELLER_VOUCHER
+  ) {
+    tableComponent = <TableExample data={dataExample} />;
+  } else if (
+    selectedItem === 5 ||
     currentPath.toLowerCase() === ROUTE.SELLER_PROFILE
   ) {
-    tableComponent = <TableProfile data={dataTransaction} />;
+    tableComponent = <TableExample data={dataExample} />;
+  } else {
+    tableComponent = <TableExample data={dataExample} />;
   }
 
   useEffect(() => {
@@ -54,19 +56,21 @@ const SellerContainer: React.FC<{}> = () => {
       try {
         if (
           currentPath.toLowerCase() === ROUTE.SELLER ||
-          currentPath.toLowerCase() === ROUTE.SELLER_CATEGORY
+          currentPath.toLowerCase() === ROUTE.SELLER_STATISTICAL
         ) {
           setSelectedItem(0);
-        } else if (currentPath.toLowerCase() === ROUTE.SELLER_CATEGORY) {
+        } else if (currentPath.toLowerCase() === ROUTE.SELLER_STATISTICAL) {
           setSelectedItem(0);
-        } else if (currentPath.toLowerCase() === ROUTE.SELLER_ORDER) {
+        } else if (currentPath.toLowerCase() === ROUTE.SELLER_CATEGORY) {
           setSelectedItem(1);
-        } else if (currentPath.toLowerCase() === ROUTE.SELLER_PRODUCT) {
+        } else if (currentPath.toLowerCase() === ROUTE.SELLER_ORDER) {
           setSelectedItem(2);
-        } else if (currentPath.toLowerCase() === ROUTE.SELLER_VOUCHER) {
+        } else if (currentPath.toLowerCase() === ROUTE.SELLER_PRODUCT) {
           setSelectedItem(3);
-        } else if (currentPath.toLowerCase() === ROUTE.SELLER_PROFILE) {
+        } else if (currentPath.toLowerCase() === ROUTE.SELLER_VOUCHER) {
           setSelectedItem(4);
+        } else if (currentPath.toLowerCase() === ROUTE.SELLER_PROFILE) {
+          setSelectedItem(5);
         }
       } catch (error) {
         console.error("Error fetching data: ", error);
@@ -75,11 +79,8 @@ const SellerContainer: React.FC<{}> = () => {
     fetchData();
   }, [currentPath]);
 
-  useEffect(() => {}, [
-    dataUser,
-    dataSeller,
-    dataCategory,
-    dataTransaction,
+  useEffect(() => { }, [
+    dataExample,
     selectedItem,
   ]);
 

@@ -1,63 +1,61 @@
-import * as React from "react";
-import { useLocation } from "react-router-dom";
-import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
-import TableSeller from "./Shop/Admin.Shop";
-import TableCategory from "./Category/Admin.Category";
-import AdminPage from "./Admin.Page";
-import {
-  getAllUser,
-  getAllShopInformation,
-  getAllShopCategory,
-  getAllTransaction,
-} from "./Admin.Api";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { ROUTE } from "../../routes/constant";
+import TableExample from "./components/Example";
+import AdminPage from "./AdminPage";
 
 const AdminContainer: React.FC<{}> = () => {
+
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const [dataUser, setDataUser] = useState<any[]>([]);
-  const [dataSeller, setDataSeller] = useState<any[]>([]);
-  const [dataCategory, setDataCategory] = useState<any[]>([]);
-  const [dataTransaction, setDataTransaction] = useState<any[]>([]);
+  const [dataExample] = useState<any[]>([]);
+
   const [selectedItem, setSelectedItem] = useState<number>(0);
 
-  let tableComponent = <TableCategory data={dataCategory} />;
+  let tableComponent = <TableExample data={dataExample} />;
 
   if (
+    selectedItem === 0 ||
+    currentPath.toLowerCase() === ROUTE.ADMIN_STATISTICAL
+  ) {
+    tableComponent = <TableExample data={dataExample} />;
+  } else if (
     selectedItem === 1 ||
     currentPath.toLowerCase() === ROUTE.ADMIN_CATEGORY
   ) {
-    tableComponent = <TableCategory data={dataCategory} />;
+    tableComponent = <TableExample data={dataExample} />;
   } else if (
     selectedItem === 2 ||
+    currentPath.toLowerCase() === ROUTE.ADMIN_BRAND
+  ) {
+    tableComponent = <TableExample data={dataExample} />;
+  } else if (
+    selectedItem === 3 ||
     currentPath.toLowerCase() === ROUTE.ADMIN_SHOP
   ) {
-    tableComponent = <TableSeller data={dataSeller} />;
+    tableComponent = <TableExample data={dataExample} />;
+  } else {
+    tableComponent = <TableExample data={dataExample} />;
   }
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         if (
-          currentPath.toLowerCase() === "/admin" ||
-          currentPath.toLowerCase() === "/admin/account"
+          currentPath.toLowerCase() === ROUTE.ADMIN ||
+          currentPath.toLowerCase() === ROUTE.ADMIN_STATISTICAL
         ) {
-          const responseData = await getAllUser();
-          setDataUser(responseData);
           setSelectedItem(0);
-        } else if (currentPath.toLowerCase() === "/admin/category") {
-          const responseData = await getAllShopCategory();
-          setDataCategory(responseData);
+        } else if (currentPath.toLowerCase() === ROUTE.ADMIN_STATISTICAL) {
+          setSelectedItem(0);
+        } else if (currentPath.toLowerCase() === ROUTE.ADMIN_CATEGORY) {
           setSelectedItem(1);
-        } else if (currentPath.toLowerCase() === "/admin/shop") {
-          const responseData = await getAllShopInformation();
-          setDataSeller(responseData);
+        } else if (currentPath.toLowerCase() === ROUTE.ADMIN_BRAND) {
           setSelectedItem(2);
-        } else if (currentPath.toLowerCase() === "/admin/transaction") {
-          const responseData = await getAllTransaction();
-          setDataTransaction(responseData);
+        } else if (currentPath.toLowerCase() === ROUTE.ADMIN_SHOP) {
           setSelectedItem(3);
         }
       } catch (error) {
@@ -67,10 +65,13 @@ const AdminContainer: React.FC<{}> = () => {
     fetchData();
   }, [currentPath]);
 
-  useEffect(() => { }, [dataUser, dataSeller, dataCategory, dataTransaction, selectedItem]);
+  useEffect(() => { }, [
+    dataExample,
+    selectedItem,
+  ]);
 
   return (
-    <Box width={'100%'}>
+    <Box width={"100%"}>
       <AdminPage
         username={"Admin"}
         permission={"Admin"}

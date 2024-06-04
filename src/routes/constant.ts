@@ -1,21 +1,19 @@
 export const ROUTE = {
-    // begin shop
-    BEGIN_SHOP: '/',
+    // auth
+    SIGN_IN: '/',
+    SIGN_UP: '/sign-up',
     // seller
     SELLER: '/seller',
+    SELLER_STATISTICAL: '/seller/statistical',
     SELLER_PRODUCT: '/seller/product',
     SELLER_PROFILE: '/seller/profile',
     SELLER_ORDER: '/seller/order',
     SELLER_CATEGORY: '/seller/category',
     SELLER_VOUCHER: '/seller/voucher',
-    SELLER_CREATE_PRODUCT: '/seller/create-product',
-    SELLER_SIGN_IN: '/seller/sign-in',
-    SELLER_SIGN_UP: '/seller/sign-up',
-    SELLER_CREATE_SHOP_INFO: '/seller/create-shop-info',
-    SELLER_EDIT_PRODUCT: '/seller/edit-product',
     // admin
     ADMIN: '/admin',
-    ADMIN_ORGAN: '/admin/organ',
+    ADMIN_STATISTICAL: '/admin/statistical',
     ADMIN_CATEGORY: '/admin/category',
+    ADMIN_BRAND: '/admin/brand',
     ADMIN_SHOP: '/admin/shop',
 };

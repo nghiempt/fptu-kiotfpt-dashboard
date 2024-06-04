@@ -1,11 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Checkbox, FormControlLabel } from "@mui/material";
-import { heightScreen } from "../../../../utils/constant";
+import { Box } from "@mui/material";
 import * as Components from "./component";
-import { ROUTE } from "../../../../routes/constant";
+import { ROUTE } from "../../../routes/constant";
+import { heightScreen } from "../../../utils/constant";
 
-const BeginShop: React.FC = () => {
+const SignUpPage: React.FC = () => {
 
   const navigate = useNavigate();
 
@@ -13,11 +13,11 @@ const BeginShop: React.FC = () => {
   const [password, setPassword] = React.useState("");
 
   const handleSubmit = async () => {
-    navigate(ROUTE.SELLER);
+    // navigate(ROUTE.SELLER);
   }
 
-  const goToSignUp = async () => {
-    navigate(ROUTE.ADMIN);
+  const goToSignIn = () => {
+    navigate(ROUTE.SIGN_IN);
   }
 
   return (
@@ -39,7 +39,7 @@ const BeginShop: React.FC = () => {
                 marginBottom: 1,
               }}
             >
-              <Components.Title>Sign-in to KIOTFPT</Components.Title>
+              <Components.Title>Create New Account</Components.Title>
             </Box>
             <Components.Input
               type="text"
@@ -53,6 +53,12 @@ const BeginShop: React.FC = () => {
               onChange={(e: any) => setPassword(e.target.value)}
               placeholder="Password"
             />
+            <Components.Input
+              type={"password"}
+              value={password}
+              onChange={(e: any) => setPassword(e.target.value)}
+              placeholder="Confirm Password"
+            />
             <Box
               sx={{
                 paddingTop: 3,
@@ -60,24 +66,21 @@ const BeginShop: React.FC = () => {
             >
               <Box onClick={handleSubmit}>
                 <Components.Button onClick={(e: any) => e.preventDefault()}>
-                  Sign In
+                  Sign Up
                 </Components.Button>
               </Box>
             </Box>
-            <Components.Anchor href="#">
-              Forgot your password?
-            </Components.Anchor>
           </Components.Form>
         </Components.SignInContainer>
         <Components.OverlayContainer>
           <Components.Overlay>
             <Components.LeftOverlayPanel>
-              <Components.Title>Hello, Friend!</Components.Title>
+              <Components.Title>Comeback!</Components.Title>
               <Components.Paragraph>
-                Enter Your personal details and start journey with us
+                To keep connected with us please login with your personal info
               </Components.Paragraph>
-              <Box onClick={goToSignUp}>
-                <Components.GhostButton>Sign Up</Components.GhostButton>
+              <Box onClick={goToSignIn}>
+                <Components.GhostButton>Sign In</Components.GhostButton>
               </Box>
             </Components.LeftOverlayPanel>
           </Components.Overlay>
@@ -86,4 +89,4 @@ const BeginShop: React.FC = () => {
     </Box>
   );
 };
-export default BeginShop;
+export default SignUpPage;
