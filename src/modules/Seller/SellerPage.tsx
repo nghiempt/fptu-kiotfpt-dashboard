@@ -17,6 +17,7 @@ import CategoryIcon from '@mui/icons-material/Category';
 import ReceiptIcon from '@mui/icons-material/Receipt';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import { ROUTE } from "../../routes/constant";
+import Cookie from 'js-cookie';
 
 interface data {
   username: any;
@@ -34,6 +35,8 @@ export default function SellerPage(data: data) {
   const [isTabletWidth, setIsTabletWidth] = useState(false);
 
   const signOut = () => {
+    Cookie.remove('accountID');
+    Cookie.remove('role');
     navigate(ROUTE.SIGN_IN);
   }
 
