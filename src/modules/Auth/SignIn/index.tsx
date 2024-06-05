@@ -19,18 +19,18 @@ const SignInPage: React.FC = () => {
       username: username,
       password: password
     };
-    const fetch = await AuthService.signIn(payload);
-    if (fetch?.result) {
-      Cookie.set('accountID', fetch?.data?.account_id);
-      Cookie.set('role', fetch?.data?.role);
-      if (fetch?.data?.role === "shop") {
-        navigate(ROUTE.SELLER);
-      } else {
-        navigate(ROUTE.ADMIN);
-      }
-    } else {
-      alert("Username or password is incorrect");
-    }
+    // const fetch = await AuthService.signIn(payload);
+    // if (fetch?.result) {
+    //   Cookie.set('accountID', fetch?.data?.account_id);
+    //   Cookie.set('role', fetch?.data?.role);
+    //   if (fetch?.data?.role === "shop") {
+    //     navigate(ROUTE.SELLER);
+    //   } else {
+    //     navigate(ROUTE.ADMIN);
+    //   }
+    // } else {
+    //   alert("Username or password is incorrect");
+    // }
   }
 
   const goToSignUp = () => {

@@ -7,6 +7,8 @@ import SellerPage from "./SellerPage";
 import TableExample from "./components/Example";
 import TableProduct from "./components/Product";
 import { ProductService } from "../../services/product";
+import TableVoucher from "./components/Voucher";
+import { VoucherService } from "../../services/voucher";
 
 const SellerContainer: React.FC<{}> = () => {
 
@@ -15,6 +17,7 @@ const SellerContainer: React.FC<{}> = () => {
 
   const [dataExample, setDataExample] = useState<any[]>([]);
   const [dataProduct, setDataProduct] = useState<any[]>([]);
+  const [dataVoucher, setDataVoucher] = useState<any[]>([]);
 
   const [selectedItem, setSelectedItem] = useState<number>(0);
 
@@ -44,7 +47,7 @@ const SellerContainer: React.FC<{}> = () => {
     selectedItem === 4 ||
     currentPath.toLowerCase() === ROUTE.SELLER_VOUCHER
   ) {
-    tableComponent = <TableExample data={dataExample} />;
+    tableComponent = <TableVoucher data={dataVoucher} />;
   } else if (
     selectedItem === 5 ||
     currentPath.toLowerCase() === ROUTE.SELLER_PROFILE
@@ -75,6 +78,10 @@ const SellerContainer: React.FC<{}> = () => {
           }
           setSelectedItem(3);
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_VOUCHER) {
+          const vous = await VoucherService.getVoucherByShopID("10");
+          if (vous?.result) {
+            setDataVoucher(vous?.data);
+          }
           setSelectedItem(4);
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_PROFILE) {
           setSelectedItem(5);

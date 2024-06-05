@@ -1,4 +1,4 @@
-export const HOST = `http://localhost:8888/v1`;
+export const HOST = `http://4.230.16.126:8888/v1`;
 
 export const API = {
   //
@@ -19,4 +19,9 @@ export const API = {
   //
   GET_SHOP_BY_ID: `${HOST}/shop/profile`,
   GET_PRODUCT_BY_SHOP_ID: `${HOST}/product/get-by-shop`,
+  //
+  GET_VOUCHER_BY_SHOP_ID: `${HOST}/voucher/get-by-shop`,
+  DELETE_VOUCHER: `${HOST}/voucher/delete`,
+  CREATE_VOUCHER: `${HOST}/voucher/create`,
+  UPDATE_VOUCHER: `${HOST}/voucher/update`,
 };
