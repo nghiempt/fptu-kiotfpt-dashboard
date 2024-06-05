@@ -1,24 +1,12 @@
 import { Box, Divider, Pagination, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import CheckIcon from "@mui/icons-material/Check";
-import AddIcon from '@mui/icons-material/Add';
-import AddProductModal from "../../../Modal/add-product";
 
 interface SellerTableProps {
   data: any[];
 }
 
 const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
-
-  const [isShowAddProduct, setIsShowAddProduct] = useState(false);
-
-  const handleOpenAddProduct = () => {
-    setIsShowAddProduct(true);
-  };
-
-  const handleCloseAddProduct = () => {
-    setIsShowAddProduct(false);
-  };
 
   const [data, setData] = useState(initialData);
   const [selectedProduct, setSelectedProduct] = useState({
@@ -52,19 +40,10 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
 
   return (
     <Box>
-      <AddProductModal open={isShowAddProduct} handleClose={handleCloseAddProduct} />
       <Box sx={{ padding: "20px" }}>
-        <div className="flex justify-between items-center">
-          <Typography variant="h3" noWrap component="div" sx={{ flexGrow: 1 }}>
-            <b>PRODUCT MANAGEMENT</b>
-          </Typography>
-          <span onClick={handleOpenAddProduct} className="relative inline-block font-semibold eading-tight cursor-pointer">
-            <div className="w-full flex justify-center items-center bg-[#0B2447] py-1 px-4 rounded-md gap-2">
-              <AddIcon style={{ color: "white" }} />
-              <span className="text-[16px] text-white">Add Product</span>
-            </div>
-          </span>
-        </div>
+        <Typography variant="h3" noWrap component="div" sx={{ flexGrow: 1 }}>
+          <b>PRODUCT MANAGEMENT</b>
+        </Typography>
         <div className="w-full flex gap-x-4 mt-4">
           <div className="w-3/5 flex flex-col gap-6">
             <div className="container mx-auto">
@@ -207,7 +186,9 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
             </div>
           </div>
         </div>
+
       </Box>
+      <Divider />
     </Box>
   );
 };

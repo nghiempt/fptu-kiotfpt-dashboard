@@ -15,7 +15,6 @@ const SignInPage: React.FC = () => {
   const [password, setPassword] = React.useState("");
 
   const handleSubmit = async () => {
-    navigate(ROUTE.SELLER);
     const payload = {
       username: username,
       password: password
@@ -32,7 +31,6 @@ const SignInPage: React.FC = () => {
     } else {
       alert("Username or password is incorrect");
     }
-    
   }
 
   const goToSignUp = () => {
