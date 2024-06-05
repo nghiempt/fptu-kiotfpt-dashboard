@@ -1,7 +1,11 @@
 import { alpha, createTheme, lighten, darken } from '@mui/material';
 
 export const themeColors = {
-  primary: '#132b4f',
+  // --primary-rgb: 252, 65, 0;
+  // --secondary-rgb: 255, 197, 90;
+  // --tertiary-rgb: 0, 33, 94;
+  // --quaternary-rgb: 44, 78, 128;
+  primary: '#ff0000',
   secondary: '#f4f8ff',
   tertiary: '#f4fff5',
   quaternary: '#a5d7e8',

@@ -80,7 +80,7 @@ export default function SellerPage(data: data) {
           position: "relative",
           width: "250px",
           height: "100vh",
-          backgroundColor: "#0B2447",
+          backgroundColor: "#2C4E80",
           zIndex: "999999",
         }}
         hidden={isTabletWidth}
@@ -120,7 +120,7 @@ export default function SellerPage(data: data) {
                       <ListItemButton
                         onClick={() => handleItemClick(index)}
                         sx={{
-                          backgroundColor: index === selectedItem ? "#07182F" : "inherit",
+                          backgroundColor: index === selectedItem ? "#00215E" : "inherit",
                         }}
                       >
                         <ListItemIcon sx={{ color: "white" }}>
@@ -183,7 +183,7 @@ export default function SellerPage(data: data) {
             alignItems: "center",
             width: "100%",
             height: "70px",
-            backgroundColor: "#07182F",
+            backgroundColor: "#00215E",
           }}
         >
           <div

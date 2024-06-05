@@ -3,6 +3,13 @@
 @tailwind utilities;
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
 
+:root {
+  --primary-rgb: 252, 65, 0; /* #FC4100 */ 
+  --secondary-rgb: 255, 197, 90; /* #FFC55A */
+  --tertiary-rgb: 0, 33, 94; /* #00215E */
+  --quaternary-rgb: 44, 78, 128; /* #2C4E80 */
+}
+
 body {
   margin: 0;
   padding: 0;

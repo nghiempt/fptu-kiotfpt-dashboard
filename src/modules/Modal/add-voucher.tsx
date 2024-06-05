@@ -3,28 +3,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import Modal from "@mui/material/Modal";
 import { VoucherService } from "../../services/voucher";
 
-const style = {
-  position: "absolute" as "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
-
-const addVoucher = async (data: any) => {
-  const addV = await VoucherService.addVoucher(data);
-  if (addV?.result) {
-    window.location.reload();
-    console.log(data);
-  } else {
-    alert(addV?.message);
-  }
-};
-
 export default function AddVoucherModal({
   open,
   handleClose,
@@ -34,16 +12,25 @@ export default function AddVoucherModal({
   handleClose: any;
   data: any;
 }) {
-  const [voucherId, setVoucherId] = React.useState("");
   const [voucherValue, setVoucherValue] = React.useState("");
+
+  const addVoucher = async (data: any) => {
+    const addV = await VoucherService.addVoucher(data);
+    if (addV?.result) {
+      window.location.reload();
+    } else {
+      alert(addV?.message);
+    }
+  };
+
   const handleSubmit = () => {
     data = {
       shop_id: 10,
       value: voucherValue,
     };
     addVoucher(data);
-    console.log(data);
   };
+
   return (
     <div>
       <Modal open={open} onClose={handleClose}>
@@ -57,7 +44,7 @@ export default function AddVoucherModal({
                 <CloseIcon />
               </div>
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
+                <h1 className="text-[20px] font-bold leading-tight tracking-tight text-gray-900">
                   Create Voucher
                 </h1>
                 <div className="flex flex-col gap-4">
@@ -66,22 +53,22 @@ export default function AddVoucherModal({
                     placeholder="Voucher value"
                     value={voucherValue}
                     onChange={(e) => setVoucherValue(e.target.value)}
-                    className="w-full border px-4 py-3 text-gray-700 bg-gray-200 rounded-lg focus:outline-none focus:bg-white"
+                    className="w-full border px-4 py-3 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
                   />
                 </div>
                 <div className="flex gap-x-2">
                   <button
+                    onClick={handleClose}
+                    className="w-full text-white bg-gray-400 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                  >
+                    Cancel
+                  </button>
+                  <button
                     type="submit"
-                    className="w-full text-white bg-[#0B2447] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                    className="w-full text-white bg-[rgb(var(--quaternary-rgb))] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                     onClick={handleSubmit}
                   >
                     Create
-                  </button>
-                  <button
-                    onClick={handleClose}
-                    className="w-full text-white bg-red-800 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                  >
-                    Cancel
                   </button>
                 </div>
               </div>
