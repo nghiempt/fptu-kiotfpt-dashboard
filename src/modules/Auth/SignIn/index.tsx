@@ -4,6 +4,8 @@ import { Box } from "@mui/material";
 import * as Components from "./component";
 import { ROUTE } from "../../../routes/constant";
 import { heightScreen } from "../../../utils/constant";
+import { AuthService } from "../../../services/auth";
+import Cookie from 'js-cookie';
 
 const SignInPage: React.FC = () => {
 
@@ -14,6 +16,23 @@ const SignInPage: React.FC = () => {
 
   const handleSubmit = async () => {
     navigate(ROUTE.SELLER);
+    const payload = {
+      username: username,
+      password: password
+    };
+    const fetch = await AuthService.signIn(payload);
+    if (fetch?.result) {
+      Cookie.set('accountID', fetch?.data?.account_id);
+      Cookie.set('role', fetch?.data?.role);
+      if (fetch?.data?.role === "shop") {
+        navigate(ROUTE.SELLER);
+      } else {
+        navigate(ROUTE.ADMIN);
+      }
+    } else {
+      alert("Username or password is incorrect");
+    }
+    
   }
 
   const goToSignUp = () => {

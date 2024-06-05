@@ -5,13 +5,16 @@ import { useLocation } from "react-router-dom";
 import { ROUTE } from "../../routes/constant";
 import SellerPage from "./SellerPage";
 import TableExample from "./components/Example";
+import TableProduct from "./components/Product";
+import { ProductService } from "../../services/product";
 
 const SellerContainer: React.FC<{}> = () => {
 
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const [dataExample] = useState<any[]>([]);
+  const [dataExample, setDataExample] = useState<any[]>([]);
+  const [dataProduct, setDataProduct] = useState<any[]>([]);
 
   const [selectedItem, setSelectedItem] = useState<number>(0);
 
@@ -36,7 +39,7 @@ const SellerContainer: React.FC<{}> = () => {
     selectedItem === 3 ||
     currentPath.toLowerCase() === ROUTE.SELLER_PRODUCT
   ) {
-    tableComponent = <TableExample data={dataExample} />;
+    tableComponent = <TableProduct data={dataProduct} />;
   } else if (
     selectedItem === 4 ||
     currentPath.toLowerCase() === ROUTE.SELLER_VOUCHER
@@ -66,6 +69,10 @@ const SellerContainer: React.FC<{}> = () => {
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_ORDER) {
           setSelectedItem(2);
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_PRODUCT) {
+          const pros = await ProductService.searchProduct("", "1", "8");
+          if (pros?.result) {
+            setDataProduct(pros?.data);
+          }
           setSelectedItem(3);
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_VOUCHER) {
           setSelectedItem(4);
