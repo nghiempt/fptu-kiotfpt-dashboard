@@ -24,4 +24,7 @@ export const API = {
   DELETE_VOUCHER: `${HOST}/voucher/delete`,
   CREATE_VOUCHER: `${HOST}/voucher/create`,
   UPDATE_VOUCHER: `${HOST}/voucher/update`,
+  //
+  GET_ORDER_BY_SHOP_ID: `${HOST}/order/get-by-shop`,
+  UPDATE_ORDER_STATUS: `${HOST}/order/update`,
 };

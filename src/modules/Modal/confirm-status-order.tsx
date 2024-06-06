@@ -1,29 +1,29 @@
 import * as React from "react";
-import CloseIcon from "@mui/icons-material/Close";
 import Modal from "@mui/material/Modal";
 import { VoucherService } from "../../services/voucher";
+import { OrderService } from "../../services/order";
 
-export default function AddVoucherModal({
+export default function ConfirmStatusOrder({
   open,
   handleClose,
-  data,
+  id,
+  payload,
 }: {
   open: boolean;
   handleClose: any;
-  data: any;
+  id: string;
+  payload: string;
 }) {
-  const [voucherValue, setVoucherValue] = React.useState("");
 
-  const handleSubmit = async () => {
-    data = {
-      shop_id: 10,
-      value: voucherValue,
-    };
-    const addV = await VoucherService.addVoucher(data);
-    if (addV?.result) {
+  const updateOrder = async (id: string, payload: any) => {
+    const body = {
+      value: payload,
+    }
+    const upOrd = await OrderService.updateOrder(id, body);
+    if (upOrd?.result) {
       window.location.reload();
     } else {
-      alert(addV?.message);
+      alert(upOrd?.message);
     }
   };
 
@@ -32,27 +32,15 @@ export default function AddVoucherModal({
       <Modal open={open} onClose={handleClose}>
         <section className="">
           <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <div className="w-full relative bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 ">
-              <div
-                className="absolute top-4 right-4 cursor-pointer"
-                onClick={handleClose}
-              >
-                <CloseIcon />
-              </div>
+            <div className="w-full relative bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0 ">
+              <h1 className="text-center w-full text-white bg-[#0B2447] py-4 rounded-t-lg font-bold text-[18px]">
+                Confirm
+              </h1>
               <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 className="text-[20px] font-bold leading-tight tracking-tight text-gray-900">
-                  Create Voucher
+                <h1 className="font-medium text-[16px] text-center">
+                  Do you agree to change status order?
                 </h1>
-                <div className="flex flex-col gap-4">
-                  <input
-                    type="text"
-                    placeholder="Voucher value"
-                    value={voucherValue}
-                    onChange={(e) => setVoucherValue(e.target.value)}
-                    className="w-full border px-4 py-3 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
-                  />
-                </div>
-                <div className="flex gap-x-2">
+                <div className="flex gap-x-4">
                   <button
                     onClick={handleClose}
                     className="w-full text-white bg-gray-400 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
@@ -62,9 +50,9 @@ export default function AddVoucherModal({
                   <button
                     type="submit"
                     className="w-full text-white bg-[rgb(var(--quaternary-rgb))] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                    onClick={handleSubmit}
+                    onClick={() => updateOrder(id, payload)}
                   >
-                    Create
+                    Submit
                   </button>
                 </div>
               </div>
@@ -72,6 +60,6 @@ export default function AddVoucherModal({
           </div>
         </section>
       </Modal>
-    </div>
+    </div >
   );
 }

@@ -9,6 +9,8 @@ import TableProduct from "./components/Product";
 import { ProductService } from "../../services/product";
 import TableVoucher from "./components/Voucher";
 import { VoucherService } from "../../services/voucher";
+import TableOrder from "./components/Order";
+import { OrderService } from "../../services/order";
 
 const SellerContainer: React.FC<{}> = () => {
 
@@ -18,6 +20,7 @@ const SellerContainer: React.FC<{}> = () => {
   const [dataExample, setDataExample] = useState<any[]>([]);
   const [dataProduct, setDataProduct] = useState<any[]>([]);
   const [dataVoucher, setDataVoucher] = useState<any[]>([]);
+  const [dataOrder, setDataOrder] = useState<any[]>([]);
 
   const [selectedItem, setSelectedItem] = useState<number>(0);
 
@@ -37,7 +40,7 @@ const SellerContainer: React.FC<{}> = () => {
     selectedItem === 2 ||
     currentPath.toLowerCase() === ROUTE.SELLER_ORDER
   ) {
-    tableComponent = <TableExample data={dataExample} />;
+    tableComponent = <TableOrder data={dataOrder} />;
   } else if (
     selectedItem === 3 ||
     currentPath.toLowerCase() === ROUTE.SELLER_PRODUCT
@@ -70,6 +73,10 @@ const SellerContainer: React.FC<{}> = () => {
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_CATEGORY) {
           setSelectedItem(1);
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_ORDER) {
+          const ords = await OrderService.getOrderByShopID("10", "1", "10");
+          if (ords?.result) {
+            setDataOrder(ords?.data);
+          }
           setSelectedItem(2);
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_PRODUCT) {
           const pros = await ProductService.searchProduct("", "1", "8");

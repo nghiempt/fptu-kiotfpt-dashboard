@@ -13,6 +13,18 @@ export const formatDate = (date: Date): string => {
     return date.toLocaleDateString();
 };
 
+export const formatTime = (timestamp: any): string => {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+};
+
 export const formatFollower = (num: number): string => {
     if (num > 999) return (num / 1000).toFixed(0) + "k";
     return num + "";
@@ -40,14 +52,15 @@ export const checkSignIned = () => {
     }
 };
 
-const Helper = {
+export const Helper = {
     capitalizeString,
     formatNumber,
     formatDate,
     formatFollower,
     checkIsPhoneNumber,
     checkIsEmail,
-    checkSignIned
+    checkSignIned,
+    formatTime
 };
 
 export default Helper;
