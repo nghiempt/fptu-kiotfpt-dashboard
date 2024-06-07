@@ -16,15 +16,18 @@ export const API = {
   SEARCH_PRODUCT: `${HOST}/product/search`,
   //
   GET_PRODUCT_BY_ID: `${HOST}/product`,
-  //
+  //shop
   GET_SHOP_BY_ID: `${HOST}/shop/profile`,
   GET_PRODUCT_BY_SHOP_ID: `${HOST}/product/get-by-shop`,
-  //
+  CREATE_PRODUCT: `${HOST}/product/create`,
+  //voucher
   GET_VOUCHER_BY_SHOP_ID: `${HOST}/voucher/get-by-shop`,
   DELETE_VOUCHER: `${HOST}/voucher/delete`,
   CREATE_VOUCHER: `${HOST}/voucher/create`,
   UPDATE_VOUCHER: `${HOST}/voucher/update`,
-  //
+  //order
   GET_ORDER_BY_SHOP_ID: `${HOST}/order/get-by-shop`,
   UPDATE_ORDER_STATUS: `${HOST}/order/update`,
+  //brand
+  GET_BRAND_BY_CATEGORY: `${HOST}/brand/get-by-category`,
 };
