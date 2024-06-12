@@ -1,11 +1,11 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
-interface SellerTableProps {
+interface AdminTableProps {
   data: any[];
 }
 
-const TableExample: React.FC<SellerTableProps> = ({ data: initialData }) => {
+const TableStatistical: React.FC<AdminTableProps> = ({ data: initialData }) => {
 
   const [data, setData] = useState(initialData);
 
@@ -15,14 +15,14 @@ const TableExample: React.FC<SellerTableProps> = ({ data: initialData }) => {
 
   return (
     <Box>
-      <Box sx={{ marginBottom: "20px", marginTop: "20px", marginLeft: "20px" }}>
+      <Box sx={{ marginBottom: "20px", marginTop: "10px", marginLeft: "20px", marginRight: "20px" }}>
         <Typography variant="h3" noWrap component="div" sx={{ flexGrow: 1 }}>
-          <b>SELLER MANAGEMENT</b>
+          <b>STATISTICAL MANAGEMENT</b>
         </Typography>
+
       </Box>
-      <Divider />
     </Box>
   );
 };
 
-export default TableExample;
+export default TableStatistical;

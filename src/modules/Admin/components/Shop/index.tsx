@@ -1,26 +1,24 @@
-import { Box, Typography, Pagination } from "@mui/material";
+import { Box, Pagination, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { AssetImages } from "../../../../utils/images";
-import Helper from "../../../../utils/helper";
-import ConfirmStatusOrder from "../../../Modal/confirm-status-order";
+import StarIcon from "@mui/icons-material/Star";
+import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import ConfirmBanShop from "../../../Modal/confirm-ban-shop";
 
-interface SellerTableProps {
+interface AdminTableProps {
   data: any[];
 }
 
-const TableOrder: React.FC<SellerTableProps> = ({ data: initialData }) => {
+const TableShop: React.FC<AdminTableProps> = ({ data: initialData }) => {
 
   const [data, setData] = useState(initialData);
-  const [isShowModalConfirm, setIsShowModalConfirm] = useState(false);
-  const [status, setStatus] = useState("");
+  const [isShowModalBan, setIsShowModalBan] = useState(false);
 
-  const handleOpenModal = (status: string) => {
-    setStatus(status);
-    setIsShowModalConfirm(true);
+  const handleOpenModal = () => {
+    setIsShowModalBan(true);
   };
 
   const handleCloseModal = () => {
-    setIsShowModalConfirm(false);
+    setIsShowModalBan(false);
   };
 
   useEffect(() => {
@@ -29,14 +27,14 @@ const TableOrder: React.FC<SellerTableProps> = ({ data: initialData }) => {
 
   return (
     <Box>
-      <ConfirmStatusOrder open={isShowModalConfirm} handleClose={handleCloseModal} id="2" payload={status} />
-      <Box sx={{ marginBottom: "20px", marginTop: "20px", marginLeft: "20px" }}>
+      <ConfirmBanShop open={isShowModalBan} handleClose={handleCloseModal} id="2" payload="ban" />
+      <Box sx={{ marginBottom: "20px", marginTop: "10px", marginLeft: "20px", marginRight: "20px" }}>
         <Typography variant="h3" noWrap component="div" sx={{ flexGrow: 1 }}>
-          <b>ORDER MANAGEMENT</b>
+          <b>SHOP MANAGEMENT</b>
         </Typography>
-        <div className="w-full flex gap-x-4 mt-4">
-          <div className="w-3/5 flex flex-col gap-6">
-            <div className="container mx-auto">
+        <div className="w-full flex mt-4">
+          <div className="w-full flex flex-col">
+            <div className="w-full">
               <div className="bg-white shadow-md rounded-lg overflow-hidden">
                 <table className="min-w-full leading-normal">
                   <thead>
@@ -45,13 +43,19 @@ const TableOrder: React.FC<SellerTableProps> = ({ data: initialData }) => {
                         ID
                       </th>
                       <th className="px-5 py-3 bg-[rgb(var(--tertiary-rgb))] text-left text-md font-semibold text-white uppercase tracking-wider">
-                        Customer name
+                        Shop name
                       </th>
                       <th className="px-5 py-3 bg-[rgb(var(--tertiary-rgb))] text-left text-md font-semibold text-white uppercase tracking-wider">
-                        Total
+                        Phone
+                      </th>
+                      <th className="px-5 py-3 bg-[rgb(var(--tertiary-rgb))] text-left text-md font-semibold text-white uppercase tracking-wider">
+                        Rate
+                      </th>
+                      <th className="px-5 py-3 bg-[rgb(var(--tertiary-rgb))] text-left text-md font-semibold text-white uppercase tracking-wider">
+                        Official
                       </th>
                       <th className="py-3 bg-[rgb(var(--tertiary-rgb))] text-left text-md font-semibold text-white uppercase tracking-wider">
-                        Time
+                        Status
                       </th>
                     </tr>
                   </thead>
@@ -64,7 +68,7 @@ const TableOrder: React.FC<SellerTableProps> = ({ data: initialData }) => {
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-900 whitespace-no-wrap">
-                              OR-{item?.order_id}
+                              Shop-{item?.id}
                             </p>
                           </td>
                           <td
@@ -73,12 +77,12 @@ const TableOrder: React.FC<SellerTableProps> = ({ data: initialData }) => {
                           >
                             <div className="flex items-center gap-2">
                               <img
-                                src={AssetImages.CUSTOMER_AVATR}
+                                src={item?.thumbnail}
                                 alt="voucher"
-                                className="w-8 h-8"
+                                className="w-10 h-10 rounded-md"
                               />
                               <p className="text-gray-600 whitespace-no-wrap">
-                                {item?.account_id}
+                                {item?.name}
                               </p>
                             </div>
                           </td>
@@ -87,16 +91,31 @@ const TableOrder: React.FC<SellerTableProps> = ({ data: initialData }) => {
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-600 font-bold text-[16px] whitespace-no-wrap">
-                              ${item?.order_total}
+                              {item?.phone}
+                            </p>
+                          </td>
+                          <td
+                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                              } border-b border-gray-200 text-[15px] cursor-pointer`}
+                          >
+                            <p className="text-gray-600 font-bold text-[16px] whitespace-no-wrap">
+                              {item?.rate.toString()} <StarIcon className="text-[#FF9017]" style={{ width: '14px' }} />
+                            </p>
+                          </td>
+                          <td
+                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                              } border-b border-gray-200 text-[15px] cursor-pointer`}
+                          >
+                            <p className="text-[rgb(var(--quaternary-rgb))] gap-2 font-medium text-[14px] whitespace-no-wrap flex justify-start items-center">
+                              official <DoneOutlineIcon style={{ width: '14px' }} />
                             </p>
                           </td>
                           <td
                             className={`py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
-                              } border-b border-gray-200 text-[15px] cursor-pointer`}
+                              } border-b border-gray-200 text-[15px] cursor-pointer pr-20 flex gap-2`}
                           >
-                            <p className="text-gray-600 whitespace-no-wrap">
-                              {Helper.formatTime(item?.order_time_init)}
-                            </p>
+                            <button onClick={handleOpenModal} className="w-full border border-[rgb(var(--quaternary-rgb))] py-2 rounded-md text-[rgb(var(--quaternary-rgb))] font-bold text-[16px]">Ban</button>
+                            <button onClick={handleOpenModal} className="w-full border border-[rgb(var(--quaternary-rgb))] py-2 rounded-md text-[rgb(var(--quaternary-rgb))] font-bold text-[16px]">Unban</button>
                           </td>
                         </tr>
                       );
@@ -104,22 +123,7 @@ const TableOrder: React.FC<SellerTableProps> = ({ data: initialData }) => {
                   </tbody>
                 </table>
                 <div className="flex justify-center gap-x-2 mt-8 pb-6">
-                  <Pagination count={1} variant="outlined" shape="rounded" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="w-2/5 flex flex-col gap-4">
-            <div className="container mx-auto">
-              <div className="bg-white shadow-md rounded-lg p-6">
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">
-                    Order Detail
-                  </h3>
-                </div>
-                <div className="w-full flex justify-center items-center gap-2 pt-20">
-                  <button onClick={() => handleOpenModal("cancel")} className="w-full bg-[rgb(var(--quaternary-rgb))] py-2 rounded-md text-white font-bold text-[16px]">Complete</button>
-                  <button onClick={() => handleOpenModal("rejected")} className="w-full bg-[rgb(var(--primary-rgb))] py-2 rounded-md text-white font-bold text-[16px]">Reject</button>
+                  <Pagination count={7} variant="outlined" shape="rounded" />
                 </div>
               </div>
             </div>
@@ -130,4 +134,4 @@ const TableOrder: React.FC<SellerTableProps> = ({ data: initialData }) => {
   );
 };
 
-export default TableOrder;
+export default TableShop;

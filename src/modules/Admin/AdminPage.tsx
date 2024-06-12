@@ -80,7 +80,7 @@ export default function AdminPage(data: data) {
           position: "relative",
           width: "250px",
           height: "100vh",
-          backgroundColor: "#0B2447",
+          backgroundColor: "#2C4E80",
           zIndex: "999999",
         }}
         hidden={isTabletWidth}
@@ -120,7 +120,7 @@ export default function AdminPage(data: data) {
                       <ListItemButton
                         onClick={() => handleItemClick(index)}
                         sx={{
-                          backgroundColor: index === selectedItem ? "#07182F" : "inherit",
+                          backgroundColor: index === selectedItem ? "#00215E" : "inherit",
                         }}
                       >
                         <ListItemIcon sx={{ color: "white" }}>
@@ -183,7 +183,7 @@ export default function AdminPage(data: data) {
             alignItems: "center",
             width: "100%",
             height: "70px",
-            backgroundColor: "#07182F",
+            backgroundColor: "#00215E",
           }}
         >
           <div
@@ -212,9 +212,7 @@ export default function AdminPage(data: data) {
             className="data"
             style={{
               width: "100%",
-              backgroundColor: "#FFFFFF",
               borderRadius: "8px",
-              boxShadow: "0px 2px 8px rgba(0, 0, 0, 0.25)",
               marginTop: "20px",
               marginLeft: "20px",
               marginRight: "20px",

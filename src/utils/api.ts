@@ -1,4 +1,4 @@
-export const HOST = `http://4.230.16.126:8888/v1`;
+export const HOST = `https://api.kiotfpt.store/v1`;
 
 export const API = {
   //
