@@ -42,6 +42,39 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
     ],
   } as any);
 
+  const [selectedImage, setSelectedImage] = useState<string>("");
+  //kiểm tra trùng color
+  const mergedColors = selectedProduct?.variants?.reduce(
+    (acc: any, curr: any) => {
+      const existingColor = acc.find(
+        (item: any) => item.color?.value === curr.color?.value
+      );
+      if (existingColor) {
+        existingColor.quantity += curr.quantity;
+      } else {
+        acc.push(curr);
+      }
+      return acc;
+    },
+    []
+  );
+
+  //kiểm tra trùng size
+  const mergedVariants = selectedProduct?.variants?.reduce(
+    (acc: any, curr: any) => {
+      const existingVariant = acc.find(
+        (item: any) => item.size?.value === curr.size?.value
+      );
+      if (existingVariant) {
+        existingVariant.quantity += curr.quantity;
+      } else {
+        acc.push(curr);
+      }
+      return acc;
+    },
+    []
+  );
+
   const handleRowClick = (item: any, index: any) => {
     setSelectedIndex(index);
     setSelectedProduct(item);
@@ -55,9 +88,7 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
     setIsOpenDeleteProduct(true);
     setIdCurent(id);
     setDataVCurent(dataV);
-    console.log(dataV);
-    
-    console.log(id);
+    console.log(selectedProduct);
   };
 
   const handleCloseAddProduct = () => {
@@ -76,6 +107,12 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
       setSelectedProduct(data[0]);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (selectedProduct?.thumbnail?.length) {
+      setSelectedImage(selectedProduct.thumbnail[0].link);
+    }
+  }, [selectedProduct]);
 
   useEffect(() => {}, [selectedProduct, dataVCurent, idCurent]);
 
@@ -184,37 +221,60 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                   <h3 className="text-lg font-bold mb-4 text-center">
                     Product Details
                   </h3>
-                  <div className="w-full flex items-center mb-4">
-                    <div className="w-full flex items-center gap-x-4">
-                      <img
-                        src={selectedProduct?.thumbnail[0]?.link}
-                        alt="transaction icon"
-                        className="w-56 border rounded-md shadow-md"
-                      />
-                      <div className="ml-3 flex flex-col">
+                  <div className="w-full flex items-center mb-4 ">
+                    <div className="w-full flex items-center gap-x-4 ">
+                      <div className="w-1/3 flex flex-col gap-2 ">
+                        <div className="flex justify-center ">
+                          <img
+                            src={selectedImage}
+                            alt="Selected"
+                            className="w-56 border rounded-md shadow-md"
+                          />
+                        </div>
+
+                        <div className="grid gap-x-1 grid-cols-6 cursor-pointer ">
+                          {selectedProduct?.thumbnail
+                            ?.slice(0, 6)
+                            .map((item: any, index: any) => (
+                              <div key={index}>
+                                <img
+                                  src={item?.link}
+                                  alt="Thumbnail"
+                                  className="w-10 border rounded-md shadow-md"
+                                  onMouseEnter={() =>
+                                    setSelectedImage(item?.link)
+                                  }
+                                />
+                              </div>
+                            ))}
+                        </div>
+                      </div>
+
+                      <div className="w-2/3 ml-3 flex flex-col">
                         <div className="flex items-center gap-x-2">
                           <h2 className="text-lg font-semibold">
                             {selectedProduct?.name}
                           </h2>
-                          <div className="flex items-center">
-                            <img
-                              src={AssetImages.DISCOUNT_ICON}
-                              alt="img"
-                              style={{ width: "20%" }}
-                            />
-                            <h1 className="text-red-600">
-                              -{selectedProduct?.discount}%
-                            </h1>
-                          </div>
+                          {selectedProduct?.discount > 0 && (
+                            <div className="flex items-center">
+                              <img
+                                src={AssetImages.DISCOUNT_ICON}
+                                alt="img"
+                                style={{ width: "20%" }}
+                              />
+                              <h1 className="text-red-600">
+                                -{selectedProduct?.discount}%
+                              </h1>
+                            </div>
+                          )}
                         </div>
                         <span className="text-sm text-gray-900 font-semibold">
                           Sold: {selectedProduct?.sold}
                         </span>
                         <span className="text-sm text-gray-900 font-semibold">
-                          Price: {selectedProduct?.minPrice}$ -
-                          {selectedProduct?.maxPrice}$
+                          Price: {selectedProduct?.minPrice === selectedProduct?.maxPrice ? `$${selectedProduct?.minPrice}` : `$${selectedProduct?.minPrice} - $${selectedProduct?.maxPrice}`}
                         </span>
-                        <span className="text-sm text-gray-900 font-semibold">
+                        <span className="text-sm text-gray-900 font-semibold mb-4">
                           Rate: {selectedProduct?.rate} / 5
                         </span>
                         <div className="mb-4 flex gap-x-2 items-center">
@@ -222,11 +282,13 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                             Color:
                           </p>
                           <div className="flex gap-x-1">
-                            <button className="bg-red-500 p-3 rounded-sm"></button>
-                            <button className="bg-blue-500 p-3 rounded-sm"></button>
-                            <button className="bg-green-500 p-3 rounded-sm"></button>
-                            <button className="bg-white p-3 rounded-sm"></button>
-                            <button className="bg-black p-3 rounded-sm"></button>
+                            {mergedColors?.map((item: any, index: any) => (
+                              <div key={index}>
+                                <button className="px-3 py-1 border rounded-sm border-gray-500 font-semibold">
+                                  {item?.color?.value}
+                                </button>
+                              </div>
+                            ))}
                           </div>
                         </div>
                         <div className="mb-4 flex gap-x-2 items-center">
@@ -234,18 +296,16 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                             Size:
                           </p>
                           <div className="flex gap-x-1">
-                            <button className="px-3 py-1 border rounded-sm border-gray-500 font-semibold">
-                              S
-                            </button>
-                            <button className="px-3 py-1 border rounded-sm border-gray-500 font-semibold">
-                              M
-                            </button>
-                            <button className="px-3 py-1 border rounded-sm border-gray-500 font-semibold">
-                              L
-                            </button>
-                            <button className="px-3 py-1 border rounded-sm border-gray-500 font-semibold">
-                              XL
-                            </button>
+                            {mergedVariants?.map((item: any, index: any) => (
+                              <div key={index}>
+                                <button
+                                  
+                                  className="px-3 py-1 border rounded-sm border-gray-500 font-semibold hover:shadow-xl"
+                                >
+                                  {item?.size?.value}
+                                </button>
+                              </div>
+                            ))}
                           </div>
                         </div>
                         <div className="mb-4 flex gap-x-2 items-center">
@@ -260,11 +320,11 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                     </div>
                   </div>
                   <div>
-                    <div className="mb-4 flex gap-x-2">
+                    <div className="py-4 flex gap-x-2">
                       <p className="text-sm text-gray-900 font-semibold">
                         Discription:
                       </p>
-                      <p className="text-sm text-gray-500">
+                      <p className="text-sm text-[20px] text-gray-500">
                         {selectedProduct?.description}
                       </p>
                     </div>
