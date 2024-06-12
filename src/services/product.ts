@@ -40,31 +40,28 @@ const createProduct = async (productData: any) => {
   }
 };
 
-const productData = {
-  brand_id: 0,
-  category_id: 0,
-  condition_id: 0,
-  description: "string",
-  discount: 0,
-  id: 0,
-  maxPrice: 0,
-  minPrice: 0,
-  name: "string",
-  shop_id: 0,
-  thumbnails: ["string"],
-  variants: [
-    {
-      colorId: 0,
-      price: 0,
-      productId: 0,
-      quantity: 0,
-      sizeId: 0,
-    },
-  ],
-};
+const deleteProduct = async (id: any, productData: any) => {
+  try {
+    const response = await fetch(API.DELETE_PRODUCT + `/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(productData),
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.error("Error deleting product:", err);
+    return false;
+  }
+}
+
 
 export const ProductService = {
   searchProduct,
   getProductByID,
   createProduct,
+  deleteProduct,
 };

@@ -1,4 +1,4 @@
-export const HOST = `http://4.230.16.126:8888/v1`;
+export const HOST = `https://api.kiotfpt.store/v1`;
 
 export const API = {
   //
@@ -20,6 +20,7 @@ export const API = {
   GET_SHOP_BY_ID: `${HOST}/shop/profile`,
   GET_PRODUCT_BY_SHOP_ID: `${HOST}/product/get-by-shop`,
   CREATE_PRODUCT: `${HOST}/product/create`,
+  DELETE_PRODUCT: `${HOST}/product/delete`,
   //voucher
   GET_VOUCHER_BY_SHOP_ID: `${HOST}/voucher/get-by-shop`,
   DELETE_VOUCHER: `${HOST}/voucher/delete`,

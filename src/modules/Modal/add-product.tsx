@@ -111,6 +111,21 @@ export default function AddProductModal({
                       alt="No Image"
                     />
                   </div>
+                  <div className="flex gap-x-2">
+                        <input
+                          type="text"
+                          placeholder="Enter thumbnail URL"
+                          value={currentThumbnail}
+                          onChange={(e) => setCurrentThumbnail(e.target.value)}
+                          className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
+                        />
+                        <button
+                          onClick={handleUploadThumbnail}
+                          className="border px-4 py-2 text-white bg-gray-500 rounded-lg focus:outline-none"
+                        >
+                          Upload
+                        </button>
+                      </div>
 
                   {productData.variants.map((variant, index) => (
                     <div key={index} className="flex flex-col gap-2">
@@ -169,34 +184,16 @@ export default function AddProductModal({
                           </select>
                         </div>
                       </div>
+                      <select name="conditionID" id="">
+                        <option value="0">Select condition</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                      </select>
+                      
                     </div>
                   ))}
                 </div>
                 <div className="flex flex-col gap-4">
-                  <div className="flex gap-x-2">
-                    <input
-                      type="text"
-                      placeholder="Enter thumbnail URL"
-                      value={currentThumbnail}
-                      onChange={(e) => setCurrentThumbnail(e.target.value)}
-                      className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
-                    />
-                    <button
-                      onClick={handleUploadThumbnail}
-                      className="border px-4 py-2 text-white bg-gray-500 rounded-lg focus:outline-none"
-                    >
-                      Upload
-                    </button>
-                  </div>
-
-                  <input
-                    type="text"
-                    placeholder="Enter product ID"
-                    name="id"
-                    value={productData.id}
-                    onChange={handleChange}
-                    className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
-                  />
                   <input
                     type="text"
                     placeholder="Enter product name"
@@ -229,14 +226,6 @@ export default function AddProductModal({
                     className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
                   />
 
-                  <input
-                    type="text"
-                    placeholder="Enter condition ID"
-                    name="condition_id"
-                    value={productData.condition_id}
-                    onChange={handleChange}
-                    className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
-                  />
                   <input
                     type="text"
                     placeholder="Enter quantity"
