@@ -127,7 +127,7 @@ const TableVoucher: React.FC<SellerTableProps> = ({ data: initialData }) => {
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-600 whitespace-no-wrap">
-                              <button className="w-1/2 border border-[#0B2447] text-[#0B2447] font-bold py-1 rounded-md text-[#0B2447]">
+                              <button className="w-1/2 border border-[#0B2447] font-bold py-1 rounded-md text-[#0B2447]">
                                 {item?.status?.value}
                               </button>
                             </p>
