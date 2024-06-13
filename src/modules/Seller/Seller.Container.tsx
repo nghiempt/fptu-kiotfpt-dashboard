@@ -11,6 +11,7 @@ import TableVoucher from "./components/Voucher";
 import { VoucherService } from "../../services/voucher";
 import TableOrder from "./components/Order";
 import { OrderService } from "../../services/order";
+import TableProfile from "./components/Profile";
 
 const SellerContainer: React.FC<{}> = () => {
 
@@ -55,7 +56,7 @@ const SellerContainer: React.FC<{}> = () => {
     selectedItem === 5 ||
     currentPath.toLowerCase() === ROUTE.SELLER_PROFILE
   ) {
-    tableComponent = <TableExample data={dataExample} />;
+    tableComponent = <TableProfile data={dataExample} />;
   } else {
     tableComponent = <TableExample data={dataExample} />;
   }
@@ -92,6 +93,7 @@ const SellerContainer: React.FC<{}> = () => {
           setSelectedItem(4);
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_PROFILE) {
           setSelectedItem(5);
+          
         }
       } catch (error) {
         console.error("Error fetching data: ", error);
