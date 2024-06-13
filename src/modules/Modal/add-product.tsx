@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import Modal from "@mui/material/Modal";
 import { AssetImages } from "../../utils/images";
+import { Divider } from "@mui/material";
 
 export default function AddProductModal({
   open,
@@ -82,7 +83,6 @@ export default function AddProductModal({
   };
 
   const handleSubmit = () => {
-    // Gửi dữ liệu productData tới API hoặc xử lý theo yêu cầu của bạn
     console.log(productData);
     handleClose();
   };
@@ -102,31 +102,59 @@ export default function AddProductModal({
               <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
                 Create Product
               </h1>
-              <div className="w-full flex gap-10">
-                <div className="w-1/2 flex flex-col gap-4">
+              <div className="w-full flex flex-col gap-10">
+                <div className="flex flex-col gap-4">
                   <div className="w-full justify-center items-center">
                     <img
-                      className="rounded-md"
+                      className="rounded-md "
                       src={productData.thumbnails[0] || ""}
                       alt="No Image"
+                      style={{width:"10%"}}
                     />
                   </div>
                   <div className="flex gap-x-2">
-                        <input
-                          type="text"
-                          placeholder="Enter thumbnail URL"
-                          value={currentThumbnail}
-                          onChange={(e) => setCurrentThumbnail(e.target.value)}
-                          className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
-                        />
-                        <button
-                          onClick={handleUploadThumbnail}
-                          className="border px-4 py-2 text-white bg-gray-500 rounded-lg focus:outline-none"
-                        >
-                          Upload
-                        </button>
-                      </div>
+                    <input
+                      type="text"
+                      placeholder="Enter thumbnail URL"
+                      value={currentThumbnail}
+                      onChange={(e) => setCurrentThumbnail(e.target.value)}
+                      className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
+                    />
+                    <button
+                      onClick={handleUploadThumbnail}
+                      className="border px-4 py-2 text-white bg-gray-500 rounded-lg focus:outline-none"
+                    >
+                      Upload
+                    </button>
+                  </div>
 
+                  <div className="flex flex-col gap-4">
+                    <input
+                      type="text"
+                      placeholder="Enter product name"
+                      name="name"
+                      value={productData.name}
+                      onChange={handleChange}
+                      className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
+                    />
+                    <textarea
+                      placeholder="Enter description"
+                      name="description"
+                      value={productData.description}
+                      className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
+                    />
+                    <input
+                      type="text"
+                      placeholder="Enter discount"
+                      name="discount"
+                      value={productData.discount}
+                      onChange={handleChange}
+                      className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
+                    />
+                  </div>
+                </div>
+                <Divider />
+                <div>
                   {productData.variants.map((variant, index) => (
                     <div key={index} className="flex flex-col gap-2">
                       <div className="mb-4 flex justify-between">
@@ -155,8 +183,6 @@ export default function AddProductModal({
                             <option value="4">XL</option>
                           </select>
                         </div>
-                      </div>
-                      <div className="mb-4 flex justify-between">
                         <div className="flex gap-x-2 items-center">
                           <p className="text-sm text-gray-900 font-semibold">
                             Brand:
@@ -184,56 +210,37 @@ export default function AddProductModal({
                           </select>
                         </div>
                       </div>
-                      <select name="conditionID" id="">
-                        <option value="0">Select condition</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                      </select>
-                      
+                      <div className="mb-4 flex justify-between">
+                        <div className="flex gap-x-2 items-center">
+                          <p className="text-sm text-gray-900 font-semibold">
+                            Condition:
+                          </p>
+                          <select name="conditionID" id="">
+                            <option value="0">Select condition</option>
+                            <option value="1">New</option>
+                          </select>
+                        </div>
+                      </div>
+
+                      <input
+                        type="text"
+                        placeholder="Enter price"
+                        name="price"
+                        // value={variant.price}
+                        // onChange={(e) => handleVariantChange(index, e)}
+                        className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
+                      />
+
+                      <input
+                        type="text"
+                        placeholder="Enter quantity"
+                        name="quantity"
+                        // value={variant.quantity}
+                        // onChange={(e) => handleVariantChange(index, e)}
+                        className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
+                      />
                     </div>
                   ))}
-                </div>
-                <div className="flex flex-col gap-4">
-                  <input
-                    type="text"
-                    placeholder="Enter product name"
-                    name="name"
-                    value={productData.name}
-                    onChange={handleChange}
-                    className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
-                  />
-                  <textarea
-                    placeholder="Enter description"
-                    name="description"
-                    value={productData.description}
-                    className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="Enter price"
-                    name="price"
-                    // value={variant.price}
-                    // onChange={(e) => handleVariantChange(index, e)}
-                    className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
-                  />
-                  <input
-                    type="text"
-                    placeholder="Enter discount"
-                    name="discount"
-                    value={productData.discount}
-                    onChange={handleChange}
-                    className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
-                  />
-
-                  <input
-                    type="text"
-                    placeholder="Enter quantity"
-                    name="quantity"
-                    // value={variant.quantity}
-                    // onChange={(e) => handleVariantChange(index, e)}
-                    className="w-full border px-4 py-2 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
-                  />
                 </div>
               </div>
 
