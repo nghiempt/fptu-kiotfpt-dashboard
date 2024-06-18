@@ -1,6 +1,7 @@
 import * as React from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import Modal from "@mui/material/Modal";
+import { BrandService } from "../../services/brand";
 
 export default function AddBrandModal({
   open,
@@ -12,8 +13,8 @@ export default function AddBrandModal({
   data: any;
 }) {
 
-  const [BrandName, setBrandName] = React.useState('');
-  const [BrandImage, setBrandImage] = React.useState(null as any);
+  const [brandName, setBrandName] = React.useState('');
+  const [brandImage, setBrandImage] = React.useState(null as any);
 
   const handleUpload = (e: any) => {
     let file = e.target.files[0];
@@ -25,7 +26,12 @@ export default function AddBrandModal({
   }
 
   const handleSubmit = async () => {
-
+    const payload = {
+      name: brandName,
+      thumbnail: "https://cdn-icons-png.flaticon.com/128/595/595067.png"
+    }
+    const fetch = await BrandService.createBrand(payload);
+    window.location.reload();
   };
 
   return (
@@ -45,7 +51,7 @@ export default function AddBrandModal({
                   Create Brand
                 </h1>
                 {
-                  BrandImage === null
+                  brandImage === null
                     ?
                     <label className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                       <div className="flex flex-col items-center justify-center pt-5 pb-6">
@@ -65,7 +71,7 @@ export default function AddBrandModal({
                     </label>
                     :
                     <div className="flex flex-col justify-center items-center">
-                      <img src={BrandImage} alt="qr" />
+                      <img src={brandImage} alt="qr" />
                       <button className="mt-10 px-10 py-1 border border-[rgb(var(--quaternary-rgb))] text-[rgb(var(--quaternary-rgb))] hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Clear</button>
                     </div>
                 }
@@ -73,7 +79,7 @@ export default function AddBrandModal({
                   <input
                     type="text"
                     placeholder="Brand Name"
-                    value={BrandName}
+                    value={brandName}
                     onChange={(e) => setBrandName(e.target.value)}
                     className="w-full border px-4 py-3 text-gray-700 bg-gray-100 rounded-lg focus:outline-none"
                   />

@@ -22,6 +22,7 @@ const TableVoucher: React.FC<SellerTableProps> = ({ data: initialData }) => {
   const [valueShopVoucher] = useState("");
   const [initialValueVoucher, setInitialValueVoucher] = useState("");
   const hasValueChanged = valueVoucher !== initialValueVoucher;
+  const [selectedItem, setSelectedItem] = useState({} as any);
 
   const updateVoucher = async () => {
     const updateV = await VoucherService.updateVoucher(17, initialValueVoucher);
@@ -49,13 +50,20 @@ const TableVoucher: React.FC<SellerTableProps> = ({ data: initialData }) => {
     setIsShowConfirmDeleteVoucherModal(false);
   };
 
-  const handleChange = (event: any) => {
+  const handleChange = async (event: any) => {
     setStatus(event.target.value);
+    const payload = {
+      shop_id: idShop,
+      value: selectedItem?.value,
+    }
+    const fetch = await VoucherService.updateVoucher(selectedItem?.id, payload);
+    window.location.reload();
   };
 
   useEffect(() => {
     setData(initialData);
     setInitialValueVoucher(valueVoucher);
+    setSelectedItem(initialData[0]);
   }, [initialData]);
 
   return (
@@ -98,17 +106,17 @@ const TableVoucher: React.FC<SellerTableProps> = ({ data: initialData }) => {
                   <tbody>
                     {data?.map((item: any, index: any) => {
                       return (
-                        <tr key={index}>
+                        <tr key={index} onClick={() => setSelectedItem(item)}>
                           <td
-                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`px-5 py-5 ${item === selectedItem ? "bg-gray-100" : "bg-white"
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-900 whitespace-no-wrap">
-                              VO-{item?.id}
+                              KFVO-0{item?.id}
                             </p>
                           </td>
                           <td
-                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`px-5 py-5 ${item === selectedItem ? "bg-gray-100" : "bg-white"
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <div className="flex items-center gap-2">
@@ -123,7 +131,7 @@ const TableVoucher: React.FC<SellerTableProps> = ({ data: initialData }) => {
                             </div>
                           </td>
                           <td
-                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`px-5 py-5 ${item === selectedItem ? "bg-gray-100" : "bg-white"
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-600 whitespace-no-wrap">
@@ -133,7 +141,7 @@ const TableVoucher: React.FC<SellerTableProps> = ({ data: initialData }) => {
                             </p>
                           </td>
                           <td
-                            className={`py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`py-5 ${item === selectedItem ? "bg-gray-100" : "bg-white"
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-600 whitespace-no-wrap">
@@ -164,7 +172,7 @@ const TableVoucher: React.FC<SellerTableProps> = ({ data: initialData }) => {
                 className="w-full border border-[rgb(var(--tertiary-rgb))] font-bold py-3 rounded-lg text-[rgb(var(--tertiary-rgb))]"
               >
                 Add New Voucher
-              </button> 
+              </button>
             </div>
             <div className="container mx-auto">
               <div className="bg-white shadow-md rounded-lg p-6">
@@ -176,22 +184,22 @@ const TableVoucher: React.FC<SellerTableProps> = ({ data: initialData }) => {
                     <div className="grid grid-cols-3 gap-4 items-center">
                       <div className="flex gap-x-2">
                         <p className="text-[15px] text-gray-500">ID:</p>
-                        <p className="text-[15px] font-bold">2</p>
+                        <p className="text-[15px] font-bold">KFVO-0{selectedItem?.id}</p>
                       </div>
                       <div className="flex gap-x-2 items-center">
                         <p className="text-[15px] text-gray-500">Value:</p>
                         <input
                           type="text"
-                          value={valueVoucher}
-                          onChange={(e) => setValueVoucher(e.target.value)}
+                          value={selectedItem?.value}
+                          onChange={(e) => setSelectedItem({ ...selectedItem, value: e.target.value })}
                           className="outline-none text-[15px] font-bold border px-2 py-1 rounded-md w-24 text-center"
                         />
                         <button
-                          className={`border px-8 py-1 rounded-md ${hasValueChanged
+                          className={`border px-8 py-1 rounded-md ${!hasValueChanged
                             ? "bg-[rgb(var(--tertiary-rgb))] cursor-pointer font-bold"
                             : "bg-gray-400 cursor-not-allowed"
                             }`}
-                          disabled={!hasValueChanged}
+                          // disabled={!hasValueChanged}
                           onClick={updateVoucher}
                         >
                           <h1 className="text-white">Change</h1>

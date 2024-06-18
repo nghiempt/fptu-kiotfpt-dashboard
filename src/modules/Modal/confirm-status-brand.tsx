@@ -1,4 +1,5 @@
 import Modal from "@mui/material/Modal";
+import { BrandService } from "../../services/brand";
 
 export default function ConfirmStatusBrand({
   open,
@@ -13,9 +14,8 @@ export default function ConfirmStatusBrand({
 }) {
 
   const updateBrand = async (id: string, payload: any) => {
-    const body = {
-      value: payload,
-    }
+    const fetch = await BrandService.deleteBrand(id);
+    window.location.reload();
   };
 
   return (

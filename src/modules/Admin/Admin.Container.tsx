@@ -8,117 +8,18 @@ import TableCategory from "./components/Category";
 import TableBrand from "./components/Brand";
 import TableShop from "./components/Shop";
 import TableStatistical from "./components/Statistical";
+import { CategoryService } from "../../services/category";
+import { BrandService } from "../../services/brand";
+import { ShopService } from "../../services/shop";
 
 const AdminContainer: React.FC<{}> = () => {
 
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const [dataShop, setDataShop] = useState<any[]>([
-    {
-      id: 10,
-      name: "Levents",
-      email: "levent@gmail.com",
-      phone: "0877366566",
-      thumbnail: "https://assets.kiotfpt.store/kattie_handmade_shop_kiotfpt.jpg",
-      rate: 4.5,
-      official: false,
-      follower: 0,
-    },
-    {
-      id: 10,
-      name: "Levents",
-      email: "levent@gmail.com",
-      phone: "0877366566",
-      thumbnail: "https://assets.kiotfpt.store/kattie_handmade_shop_kiotfpt.jpg",
-      rate: 4.5,
-      official: false,
-      follower: 0,
-    },
-    {
-      id: 10,
-      name: "Levents",
-      email: "levent@gmail.com",
-      phone: "0877366566",
-      thumbnail: "https://assets.kiotfpt.store/kattie_handmade_shop_kiotfpt.jpg",
-      rate: 4.5,
-      official: false,
-      follower: 0,
-    },
-    {
-      id: 10,
-      name: "Levents",
-      email: "levent@gmail.com",
-      phone: "0877366566",
-      thumbnail: "https://assets.kiotfpt.store/kattie_handmade_shop_kiotfpt.jpg",
-      rate: 4.5,
-      official: false,
-      follower: 0,
-    },
-    {
-      id: 10,
-      name: "Levents",
-      email: "levent@gmail.com",
-      phone: "0877366566",
-      thumbnail: "https://assets.kiotfpt.store/kattie_handmade_shop_kiotfpt.jpg",
-      rate: 4.5,
-      official: false,
-      follower: 0,
-    },
-    {
-      id: 10,
-      name: "Levents",
-      email: "levent@gmail.com",
-      phone: "0877366566",
-      thumbnail: "https://assets.kiotfpt.store/kattie_handmade_shop_kiotfpt.jpg",
-      rate: 4.5,
-      official: false,
-      follower: 0,
-    },
-    {
-      id: 10,
-      name: "Levents",
-      email: "levent@gmail.com",
-      phone: "0877366566",
-      thumbnail: "https://assets.kiotfpt.store/kattie_handmade_shop_kiotfpt.jpg",
-      rate: 4.5,
-      official: false,
-      follower: 0,
-    },
-    {
-      id: 10,
-      name: "Levents",
-      email: "levent@gmail.com",
-      phone: "0877366566",
-      thumbnail: "https://assets.kiotfpt.store/kattie_handmade_shop_kiotfpt.jpg",
-      rate: 4.5,
-      official: false,
-      follower: 0,
-    },
-  ]);
-  const [dataCategory, setDataCategory] = useState<any[]>([
-    {
-      id: 1,
-      name: "Category 1",
-      amount_product: 50,
-      thumbnail: "https://assets.kiotfpt.store/clothes_category_kiotfpt.jpg",
-      status: {
-        id: 1,
-        name: "active",
-      }
-    },
-  ]);
-  const [dataBrand, setDataBrand] = useState<any[]>([
-    {
-      id: 1,
-      name: "Brand 1",
-      thumbnail: "https://assets.kiotfpt.store/clothes_category_kiotfpt.jpg",
-      status: {
-        id: 1,
-        name: "active",
-      }
-    },
-  ])
+  const [dataShop, setDataShop] = useState<any[]>([]);
+  const [dataCategory, setDataCategory] = useState<any[]>([]);
+  const [dataBrand, setDataBrand] = useState<any[]>([])
   const [dataStatistical, setDataStatistical] = useState<any[]>([])
 
   const [selectedItem, setSelectedItem] = useState<number>(0);
@@ -160,10 +61,22 @@ const AdminContainer: React.FC<{}> = () => {
         } else if (currentPath.toLowerCase() === ROUTE.ADMIN_STATISTICAL) {
           setSelectedItem(0);
         } else if (currentPath.toLowerCase() === ROUTE.ADMIN_CATEGORY) {
+          const cats = await CategoryService.getAllCategories();
+          if (cats?.result) {
+            setDataCategory(cats?.data);
+          }
           setSelectedItem(1);
         } else if (currentPath.toLowerCase() === ROUTE.ADMIN_BRAND) {
+          const bras = await BrandService.getAllBrand();
+          if (bras?.result) {
+            setDataBrand(bras?.data);
+          }
           setSelectedItem(2);
         } else if (currentPath.toLowerCase() === ROUTE.ADMIN_SHOP) {
+          const shops = await ShopService.getAllShops();
+          if (shops?.result) {
+            setDataShop(shops?.data);
+          }
           setSelectedItem(3);
         }
       } catch (error) {

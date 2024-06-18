@@ -22,14 +22,14 @@ const getProductByID = async (id: string) => {
   }
 };
 
-const createProduct = async (productData: any) => {
+const createProduct = async (payload: any) => {
   try {
     const response = await fetch(API.CREATE_PRODUCT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(productData),
+      body: JSON.stringify(payload),
     });
 
     const data = await response.json();
@@ -40,14 +40,14 @@ const createProduct = async (productData: any) => {
   }
 };
 
-const deleteProduct = async (id: any, productData: any) => {
+const deleteProduct = async (id: any, payload: any) => {
   try {
     const response = await fetch(API.DELETE_PRODUCT + `/${id}`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(productData),
+      body: JSON.stringify(payload),
     });
 
     const data = await response.json();
@@ -57,7 +57,6 @@ const deleteProduct = async (id: any, productData: any) => {
     return false;
   }
 }
-
 
 export const ProductService = {
   searchProduct,

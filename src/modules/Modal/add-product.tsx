@@ -109,7 +109,7 @@ export default function AddProductModal({
                       className="rounded-md "
                       src={productData.thumbnails[0] || ""}
                       alt="No Image"
-                      style={{width:"10%"}}
+                      style={{ width: "10%" }}
                     />
                   </div>
                   <div className="flex gap-x-2">

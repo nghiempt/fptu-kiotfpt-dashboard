@@ -9,6 +9,7 @@ const getVoucherByShopID = async (id: string) => {
     return false;
   }
 };
+
 const deleteVoucher = async (id: string) => {
   try {
     const response = await fetch(API.DELETE_VOUCHER + `/${id}`, {
@@ -21,14 +22,14 @@ const deleteVoucher = async (id: string) => {
   }
 };
 
-const addVoucher = async (dataAdd: any) => {
+const addVoucher = async (payload: any) => {
   try {
     const response = await fetch(API.CREATE_VOUCHER, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(dataAdd),
+      body: JSON.stringify(payload),
     });
     const data = await response.json();
     return data;
@@ -38,14 +39,14 @@ const addVoucher = async (dataAdd: any) => {
   }
 };
 
-const updateVoucher = async (id: any, dataV: any) => {
+const updateVoucher = async (id: any, payload: any) => {
   try {
     const response = await fetch(API.UPDATE_VOUCHER + `/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(dataV),
+      body: JSON.stringify(payload),
     });
     const data = await response.json();
     return data;

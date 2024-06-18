@@ -5,6 +5,7 @@ import AddCategoryModal from "../../../Modal/add-category";
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import { CategoryService } from "../../../../services/category";
 
 interface AdminTableProps {
   data: any[];
@@ -12,10 +13,12 @@ interface AdminTableProps {
 
 const TableCategory: React.FC<AdminTableProps> = ({ data: initialData }) => {
 
-  const [data, setData] = useState(initialData);
+  const [data, setData] = useState(initialData as any);
+  const [pageData, setPageData] = useState([] as any);
   const [isShowModalConfirm, setIsShowModalConfirm] = useState(false);
   const [status, setStatus] = useState("");
   const [isShowAddCategoryModal, setIsShowAddCategoryModal] = useState(false);
+  const [selectedItem, setSelectedItem] = useState({} as any);
 
   const handleOpenAddCategoryModal = () => {
     setIsShowAddCategoryModal(true);
@@ -34,8 +37,30 @@ const TableCategory: React.FC<AdminTableProps> = ({ data: initialData }) => {
     setIsShowModalConfirm(false);
   };
 
+  const renderTotalPageByAmountData = (data: any) => {
+    return parseInt((data?.length / 8).toFixed(0));
+  };
+
+  const changePage = (pageNumber: any) => {
+    const start = (pageNumber - 1) * 8;
+    const end = pageNumber * 8;
+    setPageData(data.slice(start, end));
+  };
+
+  const handleUpdateCategory = async () => {
+    const payload = {
+      name: selectedItem?.name,
+      shop_id: "10",
+      thumbnail: selectedItem?.thumbnail,
+    }
+    const fetch = await CategoryService.updateCategory(selectedItem?.id, payload);
+    window.location.reload();
+  };
+
   useEffect(() => {
     setData(initialData);
+    changePage(1);
+    setSelectedItem(initialData[0]);
   }, [initialData]);
 
   return (
@@ -72,19 +97,19 @@ const TableCategory: React.FC<AdminTableProps> = ({ data: initialData }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {data?.map((item: any, index: any) => {
+                    {pageData?.map((item: any, index: any) => {
                       return (
-                        <tr key={index}>
+                        <tr key={index} onClick={() => setSelectedItem(item)}>
                           <td
-                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`px-5 py-5 ${item === selectedItem ? "bg-gray-100" : "bg-white"
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-900 whitespace-no-wrap">
-                              Cat-{item?.id}
+                              KFCAT-0{item?.id}
                             </p>
                           </td>
                           <td
-                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`px-5 py-5 ${item === selectedItem ? "bg-gray-100" : "bg-white"
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <div className="flex items-center gap-2">
@@ -99,23 +124,23 @@ const TableCategory: React.FC<AdminTableProps> = ({ data: initialData }) => {
                             </div>
                           </td>
                           <td
-                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`px-5 py-5 ${item === selectedItem ? "bg-gray-100" : "bg-white"
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-600 font-bold text-[16px] whitespace-no-wrap">
-                              {item?.amount_product} products
+                              {item?.product_total} products
                             </p>
                           </td>
                           <td
-                            className={`py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`py-5 ${item === selectedItem ? "bg-gray-100" : "bg-white"
                               } border-b border-gray-200 text-[15px] cursor-pointer pr-20`}
                           >
                             {
-                              item?.status?.name === "active"
+                              item?.status?.value === "active"
                                 ?
-                                <button className="w-full border border-[rgb(var(--quaternary-rgb))] py-2 rounded-md text-[rgb(var(--quaternary-rgb))] font-bold text-[16px]">{item?.status?.name}</button>
+                                <button className="w-full border border-[rgb(var(--quaternary-rgb))] py-2 rounded-md text-[rgb(var(--quaternary-rgb))] font-bold text-[16px]">{item?.status?.value}</button>
                                 :
-                                <button className="w-full border border-[rgb(var(--primary-rgb))] py-2 rounded-md text-[rgb(var(--primary-rgb))] font-bold text-[16px]">{item?.status?.name}</button>
+                                <button className="w-full border border-[rgb(var(--primary-rgb))] py-2 rounded-md text-[rgb(var(--primary-rgb))] font-bold text-[16px]">{item?.status?.value}</button>
                             }
                           </td>
                         </tr>
@@ -124,7 +149,12 @@ const TableCategory: React.FC<AdminTableProps> = ({ data: initialData }) => {
                   </tbody>
                 </table>
                 <div className="flex justify-center gap-x-2 mt-8 pb-6">
-                  <Pagination count={1} variant="outlined" shape="rounded" />
+                  <Pagination
+                    count={renderTotalPageByAmountData(data)}
+                    onChange={(e, page) => changePage(page)}
+                    variant="outlined"
+                    shape="rounded"
+                  />
                 </div>
               </div>
             </div>
@@ -146,7 +176,7 @@ const TableCategory: React.FC<AdminTableProps> = ({ data: initialData }) => {
                   </h3>
                   <div className="flex items-center justify-center gap-4">
                     <img
-                      src="https://assets.kiotfpt.store/clothes_category_kiotfpt.jpg"
+                      src={selectedItem?.thumbnail}
                       alt="voucher"
                       className="w-36 h-36 border rounded-md"
                     />
@@ -171,7 +201,7 @@ const TableCategory: React.FC<AdminTableProps> = ({ data: initialData }) => {
                       <button className="w-1/3 py-2 bg-gray-300 rounded-l-md text-gray-700 font-bold text-[14px]">
                         <Grid3x3Icon />
                       </button>
-                      <button className="w-2/3 text-gray-700 font-medium text-[14px] text-start pl-4">Cat-1</button>
+                      <button className="w-2/3 text-gray-700 font-medium text-[14px] text-start pl-4">KFCAT-0{selectedItem?.id}</button>
                     </div>
                     <div className="w-2/4 rounded-md border border-gray-300 flex items-center justify-center">
                       <button className="w-1/5 py-2 bg-gray-300 text-gray-700 rounded-l-md font-bold text-[14px]">
@@ -179,12 +209,13 @@ const TableCategory: React.FC<AdminTableProps> = ({ data: initialData }) => {
                       </button>
                       <input
                         type="text"
-                        value="Category 1"
+                        value={selectedItem?.name}
+                        onChange={(e) => setSelectedItem({ ...selectedItem, name: e.target.value })}
                         className="w-4/5 pl-4 text-gray-700 font-medium focus:outline-none"
                       />
                     </div>
                     <div className="w-1/4 rounded-md border border-[rgb(var(--quaternary-rgb))] flex items-center justify-center">
-                      <button className="w-full py-2 bg-[rgb(var(--quaternary-rgb))] text-white rounded-md font-bold text-[14px]">
+                      <button onClick={handleUpdateCategory} className="w-full py-2 bg-[rgb(var(--quaternary-rgb))] text-white rounded-md font-bold text-[14px]">
                         <SyncAltIcon />
                       </button>
                     </div>

@@ -10,8 +10,11 @@ import TableVoucher from "./components/Voucher";
 import { VoucherService } from "../../services/voucher";
 import TableOrder from "./components/Order";
 import { OrderService } from "../../services/order";
-import TableCategory from "./components/Category";
+import TableProfile from "./components/Profile";
 import TableStatistical from "./components/Statistical";
+import TableCategory from "./components/Category";
+import { ProfileService } from "../../services/profile";
+import { CategoryService } from "../../services/category";
 
 const SellerContainer: React.FC<{}> = () => {
 
@@ -23,6 +26,7 @@ const SellerContainer: React.FC<{}> = () => {
   const [dataVoucher, setDataVoucher] = useState<any[]>([]);
   const [dataOrder, setDataOrder] = useState<any[]>([]);
   const [dataCategory, setDataCategory] = useState<any[]>([]);
+  const [dataProfile, setDataProfile] = useState<any>({});
 
   const [selectedItem, setSelectedItem] = useState<number>(0);
 
@@ -57,7 +61,7 @@ const SellerContainer: React.FC<{}> = () => {
     selectedItem === 5 ||
     currentPath.toLowerCase() === ROUTE.SELLER_PROFILE
   ) {
-    tableComponent = <TableStatistical data={dataStatistical} />;
+    tableComponent = <TableProfile data={dataProfile} />;
   } else {
     tableComponent = <TableStatistical data={dataStatistical} />;
   }
@@ -73,6 +77,10 @@ const SellerContainer: React.FC<{}> = () => {
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_STATISTICAL) {
           setSelectedItem(0);
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_CATEGORY) {
+          const cats = await CategoryService.getAllCategories();
+          if (cats?.result) {
+            setDataCategory(cats?.data);
+          }
           setSelectedItem(1);
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_ORDER) {
           const ords = await OrderService.getOrderByShopID("10", "1", "10");
@@ -93,6 +101,10 @@ const SellerContainer: React.FC<{}> = () => {
           }
           setSelectedItem(4);
         } else if (currentPath.toLowerCase() === ROUTE.SELLER_PROFILE) {
+          const prof = await ProfileService.getProfileByID("10");
+          if (prof?.result) {
+            setDataProfile(prof?.data);
+          }
           setSelectedItem(5);
         }
       } catch (error) {

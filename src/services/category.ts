@@ -1,8 +1,8 @@
 import { API } from "../utils/api";
 
-const getAllBrand = async () => {
+const getAllCategories = async () => {
   try {
-    const response = await fetch(API.GET_ALL_BRAND);
+    const response = await fetch(API.GET_ALL_CATEGORIES);
     const data = await response.json();
     return data;
   } catch (err) {
@@ -10,9 +10,9 @@ const getAllBrand = async () => {
   }
 };
 
-const createBrand = async (payload: any) => {
+const createCategory = async (payload: any) => {
   try {
-    const response = await fetch(API.CREATE_BRAND, {
+    const response = await fetch(API.CREATE_CATEGORY, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -26,9 +26,9 @@ const createBrand = async (payload: any) => {
   }
 };
 
-const updateBrand = async (id: any, payload: any) => {
+const updateCategory = async (id: any, payload: any) => {
   try {
-    const response = await fetch(API.UPDATE_BRAND + `/${id}`, {
+    const response = await fetch(API.UPDATE_CATEGORY + `/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -42,21 +42,8 @@ const updateBrand = async (id: any, payload: any) => {
   }
 };
 
-const deleteBrand = async (id: any) => {
-  try {
-    const response = await fetch(API.DELETE_BRAND + `/${id}`, {
-      method: "DELETE",
-    });
-    const data = await response.json();
-    return data;
-  } catch (err) {
-    return false;
-  }
-}
-
-export const BrandService = {
-  getAllBrand,
-  createBrand,
-  updateBrand,
-  deleteBrand
+export const CategoryService = {
+  getAllCategories,
+  createCategory,
+  updateCategory
 };

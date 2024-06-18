@@ -11,6 +11,7 @@ interface AdminTableProps {
 const TableShop: React.FC<AdminTableProps> = ({ data: initialData }) => {
 
   const [data, setData] = useState(initialData);
+  const [pageData, setPageData] = useState([] as any);
   const [isShowModalBan, setIsShowModalBan] = useState(false);
 
   const handleOpenModal = () => {
@@ -21,13 +22,24 @@ const TableShop: React.FC<AdminTableProps> = ({ data: initialData }) => {
     setIsShowModalBan(false);
   };
 
+  const renderTotalPageByAmountData = (data: any) => {
+    return parseInt((data?.length / 8).toFixed(0));
+  };
+
+  const changePage = (pageNumber: any) => {
+    const start = (pageNumber - 1) * 8;
+    const end = pageNumber * 8;
+    setPageData(data.slice(start, end));
+  };
+
   useEffect(() => {
     setData(initialData);
+    changePage(1)
   }, [initialData]);
 
   return (
     <Box>
-      <ConfirmBanShop open={isShowModalBan} handleClose={handleCloseModal} id="2" payload="ban" />
+      <ConfirmBanShop open={isShowModalBan} handleClose={handleCloseModal} id="2" payload="inactive" />
       <Box sx={{ marginBottom: "20px", marginTop: "10px", marginLeft: "20px", marginRight: "20px" }}>
         <Typography variant="h3" noWrap component="div" sx={{ flexGrow: 1 }}>
           <b>SHOP MANAGEMENT</b>
@@ -60,19 +72,19 @@ const TableShop: React.FC<AdminTableProps> = ({ data: initialData }) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {data?.map((item: any, index: any) => {
+                    {pageData?.map((item: any, index: any) => {
                       return (
                         <tr key={index}>
                           <td
-                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`px-5 py-5 bg-white
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-900 whitespace-no-wrap">
-                              Shop-{item?.id}
+                              KFSH-0{item?.id}
                             </p>
                           </td>
                           <td
-                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`px-5 py-5 bg-white
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <div className="flex items-center gap-2">
@@ -87,7 +99,7 @@ const TableShop: React.FC<AdminTableProps> = ({ data: initialData }) => {
                             </div>
                           </td>
                           <td
-                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`px-5 py-5 bg-white
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-600 font-bold text-[16px] whitespace-no-wrap">
@@ -95,7 +107,7 @@ const TableShop: React.FC<AdminTableProps> = ({ data: initialData }) => {
                             </p>
                           </td>
                           <td
-                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`px-5 py-5 bg-white
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-600 font-bold text-[16px] whitespace-no-wrap">
@@ -103,15 +115,21 @@ const TableShop: React.FC<AdminTableProps> = ({ data: initialData }) => {
                             </p>
                           </td>
                           <td
-                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`px-5 py-5 bg-white
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
-                            <p className="text-[rgb(var(--quaternary-rgb))] gap-2 font-medium text-[14px] whitespace-no-wrap flex justify-start items-center">
-                              official <DoneOutlineIcon style={{ width: '14px' }} />
-                            </p>
+                            {
+                              item?.official
+                                ?
+                                <p className="text-[rgb(var(--quaternary-rgb))] gap-2 font-medium text-[14px] whitespace-no-wrap flex justify-start items-center">
+                                  official <DoneOutlineIcon style={{ width: '14px' }} />
+                                </p>
+                                :
+                                null
+                            }
                           </td>
                           <td
-                            className={`py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`py-5 bg-white
                               } border-b border-gray-200 text-[15px] cursor-pointer pr-20 flex gap-2`}
                           >
                             <button onClick={handleOpenModal} className="w-full border border-[rgb(var(--quaternary-rgb))] py-2 rounded-md text-[rgb(var(--quaternary-rgb))] font-bold text-[16px]">Ban</button>
@@ -123,7 +141,12 @@ const TableShop: React.FC<AdminTableProps> = ({ data: initialData }) => {
                   </tbody>
                 </table>
                 <div className="flex justify-center gap-x-2 mt-8 pb-6">
-                  <Pagination count={7} variant="outlined" shape="rounded" />
+                  <Pagination
+                    count={renderTotalPageByAmountData(data)}
+                    onChange={(e, page) => changePage(page)}
+                    variant="outlined"
+                    shape="rounded"
+                  />
                 </div>
               </div>
             </div>

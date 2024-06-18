@@ -5,6 +5,7 @@ import AddBrandModal from "../../../Modal/add-brand";
 import Grid3x3Icon from '@mui/icons-material/Grid3x3';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 import SyncAltIcon from '@mui/icons-material/SyncAlt';
+import { BrandService } from "../../../../services/brand";
 
 interface AdminTableProps {
   data: any[];
@@ -16,6 +17,8 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
   const [isShowModalConfirm, setIsShowModalConfirm] = useState(false);
   const [status, setStatus] = useState("");
   const [isShowAddBrandModal, setIsShowAddBrandModal] = useState(false);
+  const [pageData, setPageData] = useState([] as any);
+  const [selectedItem, setSelectedItem] = useState({} as any);
 
   const handleOpenAddBrandModal = () => {
     setIsShowAddBrandModal(true);
@@ -34,8 +37,29 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
     setIsShowModalConfirm(false);
   };
 
+  const renderTotalPageByAmountData = (data: any) => {
+    return parseInt((data?.length / 8).toFixed(0));
+  };
+
+  const changePage = (pageNumber: any) => {
+    const start = (pageNumber - 1) * 8;
+    const end = pageNumber * 8;
+    setPageData(data.slice(start, end));
+  };
+
+  const handleUpdateBrand = async () => {
+    const payload = {
+      name: selectedItem?.name,
+      thumbnail: selectedItem?.thumbnail,
+    }
+    const fetch = await BrandService.updateBrand(selectedItem?.id, payload);
+    window.location.reload();
+  };
+
   useEffect(() => {
     setData(initialData);
+    changePage(1);
+    setSelectedItem(initialData[0]);
   }, [initialData]);
 
   return (
@@ -64,24 +88,24 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
                         Brand name
                       </th>
                       <th className="py-3 bg-[rgb(var(--tertiary-rgb))] text-left text-md font-semibold text-white uppercase tracking-wider">
-                        Status
+                        Number of Product
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    {data?.map((item: any, index: any) => {
+                    {pageData?.map((item: any, index: any) => {
                       return (
-                        <tr key={index}>
+                        <tr key={index} onClick={() => setSelectedItem(item)}>
                           <td
-                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`px-5 py-5 ${item === selectedItem ? "bg-gray-100" : "bg-white"
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-900 whitespace-no-wrap">
-                              Brand-{item?.id}
+                              KFBR-0{item?.id}
                             </p>
                           </td>
                           <td
-                            className={`px-5 py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
+                            className={`px-5 py-5 ${item === selectedItem ? "bg-gray-100" : "bg-white"
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <div className="flex items-center gap-2">
@@ -96,16 +120,12 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
                             </div>
                           </td>
                           <td
-                            className={`py-5 ${index === 0 ? "bg-gray-100" : "bg-white"
-                              } border-b border-gray-200 text-[15px] cursor-pointer pr-20`}
+                            className={`px-5 py-5 ${item === selectedItem ? "bg-gray-100" : "bg-white"
+                              } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
-                            {
-                              item?.status?.name === "active"
-                                ?
-                                <button className="w-2/3 border border-[rgb(var(--quaternary-rgb))] py-2 rounded-md text-[rgb(var(--quaternary-rgb))] font-bold text-[16px]">{item?.status?.name}</button>
-                                :
-                                <button className="w-2/3 border border-[rgb(var(--primary-rgb))] py-2 rounded-md text-[rgb(var(--primary-rgb))] font-bold text-[16px]">{item?.status?.name}</button>
-                            }
+                            <p className="text-gray-600 font-bold text-[16px] whitespace-no-wrap">
+                              {item?.product_total} products
+                            </p>
                           </td>
                         </tr>
                       );
@@ -113,7 +133,12 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
                   </tbody>
                 </table>
                 <div className="flex justify-center gap-x-2 mt-8 pb-6">
-                  <Pagination count={1} variant="outlined" shape="rounded" />
+                  <Pagination
+                    count={renderTotalPageByAmountData(data)}
+                    onChange={(e, page) => changePage(page)}
+                    variant="outlined"
+                    shape="rounded"
+                  />
                 </div>
               </div>
             </div>
@@ -135,7 +160,7 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
                   </h3>
                   <div className="flex items-center justify-center gap-4">
                     <img
-                      src="https://assets.kiotfpt.store/clothes_category_kiotfpt.jpg"
+                      src={selectedItem?.thumbnail}
                       alt="voucher"
                       className="w-36 h-36 border rounded-md"
                     />
@@ -160,7 +185,7 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
                       <button className="w-1/3 py-2 bg-gray-300 rounded-l-md text-gray-700 font-bold text-[14px]">
                         <Grid3x3Icon />
                       </button>
-                      <button className="w-2/3 text-gray-700 font-medium text-[14px] text-start pl-4">Brand-1</button>
+                      <button className="w-2/3 text-gray-700 font-medium text-[14px] text-start pl-4">KFBR-0{selectedItem?.id}</button>
                     </div>
                     <div className="w-2/4 rounded-md border border-gray-300 flex items-center justify-center">
                       <button className="w-1/5 py-2 bg-gray-300 text-gray-700 rounded-l-md font-bold text-[14px]">
@@ -168,12 +193,13 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
                       </button>
                       <input
                         type="text"
-                        value="Brand 1"
+                        value={selectedItem?.name}
+                        onChange={(e) => setSelectedItem({ ...selectedItem, name: e.target.value })}
                         className="w-4/5 pl-4 text-gray-700 font-medium focus:outline-none"
                       />
                     </div>
                     <div className="w-1/4 rounded-md border border-[rgb(var(--quaternary-rgb))] flex items-center justify-center">
-                      <button className="w-full py-2 bg-[rgb(var(--quaternary-rgb))] text-white rounded-md font-bold text-[14px]">
+                      <button onClick={handleUpdateBrand} className="w-full py-2 bg-[rgb(var(--quaternary-rgb))] text-white rounded-md font-bold text-[14px]">
                         <SyncAltIcon />
                       </button>
                     </div>
@@ -181,7 +207,6 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
                 </div>
                 <div className="w-full flex justify-center items-center gap-2 pt-12">
                   <button onClick={() => handleOpenModal("cancel")} className="w-full border border-[rgb(var(--primary-rgb))] bg-[rgb(var(--primary-rgb))] py-2 rounded-md text-white font-bold text-[16px]">Inactive</button>
-                  <button onClick={() => handleOpenModal("cancel")} className="w-full border border-[rgb(var(--quaternary-rgb))] bg-[rgb(var(--quaternary-rgb))] py-2 rounded-md text-white font-bold text-[16px]">Active</button>
                 </div>
               </div>
             </div>

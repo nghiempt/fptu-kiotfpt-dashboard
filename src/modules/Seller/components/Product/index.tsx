@@ -114,7 +114,7 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
     }
   }, [selectedProduct]);
 
-  useEffect(() => {}, [selectedProduct, dataVCurent, idCurent]);
+  useEffect(() => { }, [selectedProduct, dataVCurent, idCurent]);
 
   return (
     <Box>
@@ -133,9 +133,6 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
           <Typography variant="h3" noWrap component="div" sx={{ flexGrow: 1 }}>
             <b>PRODUCT MANAGEMENT</b>
           </Typography>
-          <Fab onClick={handleOpenAddProduct} color="success" aria-label="add">
-            <AddIcon />
-          </Fab>
         </div>
 
         <div className="w-full flex gap-x-4 mt-4">
@@ -162,9 +159,8 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                       <tr
                         key={index}
                         onClick={() => handleRowClick(item, index)}
-                        className={`cursor-pointer ${
-                          selectedIndex === index ? "bg-gray-200" : "bg-white"
-                        }`}
+                        className={`cursor-pointer ${selectedIndex === index ? "bg-gray-200" : "bg-white"
+                          }`}
                       >
                         <td className="px-5 py-5 border-b border-gray-200 text-sm">
                           <p className="text-gray-900 whitespace-no-wrap">
@@ -215,9 +211,17 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
             </div>
           </div>
           <div className="w-1/2">
+            <div className="w-full mb-4">
+              <button
+                onClick={handleOpenAddProduct}
+                className="w-full border border-[rgb(var(--tertiary-rgb))] font-bold py-3 rounded-lg text-[rgb(var(--tertiary-rgb))]"
+              >
+                Add New Voucher
+              </button>
+            </div>
             <div className="w-full flex flex-col gap-6 ">
               <div className="w-full container mx-auto ">
-                <div className="w-full bg-[rgb(var(--secondary-rgb))] shadow-md p-6 rounded-lg">
+                <div className="w-full bg-white shadow-md p-6 rounded-lg">
                   <h3 className="text-lg font-bold mb-4 text-center">
                     Product Details
                   </h3>
@@ -299,7 +303,7 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                             {mergedVariants?.map((item: any, index: any) => (
                               <div key={index}>
                                 <button
-                                  
+
                                   className="px-3 py-1 border rounded-sm border-gray-500 font-semibold hover:shadow-xl"
                                 >
                                   {item?.size?.value}
@@ -383,43 +387,12 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                       </div>
                     </div>
                   </div>
-                  <Divider className="" />
-                  <div className="my-4">
-                    <div className="flex flex-col gap-x-2">
-                      <p className="text-sm text-gray-900 font-semibold mb-4">
-                        Related information:
-                      </p>
-                      <div className="flex gap-x-10">
-                        <div>
-                          <img
-                            src={selectedProduct?.brand?.thumbnail}
-                            alt="transaction icon"
-                            className="w-10 rounded-md"
-                          />
-                          <span className="text-sm text-gray-500 text-[12px] font-medium">
-                            {selectedProduct?.brand?.name}
-                          </span>
-                        </div>
-                        <div>
-                          <img
-                            src={selectedProduct?.category?.thumbnail}
-                            alt="transaction icon"
-                            className="w-10 rounded-md"
-                          />
-                          <span className="text-sm text-gray-500 text-[12px] font-medium">
-                            {selectedProduct?.category?.name}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </Box>
-      <Divider />
     </Box>
   );
 };

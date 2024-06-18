@@ -1,6 +1,7 @@
 import * as React from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import Modal from "@mui/material/Modal";
+import { CategoryService } from "../../services/category";
 
 export default function AddCategoryModal({
   open,
@@ -25,7 +26,13 @@ export default function AddCategoryModal({
   }
 
   const handleSubmit = async () => {
-
+    const payload = {
+      name: categoryName,
+      shop_id: "10",
+      thumbnail: "https://cdn-icons-png.flaticon.com/128/595/595067.png"
+    }
+    const fetch = await CategoryService.createCategory(payload);
+    window.location.reload();
   };
 
   return (

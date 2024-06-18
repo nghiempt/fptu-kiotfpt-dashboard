@@ -12,7 +12,7 @@ export default function ConfirmStatusCategory({
   payload: string;
 }) {
 
-  const updateCategory = async (id: string, payload: any) => {  
+  const updateCategory = async (id: string, payload: any) => {
     const body = {
       value: payload,
     }

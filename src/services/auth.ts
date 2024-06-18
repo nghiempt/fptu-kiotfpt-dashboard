@@ -1,6 +1,6 @@
 import { API } from "../utils/api";
 
-export const signIn = async (payload: any) => {
+const signIn = async (payload: any) => {
     try {
         const response = await fetch(API.SIGN_IN, {
             method: "POST",
@@ -16,7 +16,7 @@ export const signIn = async (payload: any) => {
     }
 };
 
-export const signUp = async (payload: any) => {
+const signUp = async (payload: any) => {
     try {
         const response = await fetch(API.SIGN_UP, {
             method: "POST",

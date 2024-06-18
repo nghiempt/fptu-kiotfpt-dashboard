@@ -22,13 +22,12 @@ export default function DeleteProductModal({
   const [selectedIds, setSelectedIds] = React.useState<string[]>([]);
 
   useEffect(() => {
-    // Reset checked state when data changes
     setChecked(new Array(data.length).fill(false));
     setSelectAll(false);
   }, [data]);
 
   useEffect(() => {
-    const ids = data.filter((_:any, index:any) => checked[index]).map((item:any) => item?.id);
+    const ids = data.filter((_: any, index: any) => checked[index]).map((item: any) => item?.id);
     setSelectedIds(ids);
   }, [checked, data]);
 
@@ -48,7 +47,7 @@ export default function DeleteProductModal({
     const deleP = await ProductService.deleteProduct(id, selectedIds);
     console.log(id);
     console.log(selectedIds);
-    
+
     if (deleP?.result) {
       window.location.reload();
     } else {
