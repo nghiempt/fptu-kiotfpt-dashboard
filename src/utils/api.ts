@@ -37,4 +37,6 @@ export const API = {
   CREATE_BRAND: `${HOST}/brand/create`,
   UPDATE_BRAND: `${HOST}/brand/update`,
   DELETE_BRAND: `${HOST}/brand/delete`,
+  // category
+  UPDATE_CATEGORY_STATUS: `${HOST}/category/update-status`,
 };

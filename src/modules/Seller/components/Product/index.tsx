@@ -205,7 +205,7 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                   </tbody>
                 </table>
                 <div className="flex justify-center gap-x-2 mt-8 pb-6">
-                  <Pagination count={10} variant="outlined" shape="rounded" />
+                  <Pagination count={3} variant="outlined" shape="rounded" />
                 </div>
               </div>
             </div>
@@ -216,7 +216,7 @@ const TableProduct: React.FC<SellerTableProps> = ({ data: initialData }) => {
                 onClick={handleOpenAddProduct}
                 className="w-full border border-[rgb(var(--tertiary-rgb))] font-bold py-3 rounded-lg text-[rgb(var(--tertiary-rgb))]"
               >
-                Add New Voucher
+                Add New Product
               </button>
             </div>
             <div className="w-full flex flex-col gap-6 ">

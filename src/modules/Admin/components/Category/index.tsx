@@ -65,7 +65,7 @@ const TableCategory: React.FC<AdminTableProps> = ({ data: initialData }) => {
 
   return (
     <Box>
-      <ConfirmStatusCategory open={isShowModalConfirm} handleClose={handleCloseModal} id="2" payload={status} />
+      <ConfirmStatusCategory open={isShowModalConfirm} handleClose={handleCloseModal} id={selectedItem?.id} payload={status} />
       <AddCategoryModal
         open={isShowAddCategoryModal}
         handleClose={handleCloseAddCategoryModal}
@@ -222,8 +222,8 @@ const TableCategory: React.FC<AdminTableProps> = ({ data: initialData }) => {
                   </div>
                 </div>
                 <div className="w-full flex justify-center items-center gap-2 pt-12">
-                  <button onClick={() => handleOpenModal("cancel")} className="w-full border border-[rgb(var(--primary-rgb))] bg-[rgb(var(--primary-rgb))] py-2 rounded-md text-white font-bold text-[16px]">Inactive</button>
-                  <button onClick={() => handleOpenModal("cancel")} className="w-full border border-[rgb(var(--quaternary-rgb))] bg-[rgb(var(--quaternary-rgb))] py-2 rounded-md text-white font-bold text-[16px]">Active</button>
+                  <button onClick={() => handleOpenModal("inactive")} className="w-full border border-[rgb(var(--primary-rgb))] bg-[rgb(var(--primary-rgb))] py-2 rounded-md text-white font-bold text-[16px]">Inactive</button>
+                  <button onClick={() => handleOpenModal("active")} className="w-full border border-[rgb(var(--quaternary-rgb))] bg-[rgb(var(--quaternary-rgb))] py-2 rounded-md text-white font-bold text-[16px]">Active</button>
                 </div>
               </div>
             </div>

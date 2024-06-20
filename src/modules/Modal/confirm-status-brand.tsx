@@ -15,7 +15,8 @@ export default function ConfirmStatusBrand({
 
   const updateBrand = async (id: string, payload: any) => {
     const fetch = await BrandService.deleteBrand(id);
-    window.location.reload();
+    alert(fetch.message)
+    // window.location.reload();
   };
 
   return (

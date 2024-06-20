@@ -13,8 +13,12 @@ const TableShop: React.FC<AdminTableProps> = ({ data: initialData }) => {
   const [data, setData] = useState(initialData);
   const [pageData, setPageData] = useState([] as any);
   const [isShowModalBan, setIsShowModalBan] = useState(false);
+  const [statusBan, setStatusBan] = useState('');
+  const [selectedItem, setSelectedItem] = useState({} as any);
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (status: any, item: any) => {
+    setStatusBan(status)
+    setSelectedItem(item)
     setIsShowModalBan(true);
   };
 
@@ -39,7 +43,7 @@ const TableShop: React.FC<AdminTableProps> = ({ data: initialData }) => {
 
   return (
     <Box>
-      <ConfirmBanShop open={isShowModalBan} handleClose={handleCloseModal} id="2" payload="inactive" />
+      <ConfirmBanShop open={isShowModalBan} handleClose={handleCloseModal} id={selectedItem?.id} payload={statusBan} />
       <Box sx={{ marginBottom: "20px", marginTop: "10px", marginLeft: "20px", marginRight: "20px" }}>
         <Typography variant="h3" noWrap component="div" sx={{ flexGrow: 1 }}>
           <b>SHOP MANAGEMENT</b>
@@ -132,8 +136,8 @@ const TableShop: React.FC<AdminTableProps> = ({ data: initialData }) => {
                             className={`py-5 bg-white
                               } border-b border-gray-200 text-[15px] cursor-pointer pr-20 flex gap-2`}
                           >
-                            <button onClick={handleOpenModal} className="w-full border border-[rgb(var(--quaternary-rgb))] py-2 rounded-md text-[rgb(var(--quaternary-rgb))] font-bold text-[16px]">Ban</button>
-                            <button onClick={handleOpenModal} className="w-full border border-[rgb(var(--quaternary-rgb))] py-2 rounded-md text-[rgb(var(--quaternary-rgb))] font-bold text-[16px]">Unban</button>
+                            <button onClick={() => handleOpenModal('inactive', item)} className={`${item?.status?.value === 'active' ? 'bg-white text-[rgb(var(--quaternary-rgb))]' : 'bg-[rgb(var(--quaternary-rgb))] text-white'} w-full border border-[rgb(var(--quaternary-rgb))] py-2 rounded-md font-bold text-[16px]`}>Ban</button>
+                            <button onClick={() => handleOpenModal('active', item)} className={`${item?.status?.value === 'active' ? 'bg-[rgb(var(--quaternary-rgb))] text-white' : 'bg-white text-[rgb(var(--quaternary-rgb))]'} w-full border border-[rgb(var(--quaternary-rgb))] py-2 rounded-md font-bold text-[16px]`}>Unban</button>
                           </td>
                         </tr>
                       );

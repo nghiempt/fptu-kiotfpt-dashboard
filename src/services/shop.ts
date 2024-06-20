@@ -13,7 +13,7 @@ const getAllShops = async () => {
 const banShop = async (id: any, payload: any) => {
   try {
     const response = await fetch(API.BAN_SHOP + `/${id}`, {
-      method: "PUT",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
       },

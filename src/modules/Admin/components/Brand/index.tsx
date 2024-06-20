@@ -49,10 +49,10 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
 
   const handleUpdateBrand = async () => {
     const payload = {
-      name: selectedItem?.name,
-      thumbnail: selectedItem?.thumbnail,
+      name: selectedItem?.brand_name,
+      thumbnail: selectedItem?.brand_thumbnail,
     }
-    const fetch = await BrandService.updateBrand(selectedItem?.id, payload);
+    const fetch = await BrandService.updateBrand(selectedItem?.brand_id, payload);
     window.location.reload();
   };
 
@@ -101,7 +101,7 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-900 whitespace-no-wrap">
-                              KFBR-0{item?.id}
+                              KFBR-0{item?.brand_id}
                             </p>
                           </td>
                           <td
@@ -110,12 +110,12 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
                           >
                             <div className="flex items-center gap-2">
                               <img
-                                src={item?.thumbnail}
+                                src={item?.brand_thumbnail}
                                 alt="voucher"
                                 className="w-10 h-10 rounded-md"
                               />
                               <p className="text-gray-600 whitespace-no-wrap">
-                                {item?.name}
+                                {item?.brand_name}
                               </p>
                             </div>
                           </td>
@@ -124,7 +124,7 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
                               } border-b border-gray-200 text-[15px] cursor-pointer`}
                           >
                             <p className="text-gray-600 font-bold text-[16px] whitespace-no-wrap">
-                              {item?.product_total} products
+                              {item?.total_product} products
                             </p>
                           </td>
                         </tr>
@@ -160,7 +160,7 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
                   </h3>
                   <div className="flex items-center justify-center gap-4">
                     <img
-                      src={selectedItem?.thumbnail}
+                      src={selectedItem?.brand_thumbnail}
                       alt="voucher"
                       className="w-36 h-36 border rounded-md"
                     />
@@ -185,7 +185,7 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
                       <button className="w-1/3 py-2 bg-gray-300 rounded-l-md text-gray-700 font-bold text-[14px]">
                         <Grid3x3Icon />
                       </button>
-                      <button className="w-2/3 text-gray-700 font-medium text-[14px] text-start pl-4">KFBR-0{selectedItem?.id}</button>
+                      <button className="w-2/3 text-gray-700 font-medium text-[14px] text-start pl-4">KFBR-0{selectedItem?.brand_id}</button>
                     </div>
                     <div className="w-2/4 rounded-md border border-gray-300 flex items-center justify-center">
                       <button className="w-1/5 py-2 bg-gray-300 text-gray-700 rounded-l-md font-bold text-[14px]">
@@ -193,8 +193,8 @@ const TableBrand: React.FC<AdminTableProps> = ({ data: initialData }) => {
                       </button>
                       <input
                         type="text"
-                        value={selectedItem?.name}
-                        onChange={(e) => setSelectedItem({ ...selectedItem, name: e.target.value })}
+                        value={selectedItem?.brand_name}
+                        onChange={(e) => setSelectedItem({ ...selectedItem, brand_name: e.target.value })}
                         className="w-4/5 pl-4 text-gray-700 font-medium focus:outline-none"
                       />
                     </div>
