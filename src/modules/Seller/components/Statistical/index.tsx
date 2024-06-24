@@ -157,15 +157,15 @@ const TableStatistical: React.FC<SellerTableProps> = ({ data: initialData }) => 
         
         <Card className="bg-white shadow-md rounded p-4 mb-4">
           <CardContent>
-            <Typography variant="h6">Tổng đơn hàng</Typography>
+            <Typography variant="h6">Total Orders</Typography>
             <Typography variant="h4">{totalOrders}</Typography>
-            <Bar data={getChartData(filteredOrders, '')} />
+            <Bar data={getChartData(filteredOrders, 'Total Orders')} />
           </CardContent>
         </Card>
         
         <Card className="bg-white shadow-md rounded p-4 mb-4">
           <CardContent>
-            <Typography variant="h6">Doanh thu</Typography>
+            <Typography variant="h6">Total Revenue</Typography>
             <Typography variant="h4">${totalRevenue.toLocaleString()}</Typography>
             <Bar data={getChartData(filteredOrders, 'Total Revenue')} />
           </CardContent>
@@ -173,13 +173,13 @@ const TableStatistical: React.FC<SellerTableProps> = ({ data: initialData }) => 
         
         <Card className="bg-white shadow-md rounded p-4 mb-4">
           <CardContent>
-            <Typography variant="h6">Khách hàng thân thiết</Typography>
+            <Typography variant="h6">Loyal customers</Typography>
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
                   <TableRow>
                     <TableCell>Tên</TableCell>
-                    <TableCell align="right">Tổng chi tiêu</TableCell>
+                    <TableCell align="right">Total spending</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -197,13 +197,13 @@ const TableStatistical: React.FC<SellerTableProps> = ({ data: initialData }) => 
         
         <Card className="bg-white shadow-md rounded p-4 mb-4">
           <CardContent>
-            <Typography variant="h6">Top Sản phẩm bán chạy</Typography>
+            <Typography variant="h6">Top best selling products</Typography>
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Sản phẩm</TableCell>
-                    <TableCell align="right">Số lượng</TableCell>
+                    <TableCell>Product</TableCell>
+                    <TableCell align="right">Quantity</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -221,13 +221,13 @@ const TableStatistical: React.FC<SellerTableProps> = ({ data: initialData }) => 
         
         <Card className="bg-white shadow-md rounded p-4 mb-4">
           <CardContent>
-            <Typography variant="h6">Đánh giá sản phẩm</Typography>
+            <Typography variant="h6">Review product</Typography>
             <TableContainer component={Paper}>
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableCell>Sản phẩm</TableCell>
-                    <TableCell align="right">Đánh giá</TableCell>
+                    <TableCell>Product</TableCell>
+                    <TableCell align="right">Review</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
