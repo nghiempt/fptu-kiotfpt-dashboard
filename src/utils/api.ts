@@ -39,4 +39,8 @@ export const API = {
   DELETE_BRAND: `${HOST}/brand/delete`,
   // category
   UPDATE_CATEGORY_STATUS: `${HOST}/category/update-status`,
+  // statis
+  GET_REVENUE_BY_SHOP: `${HOST}/statis/shop-revenue`,
+  GET_TOP_PRODUCT_BY_SHOP: `${HOST}/statis/product/filter-by-shop`,
+  GET_LOYAL_CUSTOMER: `${HOST}/statis/account`,
 };

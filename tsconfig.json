@@ -24,6 +24,6 @@
     "src"
   ],
   "exclude": [
-    "src/services/category copy.ts"
+    // "src/services/statis.ts"
   ]
 }
