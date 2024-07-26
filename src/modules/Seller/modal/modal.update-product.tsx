@@ -166,7 +166,7 @@ const ModalUpdateProduct: React.FC<ModalUpdateProductProps> = ({ open, setOpen, 
                     </FormGroup>
                     <Header as='h6'>Variant</Header>
                     <Divider />
-                    <div className='w-full flex grid grid-cols-3 gap-4'>
+                    <div className='w-full grid grid-cols-3 gap-4'>
                         <Select
                             placeholder='Select brand'
                             options={[
