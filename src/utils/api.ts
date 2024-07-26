@@ -7,6 +7,7 @@ export const API = {
     // category
     GET_ALL_CATEGORIES: `${HOST}/category/get-all`,
     CREATE_CATEGORY: `${HOST}/category/create`,
+    CREATE_SHOP_CATEGORY: `${HOST}/shopcate/add`,
     UPDATE_CATEGORY: `${HOST}/category/update`,
     UPDATE_STATUS_CATEGORY: `${HOST}/category/update-status`,
     // brand

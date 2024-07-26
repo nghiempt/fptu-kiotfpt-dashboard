@@ -24,6 +24,7 @@ import { CategoryService } from '../../../services/category'
 import { toast } from "react-semantic-toasts";
 import { ShopCategoryService } from '../../../services/shop-category'
 import ModalCreateShopCategory from '../modal/modal.create-shop-category'
+import ModalAddCategoryFromRepo from '../modal/modal.add-category-from-repo';
 
 const TableCategory = () => {
 
@@ -34,9 +35,14 @@ const TableCategory = () => {
     const [currentItem, setCurrentItem] = useState({} as any)
 
     const [openModalCreate, setOpenModalCreate] = useState(false)
+    const [openModalAdd, setOpenModalAdd] = useState(false)
 
     const handleOpenModalCreate = () => {
         setOpenModalCreate(true)
+    }
+
+    const handleOpenModalAdd = () => {
+        setOpenModalAdd(true)
     }
 
     const handleChangePage = (page: number) => {
@@ -112,6 +118,8 @@ const TableCategory = () => {
             loadDataByPage(res?.data, 1)
             setLoading(false)
         }
+        console.log(data);
+        
     }
 
     useEffect(() => {
@@ -121,6 +129,7 @@ const TableCategory = () => {
     return (
         <div className='flex justify-center items-start gap-4'>
             <ModalCreateShopCategory open={openModalCreate} setOpen={setOpenModalCreate} initialData={reloadData} />
+            <ModalAddCategoryFromRepo open={openModalAdd} setOpen={setOpenModalAdd} initialData={reloadData} />
             <Table celled>
                 <TableHeader>
                     <TableRow>
@@ -138,25 +147,25 @@ const TableCategory = () => {
                                 <Loader active inline />
                             </TableRow>
                             :
-                            currentData?.map((item: any, index: any) => {
+                            data?.map((item: any, index: any) => {
                                 return (
                                     <TableRow
                                         key={index}
                                         onClick={() => setCurrentItem(item)}
-                                        className={`${item?.id === currentItem?.id ? '!bg-gray-100' : ''} cursor-pointer`}
+                                        className={`${item?.shopCate?.id === currentItem?.shopCate?.id ? '!bg-gray-100' : ''} cursor-pointer`}
                                     >
                                         <TableCell>
-                                            <Label ribbon>KTF-CAT-0{item?.id}</Label>
+                                            <Label ribbon>KTF-CAT-{item?.shopCate?.id}</Label>
                                         </TableCell>
                                         <TableCell>
                                             <div className='flex items-center gap-4'>
-                                                <Image src={item?.category?.thumbnail} size='mini' className='rounded-lg' /> {item?.category?.name}
+                                                <Image src={item?.shopCate?.category?.thumbnail} size='mini' className='rounded-lg' /> {item?.shopCate?.category?.name}
                                             </div>
                                         </TableCell>
-                                        <TableCell>{item?.product_total} products</TableCell>
+                                        <TableCell>{item?.totalProducts} products</TableCell>
                                         <TableCell>
-                                            <Button color={`${item?.category?.status?.value === 'active' ? 'teal' : 'grey'}`} className='!uppercase !text-[12px]'>
-                                                {item?.category?.status?.value}
+                                            <Button color={`${item?.shopCate?.status?.value === 'active' ? 'teal' : 'grey'}`} className='!uppercase !text-[12px]'>
+                                                {item?.shopCate?.status?.value}
                                             </Button>
                                         </TableCell>
                                     </TableRow>
@@ -194,28 +203,31 @@ const TableCategory = () => {
             </Table>
             <div>
                 <Card className='!mt-0'>
-                    <Image size='tiny' src={currentItem?.category?.thumbnail} wrapped ui={false} className='rounded-md' />
+                    <Image size='tiny' src={currentItem?.shopCate?.category?.thumbnail} wrapped ui={false} className='rounded-md' />
                     <CardContent>
-                        <CardHeader>{currentItem?.category?.name}</CardHeader>
+                        <CardHeader>{currentItem?.shopCate?.category?.name}</CardHeader>
                         <CardMeta>
                             <span className='date'>July 15th 2024</span>
                         </CardMeta>
                         <CardDescription>
-                            {currentItem?.product_total} products
+                            {currentItem?.totalProducts} products
                         </CardDescription>
                     </CardContent>
                     <CardContent extra>
                         <a className='flex justify-between items-center'>
                             <Button onClick={updateStatus} loading={loading ? true : false}>Change Status</Button>
-                            <Label as='a' color={`${currentItem?.category?.status?.value === 'active' ? 'teal' : 'grey'}`} className='!uppercase !text-[12px]' tag>
-                                {currentItem?.category?.status?.value}
+                            <Label as='a' color={`${currentItem?.shopCate?.category?.status?.value === 'active' ? 'teal' : 'grey'}`} className='!uppercase !text-[12px]' tag>
+                                {currentItem?.shopCate?.category?.status?.value}
                             </Label>
                         </a>
                     </CardContent>
                 </Card>
-                <div className='w-full flex justify-center items-center'>
+                <div className='w-full flex justify-center items-center gap-x-2'>
+                    <Button color='facebook' onClick={handleOpenModalAdd} className='w-full !m-0 shadow-md'>
+                        <Icon name='plus' /> Add
+                    </Button>
                     <Button color='facebook' onClick={handleOpenModalCreate} className='w-full !m-0 shadow-md'>
-                        <Icon name='plus' /> Create
+                        <Icon name='plus' /> Create new
                     </Button>
                 </div>
             </div>

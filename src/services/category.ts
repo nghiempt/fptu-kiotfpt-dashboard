@@ -34,6 +34,27 @@ const createCategory = async (payload: any) => {
     }
 };
 
+const createShopCategory = async (shopID: any, categoryID:any) => {
+
+    
+    try {
+        const response = await fetch(API.CREATE_SHOP_CATEGORY + `?shopID=${shopID}&categoryID=${categoryID}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${JSON.parse(Cookie.get("auth") || "{}")?.token}`,
+            },
+        });
+        const data = await response.json();
+        console.log(data);
+        
+        return data;
+    } catch (err) {
+        return false;
+    }
+
+}
+
 const updateCategory = async (id: string, payload: any) => {
     try {
         const response = await fetch(`${API.UPDATE_CATEGORY}/${id}`, {
@@ -71,6 +92,7 @@ const updateStatusCategory = async (id: string, payload: any) => {
 export const CategoryService = {
     getAllCategories,
     createCategory,
+    createShopCategory,
     updateCategory,
     updateStatusCategory
 }
