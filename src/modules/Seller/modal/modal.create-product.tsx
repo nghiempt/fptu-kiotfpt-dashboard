@@ -48,7 +48,9 @@ const ModalCreateProduct: React.FC<ModalCreateProductProps> = ({
   const [size, setSize] = React.useState({ size_id: 0 } as any);
 
   const handleChangeBrand = (e:any, data:any) => {
+    
     const selectedBrand = fakeData.brands.find(brand => brand.brand_id === data.value);
+    
     setBrand(selectedBrand);
   };
   const handleChangeCategory = (e:any, data:any) => {
@@ -270,9 +272,8 @@ const ModalCreateProduct: React.FC<ModalCreateProductProps> = ({
           <Divider />
           <div className="w-full grid grid-cols-3 gap-4">
             <Select
-              fluid
               placeholder="Select brand"
-              value={brand}
+              value={brand?.brand_id}
               options={fakeData.brands.map((brand: any) => {
                 return {
                   key: brand.brand_id,
@@ -285,7 +286,7 @@ const ModalCreateProduct: React.FC<ModalCreateProductProps> = ({
             <Select
               fluid
               placeholder="Select category"
-              value={category}
+              value={category?.category_id}
               options={fakeData.categories.map((category: any) => {
                 return {
                   key: category.category_id,
@@ -298,7 +299,7 @@ const ModalCreateProduct: React.FC<ModalCreateProductProps> = ({
             <Select
               fluid
               placeholder="Select color"
-              value={color}
+              value={color?.color_id}
               options={fakeData.colors.map((color: any) => {
                 return {
                   key: color.color_id,
@@ -311,7 +312,7 @@ const ModalCreateProduct: React.FC<ModalCreateProductProps> = ({
             <Select
               fluid
               placeholder="Select size"
-              value={size}
+              value={size?.size_id}
               options={fakeData.sizes.map((size: any) => {
                 return {
                   key: size.size_id,

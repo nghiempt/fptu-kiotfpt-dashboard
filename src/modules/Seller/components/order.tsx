@@ -226,7 +226,7 @@ const TableOrder = () => {
                     {
                         currentItem?.status?.value === 'pending' && (
                             <CardContent extra>
-                                <a className='flex justify-center items-center grid grid-cols-2 gap-3'>
+                                <a className=' justify-center items-center grid grid-cols-2 gap-3'>
                                     <Button color='red' onClick={() => updateStatus('rejected')} loading={loading ? true : false}>Reject</Button>
                                     <Button color='blue' onClick={() => updateStatus('completed')} loading={loading ? true : false}>Complete</Button>
                                 </a>

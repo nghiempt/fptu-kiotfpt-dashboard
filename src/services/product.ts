@@ -47,6 +47,8 @@ const updateProduct = async (id: string, payload: any) => {
             body: JSON.stringify(payload),
         });
         const data = await response.json();
+        console.log(data);
+        
         return data;
     } catch (err) {
         return false;
