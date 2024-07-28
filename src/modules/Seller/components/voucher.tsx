@@ -80,11 +80,11 @@ const TableVoucher = () => {
     const loadDataByPage = async (data: any, page: number) => {
         switch (page) {
             case 1:
-                return setCurrentData(data?.slice(0, 12))
+                return setCurrentData(data?.vouchers?.slice(0, 12))
             case 2:
-                return setCurrentData(data?.slice(12, 24))
+                return setCurrentData(data?.vouchers?.slice(12, 24))
             case 3:
-                return setCurrentData(data?.slice(24, data?.length))
+                return setCurrentData(data?.vouchers?.slice(24, data?.length))
             default:
                 return data
         }

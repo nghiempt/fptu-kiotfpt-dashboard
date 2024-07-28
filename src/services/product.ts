@@ -20,6 +20,7 @@ const getProductByShop = async (page: any, amout: any) => {
 };
 
 const createProduct = async (payload: any) => {
+    console.log(payload);
     try {
         const response = await fetch(API.CREATE_PRODUCT, {
             method: "POST",
@@ -30,6 +31,8 @@ const createProduct = async (payload: any) => {
             body: JSON.stringify(payload),
         });
         const data = await response.json();
+        console.log(data);
+        
         return data;
     } catch (err) {
         return false;

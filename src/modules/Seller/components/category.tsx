@@ -52,10 +52,7 @@ const TableCategory = () => {
 
     const updateStatus = async () => {
         setLoading(true)
-        const payload = {
-            value: currentItem?.status?.value === 'active' ? 'inactive' : 'active'
-        }
-        const res = await CategoryService.updateStatusCategory(currentItem?.id, payload)
+        const res = await ShopCategoryService.removeShopCategories(currentItem?.shopCate?.id)
         if (res?.result) {
             reloadData()
             toast({
@@ -100,7 +97,7 @@ const TableCategory = () => {
     }
 
     const reloadData = async () => {
-        const res = await CategoryService.getAllCategories()
+        const res = await ShopCategoryService.getAllShopCategories()
         if (res?.result) {
             setData(res?.data)
             loadDataByPage(res?.data, currentPage)
@@ -110,16 +107,15 @@ const TableCategory = () => {
     }
 
     const init = async () => {
-        const res = await ShopCategoryService.getAllCategories()
+        const res = await ShopCategoryService.getAllShopCategories()
         if (res?.result) {
             setData(res?.data)
+            console.log(res?.data);
             setCurrentItem(res?.data[0])
             setCurrentPage(1)
             loadDataByPage(res?.data, 1)
             setLoading(false)
         }
-        console.log(data);
-        
     }
 
     useEffect(() => {

@@ -24,7 +24,6 @@ const StatisticalProduct = () => {
         }
         const res = await StatisService.sellerStatisProduct(payload)
         if (res?.result) {
-            console.log(res?.data);
             setData(res?.data?.products)
             setLoading(false)
         }

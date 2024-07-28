@@ -49,8 +49,8 @@ const AdminContainer: React.FC = () => {
                     <div className="flex items-center justify-between">
                         <div className="flex items-center justify-start rtl:justify-end">
                             <a href="#" className="flex ms-2 md:me-24">
-                                <img src="https://res.cloudinary.com/kiotfpt/image/upload/v1721111073/kiotfpt/logo_zrmgup.png" className="h-8 me-3" alt="FlowBite Logo" />
-                                <span className="text-[rgb(133,154,194)] self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">KIOTFPT DASHBOARD</span>
+                                <img src="https://res.cloudinary.com/kiotfpt/image/upload/v1722159749/kiotfpt/logo_jniyaz.png" className="h-8 me-3" alt="FlowBite Logo" />
+                                <span className="text-gray-700 self-center text-xl font-semibold sm:text-2xl whitespace-nowrap dark:text-white">KIOTFPT DASHBOARD</span>
                             </a>
                         </div>
                         <div className="flex items-center gap-2 m-0">

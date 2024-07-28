@@ -28,6 +28,8 @@ const sellerStatisProduct = async (payload: any) => {
             body: JSON.stringify(payload),
         });
         const data = await response.json();
+        console.log(data);
+        
         return data;
     } catch (err) {
         return false;

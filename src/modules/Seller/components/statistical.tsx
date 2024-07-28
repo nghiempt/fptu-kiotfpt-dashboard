@@ -8,12 +8,12 @@ const TableStatistical = () => {
 
     return (
         <div className='w-full flex flex-col gap-4'>
-            <div className='w-full flex grid grid-cols-3 gap-4'>
+            <div className='w-full grid grid-cols-3 gap-4'>
                 <StatisticalOrder />
                 <StatisticalRevenue />
                 <StatisticalCustomer />
             </div>
-            <div className='w-full flex grid grid-cols-2 gap-10'>
+            <div className='w-full grid grid-cols-2 gap-10'>
                 <StatisticalReview />
                 <StatisticalProduct />
             </div>

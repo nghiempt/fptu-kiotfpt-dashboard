@@ -51,8 +51,8 @@ const SignInContainer: React.FC = () => {
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450 }}>
                     <Header as='h2' textAlign='center' className='flex justify-center items-center gap-4 !text-[rgb(133,154,194)]'>
-                        <Image className='rounded-full' src='https://res.cloudinary.com/kiotfpt/image/upload/v1721111073/kiotfpt/logo_zrmgup.png' />
-                        <span className="text-[rgb(133,154,194)] self-center text-xl font-bold sm:text-2xl whitespace-nowrap dark:text-white">KIOTFPT DASHBOARD</span>
+                        <Image className='rounded-full' src='https://res.cloudinary.com/kiotfpt/image/upload/v1722159749/kiotfpt/logo_jniyaz.png' />
+                        <div className="text-gray-700 self-center text-xl font-bold sm:text-2xl whitespace-nowrap dark:text-white">KIOTFPT DASHBOARD</div>
                     </Header>
                     <Form size='large'>
                         <Segment stacked>
@@ -72,8 +72,8 @@ const SignInContainer: React.FC = () => {
                                 type='password'
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <Button className='!bg-[rgb(133,154,194)] !text-white' fluid size='large' onClick={handleSubmit}>
-                                Sign In
+                            <Button className='!bg-[rgb(3,52,110)] !text-white hover:opacity-80' fluid size='large' onClick={handleSubmit}>
+                                Sign in
                             </Button>
                         </Segment>
                     </Form>

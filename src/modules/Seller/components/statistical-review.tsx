@@ -20,7 +20,6 @@ const StatisticalReview = () => {
     const init = async () => {
         const res = await StatisService.sellerStatisFeedback()
         if (res?.result) {
-            console.log(data);
             setData(res?.data)
             setLoading(false)
         }

@@ -36,9 +36,13 @@ export const API = {
     // statis
     SELLER_STATIS_FEEDBACK: `${HOST}/statis/feedback`,
     SELLER_STATIS_PRODUCT: `${HOST}/statis/product`,
+    GET_STATIS_ORDER: `${HOST}/statis/order`,
+    GET_STATIS_REVENUE: `${HOST}/statis/revenue`,
+    GET_STATIS_CUSTOMER: `${HOST}/statis/customer`,
     // address
     GET_ALL_PROVINCES: `${HOST}/address/province/get-all`,
     GET_DISTRICT_BY_PROVINCE: `${HOST}/address/district/get-all-by-province`,
     // shop category
     GET_SHOP_CATEGORY: `${HOST}/shopcate/get-by-shop`,
+    DELETE_SHOP_CATEGORY: `${HOST}/shopcate/remove`,
 };

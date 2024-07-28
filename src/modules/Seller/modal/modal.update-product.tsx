@@ -174,7 +174,7 @@ const ModalUpdateProduct: React.FC<ModalUpdateProductProps> = ({
     return false;
   };
 
-  useEffect(() => {}, [imageCloud]);
+  useEffect(() => { }, [imageCloud]);
 
   return (
     <Modal
@@ -315,12 +315,12 @@ const ModalUpdateProduct: React.FC<ModalUpdateProductProps> = ({
               className="hidden"
               onChange={(e: any) => {
                 const file = e.target.files[0];
+                uploadImageToCloudinary(file);
                 const reader = new FileReader();
                 reader.onloadend = () => {
                   handleChangeCurrentItem("thumbnail", reader.result as string);
                 };
                 reader.readAsDataURL(file);
-                uploadImageToCloudinary(file);
               }}
             />
           </div>

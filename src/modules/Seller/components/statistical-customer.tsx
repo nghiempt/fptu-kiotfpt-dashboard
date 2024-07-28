@@ -1,119 +1,110 @@
 import ApexCharts from 'apexcharts';
 import { useEffect } from 'react';
+import { ShopStatisService } from '../../../services/shop-statis';
 
 const StatisticalCustomer = () => {
 
-    const getChartOptions = () => {
-        return {
-            series: [35.1, 23.5, 2.4, 5.4],
-            colors: ["#1C64F2", "#16BDCA", "#FDBA8C", "#E74694"],
-            chart: {
-                height: 320,
-                width: "100%",
-                type: "donut",
-            },
-            stroke: {
-                colors: ["transparent"],
-                lineCap: "",
-            },
-            plotOptions: {
-                pie: {
-                    donut: {
-                        labels: {
-                            show: true,
-                            name: {
-                                show: true,
-                                fontFamily: "Inter, sans-serif",
-                                offsetY: 20,
-                            },
-                            total: {
-                                showAlways: true,
-                                show: true,
-                                label: "Total spent",
-                                fontFamily: "Inter, sans-serif",
-                                formatter: function (w: any) {
-                                    const sum = w.globals.seriesTotals.reduce((a: any, b: any) => {
-                                        return a + b
-                                    }, 0)
-                                    return '$' + sum + 'k'
+    const getData = async () => {
+        const res = await ShopStatisService.getStatisCustomer()
+        let money: any = []
+        let customer: any = []
+        res?.data?.forEach((item: any, index: any) => {
+            money.push(parseFloat(item?.totalSpent?.toFixed(2)))
+            if (index < 3) {
+                customer.push(item?.name)
+            }
+        })
+        if (document.getElementById("donut-chart") && typeof ApexCharts !== 'undefined') {
+            const chart = new ApexCharts(
+                document.getElementById("donut-chart"),
+                {
+                    series: money,
+                    colors: ["#1C64F2", "#16BDCA", "#FDBA8C", "#E74694"],
+                    chart: {
+                        height: 320,
+                        width: "100%",
+                        type: "donut",
+                    },
+                    stroke: {
+                        colors: ["transparent"],
+                        lineCap: "",
+                    },
+                    plotOptions: {
+                        pie: {
+                            donut: {
+                                labels: {
+                                    show: true,
+                                    name: {
+                                        show: true,
+                                        fontFamily: "Inter, sans-serif",
+                                        offsetY: 20,
+                                    },
+                                    total: {
+                                        showAlways: true,
+                                        show: true,
+                                        label: "Total spent",
+                                        fontFamily: "Inter, sans-serif",
+                                        formatter: function (w: any) {
+                                            const sum = w.globals.seriesTotals.reduce((a: any, b: any) => {
+                                                return a + b
+                                            }, 0)
+                                            return '$' + sum + 'k'
+                                        },
+                                    },
+                                    value: {
+                                        show: true,
+                                        fontFamily: "Inter, sans-serif",
+                                        offsetY: -20,
+                                        formatter: function (value: any) {
+                                            return value + "k"
+                                        },
+                                    },
                                 },
-                            },
-                            value: {
-                                show: true,
-                                fontFamily: "Inter, sans-serif",
-                                offsetY: -20,
-                                formatter: function (value: any) {
-                                    return value + "k"
-                                },
+                                size: "80%",
                             },
                         },
-                        size: "80%",
                     },
-                },
-            },
-            grid: {
-                padding: {
-                    top: -2,
-                },
-            },
-            labels: ["NghiemPT", "HungNN", "ThaiVQ", "Other"],
-            dataLabels: {
-                enabled: false,
-            },
-            legend: {
-                position: "bottom",
-                fontFamily: "Inter, sans-serif",
-            },
-            yaxis: {
-                labels: {
-                    formatter: function (value: any) {
-                        return value + "k"
+                    grid: {
+                        padding: {
+                            top: -2,
+                        },
                     },
-                },
-            },
-            xaxis: {
-                labels: {
-                    formatter: function (value: any) {
-                        return value + "k"
+                    labels: [...customer, "Other"],
+                    dataLabels: {
+                        enabled: false,
                     },
-                },
-                axisTicks: {
-                    show: false,
-                },
-                axisBorder: {
-                    show: false,
-                },
-            },
+                    legend: {
+                        position: "bottom",
+                        fontFamily: "Inter, sans-serif",
+                    },
+                    yaxis: {
+                        labels: {
+                            formatter: function (value: any) {
+                                return value + "k"
+                            },
+                        },
+                    },
+                    xaxis: {
+                        labels: {
+                            formatter: function (value: any) {
+                                return value + "k"
+                            },
+                        },
+                        axisTicks: {
+                            show: false,
+                        },
+                        axisBorder: {
+                            show: false,
+                        },
+                    },
+                }
+            );
+            chart.render();
         }
     }
 
     useEffect(() => {
-        if (document.getElementById("donut-chart") && typeof ApexCharts !== 'undefined') {
-            const chart = new ApexCharts(document.getElementById("donut-chart"), getChartOptions());
-            chart.render();
-            const checkboxes = document.querySelectorAll('#devices input[type="checkbox"]');
-            const handleCheckboxChange = (event: any, chart: any) => {
-                const checkbox = event.target;
-                if (checkbox.checked) {
-                    switch (checkbox.value) {
-                        case 'budget':
-                            chart.updateSeries([15.1, 22.5, 4.4, 8.4]);
-                            break;
-                        case 'frequent':
-                            chart.updateSeries([25.1, 26.5, 1.4, 3.4]);
-                            break;
-                        default:
-                            chart.updateSeries([55.1, 28.5, 1.4, 5.4]);
-                    }
-
-                } else {
-                    chart.updateSeries([35.1, 23.5, 2.4, 5.4]);
-                }
-            }
-            checkboxes.forEach((checkbox) => {
-                checkbox.addEventListener('change', (event) => handleCheckboxChange(event, chart));
-            });
-        }
+        getData()
     }, [])
 
     return (
@@ -134,69 +125,20 @@ const StatisticalCustomer = () => {
                         <div data-popper-arrow></div>
                     </div>
                 </div>
-                <div>
-                    <button type="button" data-tooltip-target="data-tooltip" data-tooltip-placement="bottom" className="hidden sm:inline-flex items-center justify-center text-gray-500 w-8 h-8 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm"><svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
-                    </svg><span className="sr-only">Download data</span>
-                    </button>
-                    <div id="data-tooltip" role="tooltip" className="absolute z-10 invisible inline-block px-3 py-2 text-sm font-medium text-white transition-opacity duration-300 bg-gray-900 rounded-lg shadow-sm opacity-0 tooltip dark:bg-gray-700">
-                        Download CSV
-                        <div className="tooltip-arrow" data-popper-arrow></div>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div className="flex" id="devices">
-                    <div className="flex items-center me-4">
-                        <input id="budget" type="checkbox" value="budget" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Budget</label>
-                    </div>
-                    <div className="flex items-center me-4">
-                        <input id="frequent" type="checkbox" value="frequent" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-                        <label className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">Frequent</label>
-                    </div>
-                </div>
             </div>
             <div className="py-6" id="donut-chart"></div>
-            <div className="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between">
-                <div className="flex justify-between items-center pt-5">
-                    <button
-                        id="dropdownDefaultButton"
-                        data-dropdown-toggle="lastDaysdropdown"
-                        data-dropdown-placement="bottom"
-                        className="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
-                        type="button">
-                        Last 7 days
-                        <svg className="w-2.5 m-2.5 ms-1.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
-                        </svg>
-                    </button>
-                    <div id="lastDaysdropdown" className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                        <ul className="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                            <li>
-                                <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Yesterday</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Today</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 7 days</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 30 days</a>
-                            </li>
-                            <li>
-                                <a href="#" className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Last 90 days</a>
-                            </li>
-                        </ul>
-                    </div>
+            <div className="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-end">
+                <div className="flex justify-end items-center pt-5">
                     <a
                         href="#"
                         className="uppercase text-sm font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-3 py-2">
-                        LOYAL CUSTOMER
-                        <svg className="w-2.5 h-2.5 ms-1.5 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4" />
-                        </svg>
+                        Download
+                        <div>
+                            <button type="button" data-tooltip-target="data-tooltip" data-tooltip-placement="bottom" className="hidden sm:inline-flex items-center justify-center text-blue-600 w-8 h-8 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm"><svg className="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 18">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 1v11m0 0 4-4m-4 4L4 8m11 4v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3" />
+                            </svg><span className="sr-only">Download data</span>
+                            </button>
+                        </div>
                     </a>
                 </div>
             </div>

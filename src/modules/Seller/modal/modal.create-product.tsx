@@ -47,24 +47,23 @@ const ModalCreateProduct: React.FC<ModalCreateProductProps> = ({
   const [color, setColor] = React.useState({ color_id: 0 } as any);
   const [size, setSize] = React.useState({ size_id: 0 } as any);
 
-  const handleChangeBrand = (e:any, data:any) => {
-    
+  const handleChangeBrand = (e: any, data: any) => {
     const selectedBrand = fakeData.brands.find(brand => brand.brand_id === data.value);
-    
     setBrand(selectedBrand);
   };
-  const handleChangeCategory = (e:any, data:any) => {
+
+  const handleChangeCategory = (e: any, data: any) => {
     const selectedCategory = fakeData.categories.find(category => category.category_id === data.value);
     setCategory(selectedCategory);
   };
-    const handleChangeColor = (e:any, data:any) => {
-        const selectedColor = fakeData.colors.find(color => color.color_id === data.value);
-        setColor(selectedColor);
-    };
-    const handleChangeSize = (e:any, data:any) => {
-        const selectedSize = fakeData.sizes.find(size => size.size_id === data.value);
-        setSize(selectedSize);
-    };
+  const handleChangeColor = (e: any, data: any) => {
+    const selectedColor = fakeData.colors.find(color => color.color_id === data.value);
+    setColor(selectedColor);
+  };
+  const handleChangeSize = (e: any, data: any) => {
+    const selectedSize = fakeData.sizes.find(size => size.size_id === data.value);
+    setSize(selectedSize);
+  };
   const uploadImageToCloudinary = async (file: File) => {
     setLoading(true);
     const formdata = new FormData();
@@ -134,7 +133,7 @@ const ModalCreateProduct: React.FC<ModalCreateProductProps> = ({
         brand_id: brand?.brand_id,
         category_id: category?.category_id,
         condition_id: 1,
-        description: "nghiem ne",
+        description: description,
         discount: discount,
         name: name,
         shop_id: Number(AuthService.getShopID()),
@@ -148,9 +147,9 @@ const ModalCreateProduct: React.FC<ModalCreateProductProps> = ({
           },
         ],
       };
-    //   console.log(payload);
-    //   return
-      
+      //   console.log(payload);
+      //   return
+
       const res = await ProductService.createProduct(payload);
       if (res?.result) {
         initialData();
@@ -183,7 +182,7 @@ const ModalCreateProduct: React.FC<ModalCreateProductProps> = ({
     return false;
   };
 
-  useEffect(() => {}, [imageCloud]);
+  useEffect(() => { }, [imageCloud]);
 
   return (
     <Modal
