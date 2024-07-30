@@ -60,38 +60,38 @@ const BeginToSellerContainer: React.FC = () => {
     }
 
     const handleCreateShop = async () => {
-        if (!shopName || !shopPhone) {
-            toast({
-                type: 'error',
-                icon: 'sync',
-                title: 'Validate',
-                description: 'Shop Name or Shop Phone is empty',
-                time: 1000,
-            });
-            return;
-        }
-        setLoading(true);
-        const payload = {
-            account_id: accountID,
-            email: username,
-            name: shopName,
-            phone: shopPhone,
-            thumbnail: "empty"
-        }
-        const res = await ShopService.createShop(payload);
-        if (res) {
-            setLoading(false);
-            setStep(1);
-        } else {
-            toast({
-                type: 'error',
-                icon: 'sync',
-                title: 'Error',
-                description: 'Create shop failed',
-                time: 1000,
-            });
-            setLoading(false);
-        }
+        // if (!shopName || !shopPhone) {
+        //     toast({
+        //         type: 'error',
+        //         icon: 'sync',
+        //         title: 'Validate',
+        //         description: 'Shop Name or Shop Phone is empty',
+        //         time: 1000,
+        //     });
+        //     return;
+        // }
+        // setLoading(true);
+        // const payload = {
+        //     account_id: accountID,
+        //     email: username,
+        //     name: shopName,
+        //     phone: shopPhone,
+        //     thumbnail: "empty"
+        // }
+        // const res = await ShopService.createShop(payload);
+        // if (res) {
+        //     setLoading(false);
+        //     setStep(1);
+        // } else {
+        //     toast({
+        //         type: 'error',
+        //         icon: 'sync',
+        //         title: 'Error',
+        //         description: 'Create shop failed',
+        //         time: 1000,
+        //     });
+        //     setLoading(false);
+        // }
     }
 
     return (
