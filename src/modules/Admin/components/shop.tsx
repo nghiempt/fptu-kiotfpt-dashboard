@@ -40,7 +40,6 @@ const TableShop = () => {
         const status = currentItem?.status?.value === 'active' ? 'inactive' : 'active'
         const res = await ShopService.updateStatusShop(currentItem?.id, status)
         if (res?.result) {
-            init()
             toast({
                 type: 'success',
                 icon: 'sync',
@@ -48,6 +47,7 @@ const TableShop = () => {
                 description: 'Update status shop successfully',
                 time: 1000,
             });
+            init()
         } else {
             toast({
                 type: 'error',
@@ -61,17 +61,11 @@ const TableShop = () => {
     }
 
     const loadDataByPage = async (data: any, page: number) => {
-        switch (page) {
-            case 1:
-                return setCurrentData(data?.slice(0, 12))
-            case 2:
-                return setCurrentData(data?.slice(12, 24))
-            case 3:
-                return setCurrentData(data?.slice(24, data?.length))
-            default:
-                return data
-        }
-    }
+        const startIndex = (page - 1) * 12;
+        const endIndex = page * 12;
+        const currentData = data?.slice(startIndex, endIndex);
+        return setCurrentData(currentData);
+    };
 
     const renderAmountPage = (data: any) => {
         const amountPage = Math.ceil(data?.length / 12)

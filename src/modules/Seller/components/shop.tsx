@@ -116,11 +116,19 @@ const TableShop = () => {
         setAddressDistrict({ id: 0, value: '' })
         const districts = await getAllDistrict(provinceID)
         setDistricts(districts)
+        handleUpdateInput('address', {
+            ...data?.address,
+            province: { id: provinceID, value: e?.target?.innerText }
+        })
     }
 
     const handleChangeDistrict = async (e: any) => {
         let districtID = districts.find((item: any) => item?.text === e?.target?.innerText)?.key
         setAddressDistrict({ id: districtID, value: e?.target?.innerText })
+        handleUpdateInput('address', {
+            ...data?.address,
+            district: { id: districtID, value: e?.target?.innerText }
+        })
     }
 
     const init = async () => {
@@ -215,16 +223,26 @@ const TableShop = () => {
                                 </FormField>
                                 <FormField>
                                     <label>Province</label>
-                                    <div className='flex gap-2'>
-                                        <Input fluid placeholder='Province' value={addressProvince?.value} readOnly />
-                                        <Select placeholder='Select your province' options={provinces} onChange={(e) => handleChangeProvince(e)} />
+                                    <div className='w-full flex gap-2'>
+                                        <Select
+                                            placeholder='Select your province'
+                                            className='w-full'
+                                            value={addressProvince?.id}
+                                            options={provinces}
+                                            onChange={(e) => handleChangeProvince(e)}
+                                        />
                                     </div>
                                 </FormField>
                                 <FormField>
                                     <label>District</label>
-                                    <div className='flex gap-2'>
-                                        <Input fluid placeholder='District' value={addressDistrict?.value} readOnly />
-                                        <Select placeholder='Select your district' options={districts} onChange={(e) => handleChangeDistrict(e)} />
+                                    <div className='w-full flex gap-2'>
+                                        <Select
+                                            placeholder='Select your district'
+                                            className='w-full'
+                                            value={addressDistrict?.id}
+                                            options={districts}
+                                            onChange={(e) => handleChangeDistrict(e)}
+                                        />
                                     </div>
                                 </FormField>
                             </FormGroup>

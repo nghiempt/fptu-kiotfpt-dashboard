@@ -54,7 +54,6 @@ const TableBrand = () => {
         const status = currentItem?.status?.value === 'active' ? 'inactive' : 'active'
         const res = await BrandService.updateStatusBrand(currentItem?.brand_id, status)
         if (res?.result) {
-            init()
             toast({
                 type: 'success',
                 icon: 'sync',
@@ -62,6 +61,7 @@ const TableBrand = () => {
                 description: 'Update status brand successfully',
                 time: 1000,
             });
+            reloadData()
         } else {
             toast({
                 type: 'error',
@@ -75,17 +75,11 @@ const TableBrand = () => {
     }
 
     const loadDataByPage = async (data: any, page: number) => {
-        switch (page) {
-            case 1:
-                return setCurrentData(data?.slice(0, 12))
-            case 2:
-                return setCurrentData(data?.slice(12, 24))
-            case 3:
-                return setCurrentData(data?.slice(24, data?.length))
-            default:
-                return data
-        }
-    }
+        const startIndex = (page - 1) * 12;
+        const endIndex = page * 12;
+        const currentData = data?.slice(startIndex, endIndex);
+        return setCurrentData(currentData);
+    };
 
     const renderAmountPage = (data: any) => {
         const amountPage = Math.ceil(data?.length / 12)
@@ -94,6 +88,15 @@ const TableBrand = () => {
             amount.push(i)
         }
         return amount
+    }
+
+    const reloadData = async () => {
+        const res = await BrandService.getAllBrands()
+        if (res?.result) {
+            setData(res?.data)
+            loadDataByPage(res?.data, currentPage)
+            setLoading(false)
+        }
     }
 
     const init = async () => {
@@ -113,8 +116,8 @@ const TableBrand = () => {
 
     return (
         <div className='flex justify-center items-start gap-4'>
-            <ModalUpdateBrand open={openModalUpdate} setOpen={setOpenModalUpdate} currentItem={currentItem} setCurrentItem={setCurrentItem} initialData={init} />
-            <ModalCreateBrand open={openModalCreate} setOpen={setOpenModalCreate} initialData={init} />
+            <ModalUpdateBrand open={openModalUpdate} setOpen={setOpenModalUpdate} currentItem={currentItem} setCurrentItem={setCurrentItem} initialData={reloadData} />
+            <ModalCreateBrand open={openModalCreate} setOpen={setOpenModalCreate} initialData={reloadData} />
             <Table celled>
                 <TableHeader>
                     <TableRow>

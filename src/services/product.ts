@@ -11,8 +11,6 @@ const getProductByShop = async (page: any, amout: any) => {
             },
         });
         const data = await response.json();
-        console.log(data);
-        
         return data;
     } catch (err) {
         return false;
@@ -31,8 +29,6 @@ const createProduct = async (payload: any) => {
             body: JSON.stringify(payload),
         });
         const data = await response.json();
-        console.log(data);
-        
         return data;
     } catch (err) {
         return false;
@@ -50,8 +46,6 @@ const updateProduct = async (id: string, payload: any) => {
             body: JSON.stringify(payload),
         });
         const data = await response.json();
-        console.log(data);
-        
         return data;
     } catch (err) {
         return false;
@@ -68,7 +62,6 @@ const updateStatusProduct = async (id: string, status: any) => {
             },
         });
         const data = await response.json();
-        console.log(data);
         return data;
     } catch (err) {
         console.log(err);

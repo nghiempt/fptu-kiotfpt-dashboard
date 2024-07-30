@@ -119,20 +119,20 @@ const ModalCreateShopCategory: React.FC<ModalCreateShopCategoryProps> = ({
     if (res?.result) {
       setListCategories(res?.data);
     }
-    
+
   };
 
-  
+
 
   useEffect(() => {
     init();
   }, []);
 
-  useEffect(() => {}, [imageCloud]);
+  useEffect(() => { }, [imageCloud]);
 
   return (
     <Modal
-      size="small"
+      size="mini"
       onClose={handleClear}
       onOpen={() => setOpen(true)}
       open={open}
@@ -147,38 +147,7 @@ const ModalCreateShopCategory: React.FC<ModalCreateShopCategoryProps> = ({
         image
         className="!relative !flex !flex-row !justify-center !items-start !gap-36"
       >
-        {/* <div className="!flex !flex-col !justify-center !items-center">
-          <div className="w-full flex justify-start items-center">
-            <Header as="h4">Add From Repository</Header>
-          </div>
-          <Menu vertical>
-            <MenuItem>
-              <Input placeholder="Search..." />
-            </MenuItem>
-            <MenuMenu className="flex flex-col w-full">
-              {listCategories?.slice(0, 10)?.map((item: any, index: any) => {
-                return (
-                  <MenuItem key={index} name={item?.name}>
-                    <div
-                      className={`w-full cursor-pointer rounded-sm py-1 ${
-                        selectedIndex === index
-                          ? "bg-gray-500"
-                          : "hover:bg-gray-200"
-                      }`}
-                      onClick={() => setSelectedIndex(index)}
-                    >
-                      <h1 className="text-[12px] text-center">{item?.name}</h1>
-                    </div>
-                  </MenuItem>
-                );
-              })}
-            </MenuMenu>
-          </Menu>
-        </div> */}
         <div className="!flex !flex-col justify-center !items-center">
-          <div className="w-full flex justify-start items-center">
-            <Header as="h4">Create New</Header>
-          </div>
           {loading ? (
             <Dimmer active inverted>
               <Loader inverted content="Loading" />

@@ -51,6 +51,8 @@ const updateStatusShop = async (id: string, status: any) => {
 }
 
 const updateShop = async (id: string, payload: any) => {
+    console.log(payload);
+    
     try {
         const response = await fetch(`${API.UPDATE_SHOP}/${id}`, {
             method: "PUT",

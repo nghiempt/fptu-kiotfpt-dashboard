@@ -56,7 +56,6 @@ const TableCategory = () => {
         }
         const res = await CategoryService.updateStatusCategory(currentItem?.id, payload)
         if (res?.result) {
-            init()
             toast({
                 type: 'success',
                 icon: 'sync',
@@ -64,6 +63,7 @@ const TableCategory = () => {
                 description: 'Update status category successfully',
                 time: 1000,
             });
+            reloadData()
         } else {
             toast({
                 type: 'error',
@@ -72,22 +72,17 @@ const TableCategory = () => {
                 description: 'Update status category failed',
                 time: 1000,
             });
+            reloadData()
         }
         setLoading(false)
     }
 
     const loadDataByPage = async (data: any, page: number) => {
-        switch (page) {
-            case 1:
-                return setCurrentData(data?.slice(0, 12))
-            case 2:
-                return setCurrentData(data?.slice(12, 24))
-            case 3:
-                return setCurrentData(data?.slice(24, data?.length))
-            default:
-                return data
-        }
-    }
+        const startIndex = (page - 1) * 12;
+        const endIndex = page * 12;
+        const currentData = data?.slice(startIndex, endIndex);
+        return setCurrentData(currentData);
+    };
 
     const renderAmountPage = (data: any) => {
         const amountPage = Math.ceil(data?.length / 12)
@@ -96,6 +91,15 @@ const TableCategory = () => {
             amount.push(i)
         }
         return amount
+    }
+
+    const reloadData = async () => {
+        const res = await CategoryService.getAllCategories()
+        if (res?.result) {
+            setData(res?.data)
+            loadDataByPage(res?.data, currentPage)
+            setLoading(false)
+        }
     }
 
     const init = async () => {
@@ -115,8 +119,8 @@ const TableCategory = () => {
 
     return (
         <div className='flex justify-center items-start gap-4'>
-            <ModalUpdateCategory open={openModalUpdate} setOpen={setOpenModalUpdate} currentItem={currentItem} setCurrentItem={setCurrentItem} initialData={init} />
-            <ModalCreateCategory open={openModalCreate} setOpen={setOpenModalCreate} initialData={init} />
+            <ModalUpdateCategory open={openModalUpdate} setOpen={setOpenModalUpdate} currentItem={currentItem} setCurrentItem={setCurrentItem} initialData={reloadData} />
+            <ModalCreateCategory open={openModalCreate} setOpen={setOpenModalCreate} initialData={reloadData} />
             <Table celled>
                 <TableHeader>
                     <TableRow>
@@ -207,10 +211,10 @@ const TableCategory = () => {
                     </CardContent>
                 </Card>
                 <div className='w-full flex justify-center items-center gap-2'>
-                    <Button color='facebook' onClick={handleOpenModalCreate}>
+                    <Button color='facebook' onClick={handleOpenModalCreate} className='!w-full'>
                         <Icon name='plus' /> Create
                     </Button>
-                    <Button color='google plus' onClick={handleOpenModalUpdate}>
+                    <Button color='orange' onClick={handleOpenModalUpdate} className='!w-full'>
                         <Icon name='edit' /> Update
                     </Button>
                 </div>

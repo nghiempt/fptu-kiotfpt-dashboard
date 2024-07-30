@@ -19,6 +19,7 @@ import {
     Button,
     Loader,
     Rating,
+    CardDescription,
 } from 'semantic-ui-react'
 import { ProductService } from '../../../services/product'
 import ModalUpdateProduct from '../modal/modal.update-product'
@@ -30,7 +31,7 @@ const TableProduct = () => {
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([] as any)
     const [currentPage, setCurrentPage] = useState(1)
-    const [currentItem, setCurrentItem] = useState({ thumbnail: [{ link: '' }] } as any)
+    const [currentItem, setCurrentItem] = useState({ thumbnail: [{ link: '' }], variants: [{ quantity: 0, color: { value: '' }, size: { value: '' } }] } as any)
 
     const [openModalUpdate, setOpenModalUpdate] = useState(false)
     const [openModalCreate, setOpenModalCreate] = useState(false)
@@ -93,7 +94,6 @@ const TableProduct = () => {
         setLoading(true)
         const res = await ProductService.getProductByShop(page, 12)
         if (res?.result) {
-            console.log(res?.data);
             setData(res?.data)
             setCurrentItem(res?.data?.products[0])
             setLoading(false)
@@ -112,12 +112,13 @@ const TableProduct = () => {
         <div className='flex justify-center items-start gap-4'>
             <ModalUpdateProduct open={openModalUpdate} setOpen={setOpenModalUpdate} currentItem={currentItem} setCurrentItem={setCurrentItem} initialData={init} />
             <ModalCreateProduct open={openModalCreate} setOpen={setOpenModalCreate} initialData={init} />
-            <Table celled>
+            <Table celled className=''>
                 <TableHeader>
                     <TableRow>
                         <TableHeaderCell>PRODUCT ID</TableHeaderCell>
                         <TableHeaderCell>PRODUCT NAME</TableHeaderCell>
                         <TableHeaderCell>BRAND</TableHeaderCell>
+                        <TableHeaderCell>CATEGORY</TableHeaderCell>
                         <TableHeaderCell>RATE</TableHeaderCell>
                         <TableHeaderCell>STATUS</TableHeaderCell>
                     </TableRow>
@@ -148,6 +149,9 @@ const TableProduct = () => {
                                             {item?.brand?.brand_name}
                                         </TableCell>
                                         <TableCell>
+                                            {item?.category?.name}
+                                        </TableCell>
+                                        <TableCell>
                                             {item?.rate} <Rating icon='star' defaultRating={1} maxRating={1} className='ml-1' />
                                         </TableCell>
                                         <TableCell>
@@ -162,7 +166,7 @@ const TableProduct = () => {
                 </TableBody>
                 <TableFooter>
                     <TableRow>
-                        <TableHeaderCell colSpan='5'>
+                        <TableHeaderCell colSpan='6'>
                             <Menu floated='right' pagination>
                                 <MenuItem as='a' icon>
                                     <Icon name='chevron left' />
@@ -194,8 +198,37 @@ const TableProduct = () => {
                     <CardContent>
                         <CardHeader>{currentItem?.name}</CardHeader>
                         <CardMeta>
-                            <span className='date'>July 15th 2024</span>
+                            <span className='date'>{currentItem?.description}</span>
                         </CardMeta>
+                        <CardDescription className='!text-[12px]'>
+                            <strong>Quantity: </strong>{currentItem?.variants[0]?.quantity}
+                        </CardDescription>
+                        <CardDescription className='!text-[12px]'>
+                            <strong>Discount: </strong>{currentItem?.discount}%
+                        </CardDescription>
+                        <CardDescription className='!text-[12px]'>
+                            <strong>Price: </strong>${currentItem?.minPrice}
+                        </CardDescription>
+                        <CardDescription className='!text-[12px]'>
+                            <strong>Color: </strong>{currentItem?.variants[0]?.color?.value}
+                        </CardDescription>
+                        <CardDescription className='!text-[12px]'>
+                            <strong>Size: </strong>{currentItem?.variants[0]?.size?.value}
+                        </CardDescription>
+                        <div className='w-full grid grid-cols-4 gap-2 mt-2'>
+                            <Button color={`${currentItem?.bestSeller ? 'teal' : 'grey'}`} onClick={handleOpenModalCreate} className='!w-full !m-0 !py-1 !px-0 !text-[12px]'>
+                                B.Seller
+                            </Button>
+                            <Button color={`${currentItem?.topDeal ? 'teal' : 'grey'}`} onClick={handleOpenModalUpdate} className='!w-full !m-0 !py-1 !px-0 !text-[12px]'>
+                                T.Deal
+                            </Button>
+                            <Button color={`${currentItem?.popular ? 'teal' : 'grey'}`} onClick={handleOpenModalCreate} className='!w-full !m-0 !py-1 !px-0 !text-[12px]'>
+                                Popular
+                            </Button>
+                            <Button color={`${currentItem?.official ? 'teal' : 'grey'}`} onClick={handleOpenModalUpdate} className='!w-full !m-0 !py-1 !px-0 !text-[12px]'>
+                                Official
+                            </Button>
+                        </div>
                     </CardContent>
                     <CardContent extra>
                         <a className='flex justify-between items-center'>
@@ -207,10 +240,10 @@ const TableProduct = () => {
                     </CardContent>
                 </Card>
                 <div className='w-full flex justify-center items-center gap-2'>
-                    <Button color='facebook' onClick={handleOpenModalCreate}>
+                    <Button color='facebook' onClick={handleOpenModalCreate} className='!w-full'>
                         <Icon name='plus' /> Create
                     </Button>
-                    <Button color='google plus' onClick={handleOpenModalUpdate}>
+                    <Button color='orange' onClick={handleOpenModalUpdate} className='!w-full'>
                         <Icon name='edit' /> Update
                     </Button>
                 </div>

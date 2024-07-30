@@ -78,16 +78,7 @@ const TableVoucher = () => {
     }
 
     const loadDataByPage = async (data: any, page: number) => {
-        switch (page) {
-            case 1:
-                return setCurrentData(data?.vouchers?.slice(0, 12))
-            case 2:
-                return setCurrentData(data?.vouchers?.slice(12, 24))
-            case 3:
-                return setCurrentData(data?.vouchers?.slice(24, data?.length))
-            default:
-                return data
-        }
+        return data
     }
 
     const renderAmountPage = (data: any) => {
@@ -99,12 +90,20 @@ const TableVoucher = () => {
         return amount
     }
 
+    const filterDataActive = (data: any) => {
+        let tmp: any = []
+        data?.map((item: any) => {
+            if (item?.status?.value === 'active') {
+                tmp.push(item)
+            }
+        })
+        return tmp
+    }
+
     const reloadData = async () => {
         const res = await VoucherService.getAllVouchers(10)
         if (res?.result) {
-            setData(res?.data)
-            setCurrentItem(res?.data.find((item: any) => item?.id === currentItem?.id))
-            loadDataByPage(res?.data, currentPage)
+            setData(res?.data?.vouchers)
             setLoading(false)
         }
     }
@@ -112,10 +111,9 @@ const TableVoucher = () => {
     const init = async () => {
         const res = await VoucherService.getAllVouchers(10)
         if (res?.result) {
-            setData(res?.data)
-            setCurrentItem(res?.data[0])
+            setData(res?.data?.vouchers)
+            setCurrentItem(res?.data?.vouchers[0])
             setCurrentPage(1)
-            loadDataByPage(res?.data, 1)
             setLoading(false)
         }
     }
@@ -144,7 +142,7 @@ const TableVoucher = () => {
                                 <Loader active inline />
                             </TableRow>
                             :
-                            currentData?.map((item: any, index: any) => {
+                            filterDataActive(data)?.map((item: any, index: any) => {
                                 return (
                                     <TableRow
                                         key={index}
@@ -208,18 +206,18 @@ const TableVoucher = () => {
                     </CardContent>
                     <CardContent extra>
                         <a className='flex justify-between items-center'>
-                            <Button onClick={updateStatus} loading={loading ? true : false}>Change Status</Button>
+                            <Button onClick={updateStatus} loading={loading ? true : false} color='red'>Remove</Button>
                             <Label as='a' color={`${currentItem?.status?.value === 'active' ? 'teal' : 'grey'}`} className='!uppercase !text-[12px]' tag>
                                 {currentItem?.status?.value}
                             </Label>
                         </a>
                     </CardContent>
                 </Card>
-                <div className='w-full flex justify-center items-center gap-2'>
-                    <Button color='facebook' onClick={handleOpenModalCreate}>
+                <div className='w-full flex justify-center items-center gap-3'>
+                    <Button color='facebook' onClick={handleOpenModalCreate} className='!w-full'>
                         <Icon name='plus' /> Create
                     </Button>
-                    <Button color='google plus' onClick={handleOpenModalUpdate}>
+                    <Button color='orange' onClick={handleOpenModalUpdate} className='!w-full'>
                         <Icon name='edit' /> Update
                     </Button>
                 </div>

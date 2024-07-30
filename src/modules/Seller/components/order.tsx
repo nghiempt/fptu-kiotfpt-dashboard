@@ -22,6 +22,7 @@ import {
 } from 'semantic-ui-react'
 import { toast } from "react-semantic-toasts";
 import { OrderService } from '../../../services/order'
+import { formatDate } from '../../../utils/helper';
 
 const TableOrder = () => {
 
@@ -101,6 +102,55 @@ const TableOrder = () => {
         }
     }
 
+    const renderButton = (status: any) => {
+        switch (status) {
+            case 'pending':
+                return (
+                    <CardContent extra>
+                        <a className=' justify-center items-center grid grid-cols-2 gap-3'>
+                            <Button color='red' onClick={() => updateStatus('rejected')} loading={loading ? true : false}>Reject</Button>
+                            <Button color='blue' onClick={() => updateStatus('accepted')} loading={loading ? true : false}>Accept</Button>
+                        </a>
+                    </CardContent>
+                )
+            case 'accepted':
+                return (
+                    <CardContent extra>
+                        <a className=' justify-center items-center grid grid-cols-1 gap-3'>
+                            <Button color='blue' onClick={() => updateStatus('delivering')} loading={loading ? true : false}>Delivering</Button>
+                        </a>
+                    </CardContent>
+                )
+            case 'delivering':
+                return (
+                    <CardContent extra>
+                        <a className=' justify-center items-center grid grid-cols-1 gap-3'>
+                            <Button color='blue' onClick={() => updateStatus('completed')} loading={loading ? true : false}>Complete</Button>
+                        </a>
+                    </CardContent>
+                )
+            default:
+                return null
+        }
+    }
+
+    const renderColorStatus = (status: any) => {
+        switch (status) {
+            case 'pending':
+                return 'grey'
+            case 'accepted':
+                return 'blue'
+            case 'delivering':
+                return 'yellow'
+            case 'completed':
+                return 'green'
+            case 'rejected':
+                return 'red'
+            default:
+                return 'grey'
+        }
+    }
+
     const init = async () => {
         const res = await OrderService.getOrderByShop(1, 12)
         if (res?.result) {
@@ -155,12 +205,12 @@ const TableOrder = () => {
                                         <TableCell>${item?.total}</TableCell>
                                         <TableCell>
                                             <div className='flex items-center gap-4'>
-                                                <Image src={renderImage(item?.profile?.avatar)} size='mini' className='rounded-full' />
+                                                <Image src={renderImage(item?.profile?.avatar)} size='mini' className='rounded-full !w-10 !h-10' />
                                                 {item?.profile?.name}
                                             </div>
                                         </TableCell>
                                         <TableCell>
-                                            <Button color={`${item?.status?.value === 'completed' ? 'teal' : 'grey'}`} className='!uppercase !text-[12px]'>
+                                            <Button color={`${renderColorStatus(item?.status?.value)}`} className='!uppercase !text-[12px]'>
                                                 {item?.status?.value}
                                             </Button>
                                         </TableCell>
@@ -203,7 +253,7 @@ const TableOrder = () => {
                     <CardContent>
                         <CardHeader>{currentItem?.name}</CardHeader>
                         <CardMeta>
-                            <span className='date'>{currentItem?.time_init}</span>
+                            <span className='date'>{formatDate(currentItem?.time_init)}</span>
                         </CardMeta>
                         <div className='flex flex-col mt-4 gap-2'>
                             <CardDescription>
@@ -224,14 +274,7 @@ const TableOrder = () => {
                         </div>
                     </CardContent>
                     {
-                        currentItem?.status?.value === 'pending' && (
-                            <CardContent extra>
-                                <a className=' justify-center items-center grid grid-cols-2 gap-3'>
-                                    <Button color='red' onClick={() => updateStatus('rejected')} loading={loading ? true : false}>Reject</Button>
-                                    <Button color='blue' onClick={() => updateStatus('completed')} loading={loading ? true : false}>Complete</Button>
-                                </a>
-                            </CardContent>
-                        )
+                        renderButton(currentItem?.status?.value)
                     }
                 </Card>
             </div>

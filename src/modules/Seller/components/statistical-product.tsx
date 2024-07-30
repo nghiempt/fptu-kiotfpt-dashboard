@@ -12,14 +12,14 @@ import {
 } from 'semantic-ui-react'
 import { StatisService } from '../../../services/statis'
 
-const StatisticalProduct = () => {
+const StatisticalProduct = (month: any) => {
 
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([{ thumbnails: [{ link: '' }] }] as any)
 
     const init = async () => {
         const payload = {
-            month: 7,
+            month: month?.month,
             year: 2024
         }
         const res = await StatisService.sellerStatisProduct(payload)
@@ -31,7 +31,7 @@ const StatisticalProduct = () => {
 
     useEffect(() => {
         init()
-    }, [])
+    }, [month])
 
     return (
         <div className='flex justify-center items-start gap-4'>

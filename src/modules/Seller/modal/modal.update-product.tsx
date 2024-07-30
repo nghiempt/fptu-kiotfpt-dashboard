@@ -22,6 +22,8 @@ import { CLOUDINARY } from "../../../utils/api";
 import { ProductService } from "../../../services/product";
 import { fakeData } from "../../../utils/fakeData";
 import { AuthService } from "../../../services/auth";
+import { CategoryService } from "../../../services/category";
+import { BrandService } from "../../../services/brand";
 
 interface ModalUpdateProductProps {
   open: boolean;
@@ -42,34 +44,61 @@ const ModalUpdateProduct: React.FC<ModalUpdateProductProps> = ({
   const [loading, setLoading] = React.useState(false);
   const [message, setMessage] = React.useState("");
   const [brand, setBrand] = React.useState({ brand_id: 0 } as any);
-  const [category, setCategory] = React.useState({ category_id: 0 } as any);
+  const [category, setCategory] = React.useState({ id: 0 } as any);
   const [color, setColor] = React.useState({ color_id: 0 } as any);
   const [size, setSize] = React.useState({ size_id: 0 } as any);
 
+  const [listCategories, setListCategories] = React.useState([] as any);
+  const [listBrands, setListBrands] = React.useState([] as any);
+
   const handleChangeBrand = (e: any, data: any) => {
-    const selectedBrand = fakeData.brands.find(
-      (brand) => brand.brand_id === data.value
+    const selectedBrand = listBrands.find(
+      (brand: any) => brand.brand_id === data.value
     );
     setBrand(selectedBrand);
-    console.log(selectedBrand);
+    setCurrentItem({
+      ...currentItem,
+      brand: selectedBrand,
+    });
   };
+
   const handleChangeCategory = (e: any, data: any) => {
-    const selectedCategory = fakeData.categories.find(
-      (category) => category.category_id === data.value
+    const selectedCategory = listCategories.find(
+      (category: any) => category.id === data.value
     );
     setCategory(selectedCategory);
   };
+
   const handleChangeColor = (e: any, data: any) => {
     const selectedColor = fakeData.colors.find(
       (color) => color.color_id === data.value
     );
     setColor(selectedColor);
+    setCurrentItem({
+      ...currentItem,
+      variants: [
+        {
+          ...getFirstItemVariant(),
+          color: selectedColor,
+        },
+      ],
+    });
   };
+
   const handleChangeSize = (e: any, data: any) => {
     const selectedSize = fakeData.sizes.find(
       (size) => size.size_id === data.value
     );
     setSize(selectedSize);
+    setCurrentItem({
+      ...currentItem,
+      variants: [
+        {
+          ...getFirstItemVariant(),
+          size: selectedSize,
+        },
+      ],
+    });
   };
 
   const uploadImageToCloudinary = async (file: File) => {
@@ -176,6 +205,21 @@ const ModalUpdateProduct: React.FC<ModalUpdateProductProps> = ({
 
   useEffect(() => { }, [imageCloud]);
 
+  const getAllCategories = async () => {
+    const res = await CategoryService.getAllCategories();
+    setListCategories(res?.data);
+  }
+
+  const getAllBrands = async () => {
+    const res = await BrandService.getAllBrands();
+    setListBrands(res?.data);
+  }
+
+  useEffect(() => {
+    getAllCategories()
+    getAllBrands()
+  }, []);
+
   return (
     <Modal
       size="large"
@@ -226,15 +270,33 @@ const ModalUpdateProduct: React.FC<ModalUpdateProductProps> = ({
               label="Price"
               placeholder="Price"
               value={getFirstItemVariant()?.price}
-              onChange={(e) => handleChangeCurrentItem("price", e.target.value)}
+              onChange={(e) => {
+                setCurrentItem({
+                  ...currentItem,
+                  variants: [
+                    {
+                      ...getFirstItemVariant(),
+                      price: e.target.value,
+                    },
+                  ],
+                });
+              }}
             />
             <FormInput
               label="Quantity"
               placeholder="Quantity"
               value={getFirstItemVariant()?.quantity}
-              onChange={(e) =>
-                handleChangeCurrentItem("quantity", e.target.value)
-              }
+              onChange={(e) => {
+                setCurrentItem({
+                  ...currentItem,
+                  variants: [
+                    {
+                      ...getFirstItemVariant(),
+                      quantity: e.target.value,
+                    },
+                  ],
+                });
+              }}
             />
             <FormInput
               label="Discount"
@@ -247,11 +309,11 @@ const ModalUpdateProduct: React.FC<ModalUpdateProductProps> = ({
           </FormGroup>
           <Header as="h6">Variant</Header>
           <Divider />
-          <div className="w-full grid grid-cols-3 gap-4">
+          <div className="w-full grid grid-cols-4 gap-4">
             <Select
               placeholder="Select brand"
               value={currentItem?.brand?.brand_id}
-              options={fakeData.brands.map((brand: any) => {
+              options={listBrands.map((brand: any) => {
                 return {
                   key: brand.brand_id,
                   value: brand?.brand_id,
@@ -263,12 +325,12 @@ const ModalUpdateProduct: React.FC<ModalUpdateProductProps> = ({
             <Select
               fluid
               placeholder="Select category"
-              value={currentItem?.category?.category_id}
-              options={fakeData.categories.map((category: any) => {
+              value={currentItem?.category?.id}
+              options={listCategories.map((category: any) => {
                 return {
-                  key: category.category_id,
-                  value: category.category_id,
-                  text: category.category_name,
+                  key: category.id,
+                  value: category.id,
+                  text: category.name,
                 };
               })}
               onChange={handleChangeCategory}

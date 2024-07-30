@@ -110,7 +110,6 @@ const TableCategory = () => {
         const res = await ShopCategoryService.getAllShopCategories()
         if (res?.result) {
             setData(res?.data)
-            console.log(res?.data);
             setCurrentItem(res?.data[0])
             setCurrentPage(1)
             loadDataByPage(res?.data, 1)
@@ -211,19 +210,19 @@ const TableCategory = () => {
                     </CardContent>
                     <CardContent extra>
                         <a className='flex justify-between items-center'>
-                            <Button onClick={updateStatus} loading={loading ? true : false}>Change Status</Button>
+                            <Button onClick={updateStatus} loading={loading ? true : false} color='red'>Remove</Button>
                             <Label as='a' color={`${currentItem?.shopCate?.category?.status?.value === 'active' ? 'teal' : 'grey'}`} className='!uppercase !text-[12px]' tag>
                                 {currentItem?.shopCate?.category?.status?.value}
                             </Label>
                         </a>
                     </CardContent>
                 </Card>
-                <div className='w-full flex justify-center items-center gap-x-2'>
+                <div className='w-full flex justify-center items-center gap-x-4'>
                     <Button color='facebook' onClick={handleOpenModalAdd} className='w-full !m-0 shadow-md'>
                         <Icon name='plus' /> Add
                     </Button>
                     <Button color='facebook' onClick={handleOpenModalCreate} className='w-full !m-0 shadow-md'>
-                        <Icon name='plus' /> Create new
+                        <Icon name='plus' /> Create
                     </Button>
                 </div>
             </div>

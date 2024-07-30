@@ -5,19 +5,13 @@ import {
   ModalActions,
   Button,
   Modal,
+  ListHeader,
+  ListDescription,
+  ListContent,
   Image,
-  Loader,
-  Dimmer,
-  MenuMenu,
-  MenuItem,
-  Icon,
-  Input,
-  Menu,
-  Header,
 } from "semantic-ui-react";
 import { CategoryService } from "../../../services/category";
 import { toast } from "react-semantic-toasts";
-import { CLOUDINARY } from "../../../utils/api";
 import { AuthService } from "../../../services/auth";
 
 interface ModalAddCategoryFromRepoProps {
@@ -33,41 +27,34 @@ const ModalAddCategoryFromRepo: React.FC<ModalAddCategoryFromRepoProps> = ({
 }) => {
   const [message, setMessage] = React.useState("");
   const [listCategories, setListCategories] = React.useState([] as any);
-  const [selectedIndex, setSelectedIndex] = React.useState(null);
-  const [idCategory, setIdCategory] = React.useState(null);
-
-  const getCategoryID = (index: any, idC:any) => {
-    setSelectedIndex(index); 
-    setIdCategory(idC);   
-  }
-
+  const [selectedItem, setSelectedItem] = React.useState({} as any);
   const submit = async () => {
-      const res = await CategoryService.createShopCategory(Number(AuthService.getShopID()),idCategory);
-      if (res?.result) {
-        toast({
-          type: "success",
-          icon: "sync",
-          title: "Create Category",
-          description: "Create category successfully",
-          time: 1000,
-        });
-        handleClear();
-      } else {
-        toast({
-          type: "error",
-          icon: "sync",
-          title: "Create Category",
-          description: "Create category failed",
-          time: 1000,
-        });
-      }
-      
-    
+    const res = await CategoryService.createShopCategory(Number(AuthService.getShopID()), selectedItem?.id);
+    if (res?.result) {
+      toast({
+        type: "success",
+        icon: "sync",
+        title: "Create Category",
+        description: "Create category successfully",
+        time: 1000,
+      });
+      initialData()
+      handleClear();
+    } else {
+      toast({
+        type: "error",
+        icon: "sync",
+        title: "Create Category",
+        description: "Create category failed",
+        time: 1000,
+      });
+    }
   };
 
   const handleClear = () => {
     setMessage("");
     setOpen(false);
+    setSelectedItem({});
   };
 
   const checkMessage = () => {
@@ -82,21 +69,17 @@ const ModalAddCategoryFromRepo: React.FC<ModalAddCategoryFromRepoProps> = ({
     if (res?.result) {
       setListCategories(res?.data);
     }
-    console.log(listCategories);
-    
   };
-
-  
 
   useEffect(() => {
     init();
   }, []);
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   return (
     <Modal
-      size="small"
+      size="mini"
       onClose={handleClear}
       onOpen={() => setOpen(true)}
       open={open}
@@ -111,30 +94,22 @@ const ModalAddCategoryFromRepo: React.FC<ModalAddCategoryFromRepoProps> = ({
         image
         className="!relative !flex !flex-row !justify-center !items-start !gap-36"
       >
-        <div className="!flex !flex-col !justify-center !items-center">
-          <Menu vertical>
-            <MenuItem>
-              <Input placeholder="Search..." />
-            </MenuItem>
-            <MenuMenu className="flex flex-col w-full">
-              {listCategories?.slice(0, 10)?.map((item: any, index: any) => {
-                return (
-                  <MenuItem key={index} name={item?.name}>
-                    <div
-                      className={`w-full cursor-pointer rounded-sm py-1 ${
-                        selectedIndex === index
-                          ? "bg-gray-500"
-                          : "hover:bg-gray-200"
-                      }`}
-                      onClick={() => getCategoryID(index,item?.id)}
-                    >
-                      <h1 className="text-[12px] text-center">{item?.name}</h1>
-                    </div>
-                  </MenuItem>
-                );
-              })}
-            </MenuMenu>
-          </Menu>
+        <div className="!w-full !flex !flex-col !justify-center !items-center gap-2 overflow-y-auto max-h-96 pt-6">
+          {listCategories?.map((item: any, index: any) => {
+            return (
+              <div
+                key={index}
+                onClick={() => setSelectedItem(item)}
+                className={`${selectedItem?.id === item?.id ? 'border-2 border-gray-700' : 'border'} w-full flex justify-start items-center gap-2 p-2 rounded-lg cursor-pointer hover:border-gray-700`}
+              >
+                <Image avatar src={item?.thumbnail} />
+                <ListContent>
+                  <ListHeader>{item?.name}</ListHeader>
+                  <ListDescription>{item?.description}</ListDescription>
+                </ListContent>
+              </div>
+            );
+          })}
         </div>
       </ModalContent>
       <ModalActions>
