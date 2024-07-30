@@ -4,6 +4,7 @@ export const CLOUDINARY = `https://api.cloudinary.com/v1_1/kiotfpt/image/upload`
 export const API = {
     // auth
     SIGN_IN: `${HOST}/auth/sign-in`,
+    SIGN_UP: `${HOST}/auth/sign-up`,
     // category
     GET_ALL_CATEGORIES: `${HOST}/category/get-all`,
     CREATE_CATEGORY: `${HOST}/category/create`,
@@ -16,6 +17,7 @@ export const API = {
     UPDATE_BRAND: `${HOST}/brand/update`,
     UPDATE_STATUS_BRAND: `${HOST}/brand/update-status`,
     // shop
+    CREATE_SHOP: `${HOST}/shop/create`,
     GET_BY_ID: `${HOST}/shop`,
     GET_ALL_SHOPS: `${HOST}/shop/get-all`,
     UPDATE_STATUS_SHOP: `${HOST}/shop/ban`,

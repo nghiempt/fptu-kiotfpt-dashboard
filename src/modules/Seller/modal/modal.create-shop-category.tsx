@@ -183,6 +183,7 @@ const ModalCreateShopCategory: React.FC<ModalCreateShopCategoryProps> = ({
             label="Name"
             value={name}
             placeholder="Category Name"
+            className="!mt-10"
             onChange={(e) => {
               setName(e.target.value);
               setMessage("done");

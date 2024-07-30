@@ -110,6 +110,8 @@ const TableCategory = () => {
         const res = await ShopCategoryService.getAllShopCategories()
         if (res?.result) {
             setData(res?.data)
+            console.log(res?.data);
+            
             setCurrentItem(res?.data[0])
             setCurrentPage(1)
             loadDataByPage(res?.data, 1)

@@ -1,6 +1,26 @@
 import { API } from "../utils/api";
 import Cookie from "js-cookie";
 
+const createShop = async (payload: any) => {
+    console.log(payload);
+    
+    try {
+        const response = await fetch(API.CREATE_SHOP, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(payload),
+        });
+        const data = await response.json();
+        console.log(data);
+        
+        return data;
+    } catch (err) {
+        return false;
+    }
+};
+
 const getShopByID = async (id: string) => {
     try {
         const response = await fetch(API.GET_BY_ID + `/${id}`, {
@@ -52,7 +72,7 @@ const updateStatusShop = async (id: string, status: any) => {
 
 const updateShop = async (id: string, payload: any) => {
     console.log(payload);
-    
+
     try {
         const response = await fetch(`${API.UPDATE_SHOP}/${id}`, {
             method: "PUT",
@@ -70,6 +90,7 @@ const updateShop = async (id: string, payload: any) => {
 }
 
 export const ShopService = {
+    createShop,
     getShopByID,
     getAllShops,
     updateStatusShop,

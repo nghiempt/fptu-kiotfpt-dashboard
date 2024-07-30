@@ -13,6 +13,16 @@ const SignInContainer: React.FC = () => {
     const [password, setPassword] = useState("");
 
     const handleSubmit = async () => {
+        if (!username || !password) {
+            toast({
+                type: 'error',
+                icon: 'sync',
+                title: 'Sign In',
+                description: 'Username or password is empty',
+                time: 1000,
+            });
+            return;
+        }
         const payload = {
             password: password,
             username: username
