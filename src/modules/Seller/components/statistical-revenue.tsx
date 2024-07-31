@@ -156,8 +156,8 @@ const StatisticalRevenue = (month: any) => {
                         </svg>
                     </div>
                     <div>
-                        <h5 className="leading-none mb-1 text-2xl font-bold text-gray-900 ">Order: ${data?.totalMoneyOfAllOrders}</h5>
-                        <p className="text-sm mt-0 font-normal text-gray-500 ">Orders generated per week</p>
+                        <h5 className="leading-none mb-1 text-2xl font-bold text-gray-900 ">Revenue: ${data?.totalMoneyOfAllOrders}</h5>
+                        <p className="text-sm mt-0 font-normal text-gray-500 ">Orders generated per month</p>
                     </div>
                 </div>
                 <div>

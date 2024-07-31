@@ -94,7 +94,7 @@ const ModalAddCategoryFromRepo: React.FC<ModalAddCategoryFromRepoProps> = ({
         image
         className="!relative !flex !flex-row !justify-center !items-start !gap-36"
       >
-        <div className="!w-full !flex !flex-col !justify-center !items-center gap-2 overflow-y-auto max-h-96 pt-6">
+        <div className="!w-full !flex !flex-col !justify-center !items-center gap-2 overflow-y-auto max-h-96">
           {listCategories?.map((item: any, index: any) => {
             return (
               <div
