@@ -1,8 +1,8 @@
 import ApexCharts from 'apexcharts';
 import { useEffect, useState } from 'react';
-import { ShopStatisService } from '../../../services/shop-statis';
+import { ShopStatisService } from '../../../../services/shop-statis';
 
-const StatisticalOrder = (month: any) => {
+const StatisticalRevenue = (month: any) => {
 
     const [data, setData] = useState({} as any)
     const [chartData, setChartData] = useState(null as any)
@@ -12,82 +12,78 @@ const StatisticalOrder = (month: any) => {
             month: 7,
             year: 2024
         }
-        const res = await ShopStatisService.getStatisOrder(payload)
+        const res = await ShopStatisService.getStatisRevenue(payload)
         if (res?.statusCode === '200') {
             setData(res?.data)
-            let tmp: any = []
+            console.log(res?.data);
+            
+            let listData: any = []
+            let listCategory: any = []
             res?.data?.orders?.forEach((item: any) => {
-                tmp.push({ x: item?.id.toString(), y: item?.total })
+                listCategory.push(item?.id.toString())
+                listData.push(item?.total)
             })
-            if (document.getElementById("column-chart") && typeof ApexCharts !== 'undefined') {
-                const chart = new ApexCharts(document.getElementById("column-chart"), {
-                    colors: ["#1A56DB", "#FDBA8C"],
-                    series: [
-                        {
-                            name: "Organic",
-                            color: "#1A56DB",
-                            data: tmp,
-                        },
-                    ],
-                    chart: {
-                        type: "bar",
-                        height: "320px",
-                        fontFamily: "Inter, sans-serif",
-                        toolbar: {
-                            show: false,
-                        },
-                    },
-                    plotOptions: {
-                        bar: {
-                            horizontal: false,
-                            columnWidth: "70%",
-                            borderRadiusApplication: "end",
-                            borderRadius: 8,
-                        },
-                    },
-                    tooltip: {
-                        shared: true,
-                        intersect: false,
+            if (document.getElementById("data-labels-chart") && typeof ApexCharts !== 'undefined') {
+                const chart = new ApexCharts(document.getElementById("data-labels-chart"), {
+                    dataLabels: {
+                        enabled: true,
                         style: {
-                            fontFamily: "Inter, sans-serif",
+                            cssClass: 'text-xs text-white font-medium'
                         },
-                    },
-                    states: {
-                        hover: {
-                            filter: {
-                                type: "darken",
-                                value: 1,
-                            },
-                        },
-                    },
-                    stroke: {
-                        show: true,
-                        width: 0,
-                        colors: ["transparent"],
                     },
                     grid: {
                         show: false,
                         strokeDashArray: 4,
                         padding: {
-                            left: 2,
-                            right: 2,
-                            top: -14
+                            left: 16,
+                            right: 16,
+                            top: -26
                         },
                     },
-                    dataLabels: {
-                        enabled: false,
+                    series: [
+                        {
+                            name: "Revenue",
+                            data: listData,
+                            color: "#1A56DB",
+                        },
+                    ],
+                    chart: {
+                        height: "100%",
+                        maxWidth: "100%",
+                        type: "area",
+                        fontFamily: "Inter, sans-serif",
+                        dropShadow: {
+                            enabled: false,
+                        },
+                        toolbar: {
+                            show: false,
+                        },
+                    },
+                    tooltip: {
+                        enabled: true,
+                        x: {
+                            show: false,
+                        },
                     },
                     legend: {
-                        show: false,
+                        show: true
+                    },
+                    fill: {
+                        type: "gradient",
+                        gradient: {
+                            opacityFrom: 0.55,
+                            opacityTo: 0,
+                            shade: "#1C64F2",
+                            gradientToColors: ["#1C64F2"],
+                        },
+                    },
+                    stroke: {
+                        width: 6,
                     },
                     xaxis: {
-                        floating: false,
+                        categories: listCategory,
                         labels: {
-                            show: true,
-                            style: {
-                                fontFamily: "Inter, sans-serif",
-                                cssClass: 'text-xs font-normal fill-gray-500 '
-                            }
+                            show: false,
                         },
                         axisBorder: {
                             show: false,
@@ -98,9 +94,11 @@ const StatisticalOrder = (month: any) => {
                     },
                     yaxis: {
                         show: false,
-                    },
-                    fill: {
-                        opacity: 1,
+                        labels: {
+                            formatter: function (value: any) {
+                                return '$' + value;
+                            }
+                        }
                     },
                 });
                 chart.render();
@@ -122,18 +120,28 @@ const StatisticalOrder = (month: any) => {
             month: month?.month,
             year: 2024
         }
-        const res = await ShopStatisService.getStatisOrder(payload)
+        console.log(payload);
+        
+        const res = await ShopStatisService.getStatisRevenue(payload)
         if (res?.statusCode === '200') {
             setData(res?.data)
-            let tmp: any = []
+            console.log(res?.data);
+            
+            let listData: any = []
+            let listCategory: any = []
             res?.data?.orders?.forEach((item: any) => {
-                tmp.push({ x: item?.id.toString(), y: item?.total })
+                listCategory.push(item?.id.toString())
+                listData.push(item?.total)
             })
-            chartData?.updateSeries([{
-                name: "Organic",
-                color: "#1A56DB",
-                data: tmp,
-            }]);
+            chartData?.updateOptions({
+                xaxis: {
+                    categories: listCategory
+                },
+                series: [{
+                    name: "Revenue",
+                    data: listData,
+                }]
+            });
         }
     }
 
@@ -148,8 +156,8 @@ const StatisticalOrder = (month: any) => {
                         </svg>
                     </div>
                     <div>
-                        <h5 className="leading-none mb-1 text-2xl font-bold text-gray-900 ">Order: {data?.totalOrder} orders</h5>
-                        <p className="text-sm mt-0 font-normal text-gray-500 ">Orders generated per month</p>
+                        <h5 className="leading-none mb-1 text-2xl font-bold text-gray-900 ">Revenue: ${data?.totalMoneyOfAllOrders}</h5>
+                        <p className="text-sm mt-0 font-normal text-gray-500 ">Revenue generated per month</p>
                     </div>
                 </div>
                 <div>
@@ -167,10 +175,10 @@ const StatisticalOrder = (month: any) => {
                     <dd className="text-gray-900 text-sm  font-semibold">0%</dd>
                 </dl>
             </div>
-            <div id="column-chart"></div>
+            <div id="data-labels-chart"></div>
         </div>
 
     )
 }
 
-export default StatisticalOrder
+export default StatisticalRevenue

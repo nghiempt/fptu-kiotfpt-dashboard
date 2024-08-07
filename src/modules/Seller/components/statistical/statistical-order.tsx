@@ -1,8 +1,8 @@
 import ApexCharts from 'apexcharts';
 import { useEffect, useState } from 'react';
-import { ShopStatisService } from '../../../services/shop-statis';
+import { ShopStatisService } from '../../../../services/shop-statis';
 
-const StatisticalRevenue = (month: any) => {
+const StatisticalOrder = (month: any) => {
 
     const [data, setData] = useState({} as any)
     const [chartData, setChartData] = useState(null as any)
@@ -12,78 +12,82 @@ const StatisticalRevenue = (month: any) => {
             month: 7,
             year: 2024
         }
-        const res = await ShopStatisService.getStatisRevenue(payload)
+        const res = await ShopStatisService.getStatisOrder(payload)
         if (res?.statusCode === '200') {
             setData(res?.data)
-            console.log(res?.data);
-            
-            let listData: any = []
-            let listCategory: any = []
+            let tmp: any = []
             res?.data?.orders?.forEach((item: any) => {
-                listCategory.push(item?.id.toString())
-                listData.push(item?.total)
+                tmp.push({ x: item?.id.toString(), y: item?.total })
             })
-            if (document.getElementById("data-labels-chart") && typeof ApexCharts !== 'undefined') {
-                const chart = new ApexCharts(document.getElementById("data-labels-chart"), {
-                    dataLabels: {
-                        enabled: true,
-                        style: {
-                            cssClass: 'text-xs text-white font-medium'
+            if (document.getElementById("column-chart") && typeof ApexCharts !== 'undefined') {
+                const chart = new ApexCharts(document.getElementById("column-chart"), {
+                    colors: ["#1A56DB", "#FDBA8C"],
+                    series: [
+                        {
+                            name: "Organic",
+                            color: "#1A56DB",
+                            data: tmp,
                         },
+                    ],
+                    chart: {
+                        type: "bar",
+                        height: "320px",
+                        fontFamily: "Inter, sans-serif",
+                        toolbar: {
+                            show: false,
+                        },
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: false,
+                            columnWidth: "70%",
+                            borderRadiusApplication: "end",
+                            borderRadius: 8,
+                        },
+                    },
+                    tooltip: {
+                        shared: true,
+                        intersect: false,
+                        style: {
+                            fontFamily: "Inter, sans-serif",
+                        },
+                    },
+                    states: {
+                        hover: {
+                            filter: {
+                                type: "darken",
+                                value: 1,
+                            },
+                        },
+                    },
+                    stroke: {
+                        show: true,
+                        width: 0,
+                        colors: ["transparent"],
                     },
                     grid: {
                         show: false,
                         strokeDashArray: 4,
                         padding: {
-                            left: 16,
-                            right: 16,
-                            top: -26
+                            left: 2,
+                            right: 2,
+                            top: -14
                         },
                     },
-                    series: [
-                        {
-                            name: "Revenue",
-                            data: listData,
-                            color: "#1A56DB",
-                        },
-                    ],
-                    chart: {
-                        height: "100%",
-                        maxWidth: "100%",
-                        type: "area",
-                        fontFamily: "Inter, sans-serif",
-                        dropShadow: {
-                            enabled: false,
-                        },
-                        toolbar: {
-                            show: false,
-                        },
-                    },
-                    tooltip: {
-                        enabled: true,
-                        x: {
-                            show: false,
-                        },
+                    dataLabels: {
+                        enabled: false,
                     },
                     legend: {
-                        show: true
-                    },
-                    fill: {
-                        type: "gradient",
-                        gradient: {
-                            opacityFrom: 0.55,
-                            opacityTo: 0,
-                            shade: "#1C64F2",
-                            gradientToColors: ["#1C64F2"],
-                        },
-                    },
-                    stroke: {
-                        width: 6,
+                        show: false,
                     },
                     xaxis: {
-                        categories: listCategory,
+                        floating: false,
                         labels: {
-                            show: false,
+                            show: true,
+                            style: {
+                                fontFamily: "Inter, sans-serif",
+                                cssClass: 'text-xs font-normal fill-gray-500 '
+                            }
                         },
                         axisBorder: {
                             show: false,
@@ -94,11 +98,9 @@ const StatisticalRevenue = (month: any) => {
                     },
                     yaxis: {
                         show: false,
-                        labels: {
-                            formatter: function (value: any) {
-                                return '$' + value;
-                            }
-                        }
+                    },
+                    fill: {
+                        opacity: 1,
                     },
                 });
                 chart.render();
@@ -120,28 +122,18 @@ const StatisticalRevenue = (month: any) => {
             month: month?.month,
             year: 2024
         }
-        console.log(payload);
-        
-        const res = await ShopStatisService.getStatisRevenue(payload)
+        const res = await ShopStatisService.getStatisOrder(payload)
         if (res?.statusCode === '200') {
             setData(res?.data)
-            console.log(res?.data);
-            
-            let listData: any = []
-            let listCategory: any = []
+            let tmp: any = []
             res?.data?.orders?.forEach((item: any) => {
-                listCategory.push(item?.id.toString())
-                listData.push(item?.total)
+                tmp.push({ x: item?.id.toString(), y: item?.total })
             })
-            chartData?.updateOptions({
-                xaxis: {
-                    categories: listCategory
-                },
-                series: [{
-                    name: "Revenue",
-                    data: listData,
-                }]
-            });
+            chartData?.updateSeries([{
+                name: "Organic",
+                color: "#1A56DB",
+                data: tmp,
+            }]);
         }
     }
 
@@ -156,7 +148,7 @@ const StatisticalRevenue = (month: any) => {
                         </svg>
                     </div>
                     <div>
-                        <h5 className="leading-none mb-1 text-2xl font-bold text-gray-900 ">Revenue: ${data?.totalMoneyOfAllOrders}</h5>
+                        <h5 className="leading-none mb-1 text-2xl font-bold text-gray-900 ">Order: {data?.totalOrder} orders</h5>
                         <p className="text-sm mt-0 font-normal text-gray-500 ">Orders generated per month</p>
                     </div>
                 </div>
@@ -175,10 +167,10 @@ const StatisticalRevenue = (month: any) => {
                     <dd className="text-gray-900 text-sm  font-semibold">0%</dd>
                 </dl>
             </div>
-            <div id="data-labels-chart"></div>
+            <div id="column-chart"></div>
         </div>
 
     )
 }
 
-export default StatisticalRevenue
+export default StatisticalOrder

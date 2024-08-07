@@ -5,26 +5,29 @@ import {
     TableHeader,
     TableCell,
     TableBody,
-    Label,
     Table,
     Loader,
-    Image
+    Image,
 } from 'semantic-ui-react'
-import { StatisService } from '../../../services/statis'
+import { ShopStatisService } from '../../../../services/shop-statis'
 
-const StatisticalProduct = (month: any) => {
+const AnalysisCustomerPurchase = (month: any) => {
 
     const [loading, setLoading] = useState(true)
-    const [data, setData] = useState([{ thumbnails: [{ link: '' }] }] as any)
+    const [data, setData] = useState([] as any)
+
+    const calculateAverage = (data: any) => {
+        let total = 0
+        data?.forEach((item: any) => {
+            total += item
+        })
+        return Math.ceil(total / data?.length)
+    }
 
     const init = async () => {
-        const payload = {
-            month: month?.month,
-            year: 2024
-        }
-        const res = await StatisService.sellerStatisProduct(payload)
+        const res = await ShopStatisService.getStatisCustomer()
         if (res?.result) {
-            setData(res?.data?.products)
+            setData(res?.data)
             setLoading(false)
         }
     }
@@ -38,10 +41,10 @@ const StatisticalProduct = (month: any) => {
             <Table celled>
                 <TableHeader>
                     <TableRow>
-                        <TableHeaderCell>PRODUCT ID</TableHeaderCell>
-                        <TableHeaderCell>PRODUCT NAME</TableHeaderCell>
-                        <TableHeaderCell>TOTAL SALES</TableHeaderCell>
-                        <TableHeaderCell>TOTAL MONEY</TableHeaderCell>
+                        <TableHeaderCell>CUSTOMER NAME</TableHeaderCell>
+                        <TableHeaderCell>CUSTOMER EMAIL</TableHeaderCell>
+                        <TableHeaderCell>TOTAL ORDER</TableHeaderCell>
+                        <TableHeaderCell>AVERAGE SPENT</TableHeaderCell>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -58,16 +61,14 @@ const StatisticalProduct = (month: any) => {
                                         key={index}
                                     >
                                         <TableCell>
-                                            <Label ribbon>KTF-CAT-0{item?.id}</Label>
-                                        </TableCell>
-                                        <TableCell>
                                             <div className='flex items-center gap-4'>
-                                                <Image src={item?.thumbnails[0]?.link} size='mini' className='rounded-lg' />
+                                                <Image src={item?.avatar} size='mini' className='rounded-lg' />
                                                 {item?.name}
                                             </div>
                                         </TableCell>
-                                        <TableCell>{item?.bought_quantity} items</TableCell>
-                                        <TableCell>${item?.total}</TableCell>
+                                        <TableCell>{item?.email}</TableCell>
+                                        <TableCell>{item?.orderTotals?.length} orders</TableCell>
+                                        <TableCell>${calculateAverage(item?.orderTotals)}</TableCell>
                                     </TableRow>
                                 )
                             })
@@ -78,4 +79,4 @@ const StatisticalProduct = (month: any) => {
     )
 }
 
-export default StatisticalProduct
+export default AnalysisCustomerPurchase

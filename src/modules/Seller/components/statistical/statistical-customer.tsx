@@ -1,6 +1,6 @@
 import ApexCharts from 'apexcharts';
 import { useEffect } from 'react';
-import { ShopStatisService } from '../../../services/shop-statis';
+import { ShopStatisService } from '../../../../services/shop-statis';
 
 const StatisticalCustomer = () => {
 

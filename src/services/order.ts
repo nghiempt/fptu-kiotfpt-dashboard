@@ -12,8 +12,6 @@ const getOrderByShop = async (page: any, amout: any) => {
             },
         });
         const data = await response.json();
-        console.log(data);
-        
         return data;
     } catch (err) {
         return false;
@@ -30,8 +28,6 @@ const updateStatusOrder = async (id: string, status: any) => {
             },
         });
         const data = await response.json();
-        console.log(data);
-        
         return data;
     } catch (err) {
         return false;

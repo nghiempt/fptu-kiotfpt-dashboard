@@ -9,18 +9,32 @@ import {
     Loader,
     Image,
     Rating,
+    Pagination,
 } from 'semantic-ui-react'
-import { StatisService } from '../../../services/statis'
+import { StatisService } from '../../../../services/statis'
 
-const StatisticalReview = () => {
+const AnalysisReview = () => {
 
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([] as any)
+    const [currentData, setCurrentData] = useState([] as any)
+
+    const loadDataByPage = async (data: any, page: number) => {
+        const startIndex = (page - 1) * 5;
+        const endIndex = page * 5;
+        const currentData = data?.slice(startIndex, endIndex);
+        return setCurrentData(currentData);
+    };
+
+    const handleChangePage = (e: any, page: number) => {
+        loadDataByPage(data, page)
+    }
 
     const init = async () => {
         const res = await StatisService.sellerStatisFeedback()
         if (res?.result) {
             setData(res?.data)
+            loadDataByPage(res?.data, 1)
             setLoading(false)
         }
     }
@@ -30,7 +44,7 @@ const StatisticalReview = () => {
     }, [])
 
     return (
-        <div className='flex justify-center items-start gap-4'>
+        <div className='flex flex-col justify-center items-center gap-4'>
             <Table celled>
                 <TableHeader>
                     <TableRow>
@@ -48,7 +62,7 @@ const StatisticalReview = () => {
                                 <Loader active inline />
                             </TableRow>
                             :
-                            data?.slice(0, 5)?.map((item: any, index: any) => {
+                            currentData?.map((item: any, index: any) => {
                                 return (
                                     <TableRow
                                         key={index}
@@ -78,8 +92,17 @@ const StatisticalReview = () => {
                     }
                 </TableBody>
             </Table>
+            <Pagination
+                defaultActivePage={1}
+                firstItem={null}
+                lastItem={null}
+                pointing
+                secondary
+                totalPages={data?.length / 5}
+                onPageChange={(e, { activePage }) => handleChangePage(e, activePage as number)}
+            />
         </div>
     )
 }
 
-export default StatisticalReview
+export default AnalysisReview

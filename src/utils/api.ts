@@ -22,6 +22,8 @@ export const API = {
     GET_ALL_SHOPS: `${HOST}/shop/get-all`,
     UPDATE_STATUS_SHOP: `${HOST}/shop/ban`,
     UPDATE_SHOP: `${HOST}/shop/profile/update`,
+    // user
+    GET_ALL_USERS: `${HOST}/account/get-all`,
     // order
     GET_ORDER_BY_SHOP: `${HOST}/order/get-by-shop`,
     UPDATE_STATUS_ORDER: `${HOST}/order/update`,

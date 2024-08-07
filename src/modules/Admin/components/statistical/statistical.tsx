@@ -1,7 +1,5 @@
 import StatisticalRevenue from './statistical-revenue'
 import StatisticalOrder from './statistical-order'
-import StatisticalCustomer from './statistical-customer'
-import StatisticalReview from './statistical-review'
 import StatisticalProduct from './statistical-product'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -31,16 +29,15 @@ const TableStatistical = () => {
                     onChange={handleFilter}
                     showMonthYearPicker
                     dateFormat="MM/yyyy"
+                    className='!cursor-pointer'
                 />
             </div>
             <Divider className='!m-0' />
-            <div className='w-full grid grid-cols-3 gap-4'>
+            <div className='w-full grid grid-cols-2 gap-4'>
                 <StatisticalOrder month={month} />
                 <StatisticalRevenue month={month} />
-                <StatisticalCustomer />
             </div>
-            <div className='w-full grid grid-cols-2 gap-10'>
-                <StatisticalReview />
+            <div className='w-full grid grid-cols-1 gap-10'>
                 <StatisticalProduct month={month} />
             </div>
         </div>
