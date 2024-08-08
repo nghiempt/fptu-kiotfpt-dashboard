@@ -20,8 +20,8 @@ const AnalysisReview = () => {
     const [currentData, setCurrentData] = useState([] as any)
 
     const loadDataByPage = async (data: any, page: number) => {
-        const startIndex = (page - 1) * 5;
-        const endIndex = page * 5;
+        const startIndex = (page - 1) * 3;
+        const endIndex = page * 3;
         const currentData = data?.slice(startIndex, endIndex);
         return setCurrentData(currentData);
     };
@@ -98,7 +98,7 @@ const AnalysisReview = () => {
                 lastItem={null}
                 pointing
                 secondary
-                totalPages={data?.length / 5}
+                totalPages={data?.length / 3}
                 onPageChange={(e, { activePage }) => handleChangePage(e, activePage as number)}
             />
         </div>

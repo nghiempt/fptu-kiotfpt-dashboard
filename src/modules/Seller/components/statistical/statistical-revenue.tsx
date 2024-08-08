@@ -9,7 +9,7 @@ const StatisticalRevenue = (month: any) => {
 
     const init = async () => {
         const payload = {
-            month: 7,
+            month: 8,
             year: 2024
         }
         const res = await ShopStatisService.getStatisRevenue(payload)
