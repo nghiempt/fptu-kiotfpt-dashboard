@@ -37,28 +37,28 @@ const TableUser = () => {
     }
 
     const updateStatus = async () => {
-        setLoading(true)
-        const status = currentItem?.status?.value === 'active' ? 'inactive' : 'active'
-        const res = await ShopService.updateStatusShop(currentItem?.id, status)
-        if (res?.result) {
-            toast({
-                type: 'success',
-                icon: 'sync',
-                title: 'Update Status Shop',
-                description: 'Update status shop successfully',
-                time: 1000,
-            });
-            init()
-        } else {
-            toast({
-                type: 'error',
-                icon: 'sync',
-                title: 'Update Status Shop',    
-                description: 'Update status shop failed',
-                time: 1000,
-            });
-        }
-        setLoading(false)
+        // setLoading(true)
+        // const status = currentItem?.status?.value === 'active' ? 'inactive' : 'active'
+        // const res = await ShopService.updateStatusShop(currentItem?.id, status)
+        // if (res?.result) {
+        //     toast({
+        //         type: 'success',
+        //         icon: 'sync',
+        //         title: 'Update Status Shop',
+        //         description: 'Update status shop successfully',
+        //         time: 1000,
+        //     });
+        //     init()
+        // } else {
+        //     toast({
+        //         type: 'error',
+        //         icon: 'sync',
+        //         title: 'Update Status Shop',    
+        //         description: 'Update status shop failed',
+        //         time: 1000,
+        //     });
+        // }
+        // setLoading(false)
     }
 
     const loadDataByPage = async (data: any, page: number) => {
