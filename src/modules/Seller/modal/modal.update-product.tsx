@@ -1,29 +1,28 @@
 import React, { useEffect } from "react";
-import {
-  ModalHeader,
-  ModalContent,
-  ModalActions,
-  Button,
-  Image,
-  Modal,
-  Input,
-  FormInput,
-  FormGroup,
-  Form,
-  Dimmer,
-  Select,
-  Header,
-  Divider,
-  Icon,
-  Loader,
-} from "semantic-ui-react";
 import { toast } from "react-semantic-toasts";
-import { CLOUDINARY } from "../../../utils/api";
-import { ProductService } from "../../../services/product";
-import { fakeData } from "../../../utils/fakeData";
+import {
+  Button,
+  Dimmer,
+  Divider,
+  Form,
+  FormGroup,
+  FormInput,
+  Header,
+  Icon,
+  Image,
+  Loader,
+  Modal,
+  ModalActions,
+  ModalContent,
+  ModalHeader,
+  Select
+} from "semantic-ui-react";
 import { AuthService } from "../../../services/auth";
-import { CategoryService } from "../../../services/category";
 import { BrandService } from "../../../services/brand";
+import { CategoryService } from "../../../services/category";
+import { ProductService } from "../../../services/product";
+import { CLOUDINARY } from "../../../utils/api";
+import { fakeData } from "../../../utils/fakeData";
 
 interface ModalUpdateProductProps {
   open: boolean;
@@ -203,21 +202,22 @@ const ModalUpdateProduct: React.FC<ModalUpdateProductProps> = ({
     return false;
   };
 
-  useEffect(() => { }, [imageCloud]);
+  useEffect(() => {}, [imageCloud]);
 
   const getAllCategories = async () => {
     const res = await CategoryService.getAllCategories();
     setListCategories(res?.data);
-  }
+    console.log(res?.data);
+  };
 
   const getAllBrands = async () => {
     const res = await BrandService.getAllBrands();
     setListBrands(res?.data);
-  }
+  };
 
   useEffect(() => {
-    getAllCategories()
-    getAllBrands()
+    getAllCategories();
+    getAllBrands();
   }, []);
 
   return (
@@ -323,14 +323,13 @@ const ModalUpdateProduct: React.FC<ModalUpdateProductProps> = ({
               onChange={handleChangeBrand}
             />
             <Select
-              fluid
               placeholder="Select category"
-              value={currentItem?.category?.id}
+              value={currentItem?.category?.category_id}
               options={listCategories.map((category: any) => {
                 return {
-                  key: category.id,
-                  value: category.id,
-                  text: category.name,
+                  key: category?.id,
+                  value: category?.id,
+                  text: category?.name,
                 };
               })}
               onChange={handleChangeCategory}

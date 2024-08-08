@@ -110,6 +110,14 @@ const ModalCreateProduct: React.FC<ModalCreateProductProps> = ({
       setMessage("Quantity is required");
       return false;
     }
+    if (Number(quantity) <= 0) {
+      setMessage("Quantity must be greater than 0");
+      return false;
+    }
+    if (Number(discount) <= 0 || Number(discount) >= 100) {
+      setMessage("Discount must be greater than 0 and less than 100");
+      return false;
+    }
     if (discount === "") {
       setMessage("Discount is required");
       return false;

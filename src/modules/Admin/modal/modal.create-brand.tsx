@@ -132,29 +132,7 @@ const ModalCreateBrand: React.FC<ModalCreateBrandProps> = ({ open, setOpen, init
                         :
                         <Image size='small' src={thumbnail} className='rounded-lg' />
                 }
-                {
-                    thumbnail === '' && (
-                        <div className="h-[160px] flex flex-col items-center justify-center">
-                            <label htmlFor="thumbnai1" className="cursor-pointer hover:opacity-80 px-4 py-1 rounded-full font-semibold text-xs">
-                                <Icon name='cloud upload' size='huge' color='grey' />
-                            </label>
-                            <input
-                                type="file"
-                                id="thumbnai1"
-                                className="hidden"
-                                onChange={(e: any) => {
-                                    const file = e.target.files[0]
-                                    const reader = new FileReader()
-                                    reader.onloadend = () => {
-                                        setThumbnail(reader.result as string)
-                                    }
-                                    reader.readAsDataURL(file)
-                                    uploadImageToCloudinary(file)
-                                }}
-                            />
-                        </div>
-                    )
-                }
+                
                 <Input label='Name' value={name} placeholder="Brand Name" onChange={(e) => { setName(e.target.value); setMessage('done') }} />
             </ModalContent>
             <ModalActions>

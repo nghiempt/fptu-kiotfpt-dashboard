@@ -29,7 +29,10 @@ const ModalAddCategoryFromRepo: React.FC<ModalAddCategoryFromRepoProps> = ({
   const [listCategories, setListCategories] = React.useState([] as any);
   const [selectedItem, setSelectedItem] = React.useState({} as any);
   const submit = async () => {
-    const res = await CategoryService.createShopCategory(Number(AuthService.getShopID()), selectedItem?.id);
+    const res = await CategoryService.createShopCategory(
+      Number(AuthService.getShopID()),
+      selectedItem?.id
+    );
     if (res?.result) {
       toast({
         type: "success",
@@ -38,7 +41,7 @@ const ModalAddCategoryFromRepo: React.FC<ModalAddCategoryFromRepoProps> = ({
         description: "Create category successfully",
         time: 1000,
       });
-      initialData()
+      initialData();
       handleClear();
     } else {
       toast({
@@ -75,7 +78,7 @@ const ModalAddCategoryFromRepo: React.FC<ModalAddCategoryFromRepoProps> = ({
     init();
   }, []);
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   return (
     <Modal
@@ -94,13 +97,17 @@ const ModalAddCategoryFromRepo: React.FC<ModalAddCategoryFromRepoProps> = ({
         image
         className="!relative !flex !flex-row !justify-center !items-start !gap-36"
       >
-        <div className="!w-full !flex !flex-col !justify-center !items-center gap-2 overflow-y-auto max-h-96">
+        <div className="!w-full !flex !flex-col !justify-center !items-center gap-2 overflow-y-auto max-h-96 p-2">
           {listCategories?.map((item: any, index: any) => {
             return (
               <div
                 key={index}
                 onClick={() => setSelectedItem(item)}
-                className={`${selectedItem?.id === item?.id ? 'border-2 border-gray-700' : 'border'} w-full flex justify-start items-center gap-2 p-2 rounded-lg cursor-pointer hover:border-gray-700`}
+                className={`${
+                  selectedItem?.id === item?.id
+                    ? "border-2 border-gray-700"
+                    : "border"
+                } w-full flex justify-start items-center gap-2 p-2 rounded-lg cursor-pointer hover:border-gray-700`}
               >
                 <Image avatar src={item?.thumbnail} />
                 <ListContent>

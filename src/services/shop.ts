@@ -54,9 +54,11 @@ const getAllShops = async (page: any, amout: any) => {
     }
 };
 
-const updateStatusShop = async (id: string, status: any) => {
+const updateStatusShop = async (id: string, status: any, note: string) => {
+    console.log(id, status, note);
+    
     try {
-        const response = await fetch(`${API.UPDATE_STATUS_SHOP}/${id}?status=${status}`, {
+        const response = await fetch(`${API.UPDATE_STATUS_SHOP}/${id}?status=${status}&note=${note}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -64,6 +66,8 @@ const updateStatusShop = async (id: string, status: any) => {
             },
         });
         const data = await response.json();
+        console.log(data);
+        
         return data;
     } catch (err) {
         return false;

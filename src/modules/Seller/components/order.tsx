@@ -63,20 +63,14 @@ const TableOrder = () => {
     }
 
     const loadDataByPage = async (data: any, page: number) => {
-        switch (page) {
-            case 1:
-                return setCurrentData(data?.slice(0, 12))
-            case 2:
-                return setCurrentData(data?.slice(12, 24))
-            case 3:
-                return setCurrentData(data?.slice(24, data?.length))
-            default:
-                return data
-        }
-    }
+        const startIndex = (page - 1) * 10;
+        const endIndex = page * 10;
+        const currentData = data?.slice(startIndex, endIndex);
+        return setCurrentData(currentData);
+    };
 
     const renderAmountPage = (data: any) => {
-        const amountPage = Math.ceil(data?.length / 12)
+        const amountPage = Math.ceil(data?.length / 10)       
         let amount = []
         for (let i = 1; i <= amountPage; i++) {
             amount.push(i)
@@ -137,17 +131,19 @@ const TableOrder = () => {
     const renderColorStatus = (status: any) => {
         switch (status) {
             case 'pending':
-                return 'grey'
-            case 'accepted':
                 return 'blue'
+            case 'accepted':
+                return 'purple'
             case 'delivering':
                 return 'yellow'
             case 'completed':
                 return 'green'
             case 'rejected':
-                return 'red'
-            default:
+                return 'orange'
+            case 'paying':
                 return 'grey'
+            default:
+                return 'red'
         }
     }
 
