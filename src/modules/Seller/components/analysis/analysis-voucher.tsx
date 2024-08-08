@@ -8,7 +8,8 @@ import {
     Label,
     Table,
     Loader,
-    Image
+    Image,
+    Pagination
 } from 'semantic-ui-react'
 import { OrderService } from '../../../../services/order'
 
@@ -16,6 +17,18 @@ const AnalysisVoucher = (month: any) => {
 
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([] as any)
+    const [currentData, setCurrentData] = useState([] as any)
+
+    const loadDataByPage = async (data: any, page: number) => {
+        const startIndex = (page - 1) * 3;
+        const endIndex = page * 3;
+        const currentData = data?.slice(startIndex, endIndex);
+        return setCurrentData(currentData);
+    };
+
+    const handleChangePage = (e: any, page: number) => {
+        loadDataByPage(data, page)
+    }
 
     const sortProductPrice = (data: any) => {
         return data.sort((a: any, b: any) => {
@@ -33,6 +46,7 @@ const AnalysisVoucher = (month: any) => {
                 }
             })
             setData(tmp)
+            loadDataByPage(tmp, 1)
             setLoading(false)
         }
     }
@@ -42,7 +56,7 @@ const AnalysisVoucher = (month: any) => {
     }, [month])
 
     return (
-        <div className='flex justify-center items-start gap-4'>
+        <div className='flex flex-col justify-center items-center gap-4'>
             <Table celled>
                 <TableHeader>
                     <TableRow>
@@ -60,7 +74,7 @@ const AnalysisVoucher = (month: any) => {
                                 <Loader active inline />
                             </TableRow>
                             :
-                            sortProductPrice(data)?.map((item: any, index: any) => {
+                            sortProductPrice(currentData)?.map((item: any, index: any) => {
                                 return (
                                     <TableRow
                                         key={index}
@@ -82,6 +96,15 @@ const AnalysisVoucher = (month: any) => {
                     }
                 </TableBody>
             </Table>
+            <Pagination
+                defaultActivePage={1}
+                firstItem={null}
+                lastItem={null}
+                pointing
+                secondary
+                totalPages={data?.length / 3}
+                onPageChange={(e, { activePage }) => handleChangePage(e, activePage as number)}
+            />
         </div>
     )
 }

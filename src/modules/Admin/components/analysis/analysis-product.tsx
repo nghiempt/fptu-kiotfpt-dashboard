@@ -8,7 +8,8 @@ import {
     Label,
     Table,
     Loader,
-    Image
+    Image,
+    Pagination
 } from 'semantic-ui-react'
 import { StatisService } from '../../../../services/statis'
 
@@ -16,6 +17,18 @@ const AnalysisProduct = (month: any) => {
 
     const [loading, setLoading] = useState(true)
     const [data, setData] = useState([{ thumbnails: [{ link: '' }] }] as any)
+    const [currentData, setCurrentData] = useState([] as any)
+
+    const loadDataByPage = async (data: any, page: number) => {
+        const startIndex = (page - 1) * 3;
+        const endIndex = page * 3;
+        const currentData = data?.slice(startIndex, endIndex);
+        return setCurrentData(currentData);
+    };
+
+    const handleChangePage = (e: any, page: number) => {
+        loadDataByPage(data, page)
+    }
 
     const sortProductPrice = (data: any) => {
         return data.sort((a: any, b: any) => {
@@ -31,6 +44,7 @@ const AnalysisProduct = (month: any) => {
         const res = await StatisService.sellerStatisProduct(payload)
         if (res?.result) {
             setData(res?.data?.products)
+            loadDataByPage(res?.data?.products, 1)
             setLoading(false)
         }
     }
@@ -40,13 +54,13 @@ const AnalysisProduct = (month: any) => {
     }, [month])
 
     return (
-        <div className='flex justify-center items-start gap-4'>
+        <div className='flex flex-col justify-center items-center gap-4'>
             <Table celled>
                 <TableHeader>
                     <TableRow>
                         <TableHeaderCell>PRODUCT ID</TableHeaderCell>
                         <TableHeaderCell>PRODUCT NAME</TableHeaderCell>
-                        <TableHeaderCell>TOTAL SALES</TableHeaderCell>
+                        <TableHeaderCell>SHOP</TableHeaderCell>
                         <TableHeaderCell>TOTAL MONEY</TableHeaderCell>
                     </TableRow>
                 </TableHeader>
@@ -58,7 +72,7 @@ const AnalysisProduct = (month: any) => {
                                 <Loader active inline />
                             </TableRow>
                             :
-                            sortProductPrice(data)?.map((item: any, index: any) => {
+                            sortProductPrice(currentData)?.map((item: any, index: any) => {
                                 return (
                                     <TableRow
                                         key={index}
@@ -72,7 +86,7 @@ const AnalysisProduct = (month: any) => {
                                                 {item?.name}
                                             </div>
                                         </TableCell>
-                                        <TableCell>{item?.bought_quantity} items</TableCell>
+                                        <TableCell>{item?.shop?.name}</TableCell>
                                         <TableCell>${item?.total}</TableCell>
                                     </TableRow>
                                 )
@@ -80,6 +94,15 @@ const AnalysisProduct = (month: any) => {
                     }
                 </TableBody>
             </Table>
+            <Pagination
+                defaultActivePage={1}
+                firstItem={null}
+                lastItem={null}
+                pointing
+                secondary
+                totalPages={data?.length / 3}
+                onPageChange={(e, { activePage }) => handleChangePage(e, activePage as number)}
+            />
         </div>
     )
 }

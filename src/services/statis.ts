@@ -28,8 +28,22 @@ const sellerStatisProduct = async (payload: any) => {
             body: JSON.stringify(payload),
         });
         const data = await response.json();
-        console.log(data);
-        
+        return data;
+    } catch (err) {
+        return false;
+    }
+};
+
+const getStatisRevenueAll = async () => {
+    try {
+        const response = await fetch('https://api.kiotfpt.store/v1/statis/revenue-all', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${JSON.parse(Cookie.get("auth") || "{}")?.token}`,
+            },
+        });
+        const data = await response.json();
         return data;
     } catch (err) {
         return false;
@@ -38,5 +52,6 @@ const sellerStatisProduct = async (payload: any) => {
 
 export const StatisService = {
     sellerStatisFeedback,
-    sellerStatisProduct
+    sellerStatisProduct,
+    getStatisRevenueAll
 }

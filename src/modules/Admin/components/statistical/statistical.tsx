@@ -9,7 +9,7 @@ import { Divider } from 'semantic-ui-react'
 const TableStatistical = () => {
 
     const [startDate, setStartDate] = useState<Date | null>(new Date());
-    const [month, setMonth] = useState(7);
+    const [month, setMonth] = useState(8);
 
     const handleFilter = (date: Date | null) => {
         setStartDate(date)
